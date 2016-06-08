@@ -1,18 +1,20 @@
 \boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{Abstract}{i}{chapter*.1}
+\contentsline {chapter}{Dissertation Approval}{}{chapter*.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{Acknowledgements}{ii}{chapter*.2}
+\contentsline {chapter}{Declaration}{}{chapter*.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{Honor Code}{iii}{chapter*.3}
+\contentsline {chapter}{\nobreakspace {}}{}{chapter*.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{Certificate}{iv}{chapter*.4}
+\contentsline {chapter}{Acknowledgements}{}{chapter*.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{List of Figures}{vii}{chapter*.6}
+\contentsline {chapter}{Abstract}{i}{chapter*.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{List of Tables}{viii}{chapter*.7}
+\contentsline {chapter}{List of Figures}{iv}{chapter*.7}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{Nomenclature}{ix}{chapter*.8}
+\contentsline {chapter}{List of Tables}{v}{chapter*.8}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Nomenclature}{vi}{chapter*.9}
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
 \defcounter {refsection}{0}\relax 
@@ -44,7 +46,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.1.1}First Subsection}{6}{subsection.3.1.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{A subsubsection}{6}{section*.9}
+\contentsline {subsubsection}{A subsubsection}{6}{section*.10}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3.2}Second Section}{6}{section.3.2}
 \defcounter {refsection}{0}\relax 
