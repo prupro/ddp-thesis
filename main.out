@@ -21,17 +21,7 @@
 \BOOKMARK [2][-]{subsection.3.3.1}{ISTA based alternating algorithm pseudo-code}{section.3.3}% 21
 \BOOKMARK [1][-]{section.3.4}{FISTA based Alternating Algorithm for Joint Minimization}{chapter.3}% 22
 \BOOKMARK [2][-]{subsection.3.4.1}{FISTA based alternating algorithm pseudo-code}{section.3.4}% 23
-\BOOKMARK [0][-]{chapter.4}{Experiments and Results}{}% 24
-\BOOKMARK [1][-]{section.4.1}{Introduction}{chapter.4}% 25
-\BOOKMARK [1][-]{section.4.2}{Experiments on point sources}{chapter.4}% 26
-\BOOKMARK [1][-]{section.4.3}{Experiments on Shepp-Logan phantom}{chapter.4}% 27
-\BOOKMARK [1][-]{section.4.4}{Experiments on images containing both point and extended sources}{chapter.4}% 28
-\BOOKMARK [2][-]{subsection.4.4.1}{Experiment to confirm need for better description}{section.4.4}% 29
-\BOOKMARK [2][-]{subsection.4.4.2}{Experiments on images of Shepp-Logan phantom along with stars}{section.4.4}% 30
-\BOOKMARK [2][-]{subsection.4.4.3}{Experiment on images containing astronomical extended and point sources}{section.4.4}% 31
-\BOOKMARK [2][-]{subsection.4.4.4}{Heuristic solution to difference in sampling points problem}{section.4.4}% 32
-\BOOKMARK [2][-]{subsection.4.4.5}{Experiment with heuristic}{section.4.4}% 33
-\BOOKMARK [0][-]{chapter.5}{Conclusion and Further Work}{}% 34
-\BOOKMARK [1][-]{section.5.1}{Conclusion}{chapter.5}% 35
-\BOOKMARK [1][-]{section.5.2}{Further Work}{chapter.5}% 36
-\BOOKMARK [0][-]{Item.205}{Bibliography}{}% 37
+\BOOKMARK [0][-]{chapter.4}{Conclusion and Further Work}{}% 24
+\BOOKMARK [1][-]{section.4.1}{Conclusion}{chapter.4}% 25
+\BOOKMARK [1][-]{section.4.2}{Further Work}{chapter.4}% 26
+\BOOKMARK [0][-]{Item.62}{Bibliography}{}% 27
