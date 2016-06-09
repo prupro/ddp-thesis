@@ -1,31 +1,37 @@
-\BOOKMARK [0][-]{chapter*.1}{Dissertation Approval}{}% 1
-\BOOKMARK [0][-]{chapter*.2}{Declaration}{}% 2
-\BOOKMARK [0][-]{chapter*.3}{ }{}% 3
-\BOOKMARK [0][-]{chapter*.4}{Acknowledgements}{}% 4
-\BOOKMARK [0][-]{chapter*.5}{Abstract}{}% 5
-\BOOKMARK [0][-]{chapter*.7}{List of Figures}{}% 6
-\BOOKMARK [0][-]{chapter*.8}{List of Tables}{}% 7
-\BOOKMARK [0][-]{chapter*.9}{Nomenclature}{}% 8
-\BOOKMARK [0][-]{chapter.1}{Introduction}{}% 9
-\BOOKMARK [1][-]{section.1.1}{Main Topic}{chapter.1}% 10
-\BOOKMARK [2][-]{subsection.1.1.1}{Something about the main topic}{section.1.1}% 11
-\BOOKMARK [2][-]{subsection.1.1.2}{Another thing about the main topic}{section.1.1}% 12
-\BOOKMARK [1][-]{section.1.2}{Organization of the Report}{chapter.1}% 13
-\BOOKMARK [0][-]{chapter.2}{Literature Review}{}% 14
-\BOOKMARK [1][-]{section.2.1}{First Section}{chapter.2}% 15
-\BOOKMARK [2][-]{subsection.2.1.1}{First Subsection}{section.2.1}% 16
-\BOOKMARK [1][-]{section.2.2}{Second Section}{chapter.2}% 17
-\BOOKMARK [2][-]{subsection.2.2.1}{First Subsection}{section.2.2}% 18
-\BOOKMARK [2][-]{subsection.2.2.2}{Advantages of Second Section}{section.2.2}% 19
-\BOOKMARK [1][-]{section.2.3}{Comparison of First Section and Second Section}{chapter.2}% 20
-\BOOKMARK [0][-]{chapter.3}{Experimental Setup}{}% 21
-\BOOKMARK [1][-]{section.3.1}{First Section}{chapter.3}% 22
-\BOOKMARK [2][-]{subsection.3.1.1}{First Subsection}{section.3.1}% 23
-\BOOKMARK [1][-]{section.3.2}{Second Section}{chapter.3}% 24
-\BOOKMARK [0][-]{chapter.4}{Experiment 1}{}% 25
-\BOOKMARK [1][-]{section.4.1}{First Section}{chapter.4}% 26
-\BOOKMARK [1][-]{section.4.2}{Second Section}{chapter.4}% 27
-\BOOKMARK [0][-]{chapter.5}{Conclusion}{}% 28
-\BOOKMARK [0][-]{appendix.A}{Title of first appendix}{}% 29
-\BOOKMARK [1][-]{section.A.1}{First Section}{appendix.A}% 30
-\BOOKMARK [1][-]{section.A.2}{Second Section}{appendix.A}% 31
+\BOOKMARK [0][-]{chapter*.1}{Abstract}{}% 1
+\BOOKMARK [0][-]{chapter*.3}{List of Figures}{}% 2
+\BOOKMARK [0][-]{chapter.1}{Introduction}{}% 3
+\BOOKMARK [0][-]{chapter.2}{Compressed Sensing applied to Radio Astronomy}{}% 4
+\BOOKMARK [1][-]{section.2.1}{Introduction to Radio Astronomy}{chapter.2}% 5
+\BOOKMARK [2][-]{subsection.2.1.1}{The GMRT Telescope}{section.2.1}% 6
+\BOOKMARK [2][-]{subsection.2.1.2}{Radio Interferometry}{section.2.1}% 7
+\BOOKMARK [2][-]{subsection.2.1.3}{Aperture Synthesis}{section.2.1}% 8
+\BOOKMARK [2][-]{subsection.2.1.4}{Dirty Beam and Dirty Images}{section.2.1}% 9
+\BOOKMARK [2][-]{subsection.2.1.5}{Deconvolution Operation}{section.2.1}% 10
+\BOOKMARK [1][-]{section.2.2}{Motivation for using Compressed Sensing}{chapter.2}% 11
+\BOOKMARK [1][-]{section.2.3}{Existing Literature on Compressed Sensing applied to Radio Astronomy}{chapter.2}% 12
+\BOOKMARK [0][-]{chapter.3}{Joint reconstruction from multiple observations}{}% 13
+\BOOKMARK [1][-]{section.3.1}{Problem Formulation}{chapter.3}% 14
+\BOOKMARK [1][-]{section.3.2}{Alternating Algorithm for Simultaneous Recovery}{chapter.3}% 15
+\BOOKMARK [2][-]{subsection.3.2.1}{Proximal Methods}{section.3.2}% 16
+\BOOKMARK [2][-]{subsection.3.2.2}{Proximal operator for smooth functions}{section.3.2}% 17
+\BOOKMARK [2][-]{subsection.3.2.3}{The ISTA Algorithm}{section.3.2}% 18
+\BOOKMARK [2][-]{subsection.3.2.4}{The FISTA Algorithm}{section.3.2}% 19
+\BOOKMARK [1][-]{section.3.3}{ISTA based Alternating Algorithm for Joint Minimization}{chapter.3}% 20
+\BOOKMARK [2][-]{subsection.3.3.1}{ISTA based alternating algorithm pseudo-code}{section.3.3}% 21
+\BOOKMARK [1][-]{section.3.4}{FISTA based Alternating Algorithm for Joint Minimization}{chapter.3}% 22
+\BOOKMARK [2][-]{subsection.3.4.1}{FISTA based alternating algorithm pseudo-code}{section.3.4}% 23
+\BOOKMARK [0][-]{chapter.4}{Experiments and Results}{}% 24
+\BOOKMARK [1][-]{section.4.1}{Introduction}{chapter.4}% 25
+\BOOKMARK [1][-]{section.4.2}{Experiments on point sources}{chapter.4}% 26
+\BOOKMARK [1][-]{section.4.3}{Experiments on Shepp-Logan phantom}{chapter.4}% 27
+\BOOKMARK [1][-]{section.4.4}{Experiments on images containing both point and extended sources}{chapter.4}% 28
+\BOOKMARK [2][-]{subsection.4.4.1}{Experiment to confirm need for better description}{section.4.4}% 29
+\BOOKMARK [2][-]{subsection.4.4.2}{Experiments on images of Shepp-Logan phantom along with stars}{section.4.4}% 30
+\BOOKMARK [2][-]{subsection.4.4.3}{Experiment on images containing astronomical extended and point sources}{section.4.4}% 31
+\BOOKMARK [2][-]{subsection.4.4.4}{Heuristic solution to difference in sampling points problem}{section.4.4}% 32
+\BOOKMARK [2][-]{subsection.4.4.5}{Experiment with heuristic}{section.4.4}% 33
+\BOOKMARK [0][-]{chapter.5}{Conclusion and Further Work}{}% 34
+\BOOKMARK [1][-]{section.5.1}{Conclusion}{chapter.5}% 35
+\BOOKMARK [1][-]{section.5.2}{Further Work}{chapter.5}% 36
+\BOOKMARK [0][-]{Item.205}{Bibliography}{}% 37

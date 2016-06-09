@@ -1,0 +1,28 @@
+\chapter{Conclusion and Further Work}
+\section{Conclusion}
+Based on the results and observations from the experiments conducted we conclude the following:
+\begin{enumerate}
+\item When we have incomplete Fourier measurements of two images that are sparse in some domain, and we have ``information overlap'' present between the two images, we presented a coupled framework that performs joint minimization to recover both images simultaneously.
+\item To perform the reconstruction we presented two variants of the alternating algorithm inspired by the ISTA and FISTA algorithm respectively.
+\item We consider images that are sparse in spatial domain, images that are sparse in wavelet domain, and images that have both spatial doman sparse component and wavelet domain sparse components. 
+\item We compared the performance using the coupled framework with that while using the uncoupled framework on all classes of images and observed that the coupled framework that performs joint minimization to simultaneously solve for left and right images using the alternating algorithm performs better than the uncoupled framework that solves for each image independently.
+\item While performing reconstruction in the coupled framework, we are making use of the information overlap present in the two images which is not done while using the uncoupled framework.
+\item In the scenario where the left and right images have different number of Fourier measurements available then while using the coupled framework the improvement in the image having lower number of measurements is much higher than the improvement in the one having higher number of measurements.
+\item If the difference in the number of such measurements available is too large then the reconstruction of the image with higher number of measurements may actually deteriorate. We presented a heuristic to tackle this problem and achieve improvement in reconstruction error even in this case.
+\item We focused on mainly astronomical images but this framework may also work on medical images as suggested by the peformance on the Shepp-Logan phantom.
+
+\end{enumerate}
+
+\section{Further Work}
+In this project, we presented an alternating algorithm for simultaneous recovery of multiple images from incomplete Fourier data when there is an information overlap present between the two images. There are several issues that are left unaddressed and can be looked at in the future.
+\begin{enumerate}
+\item {\bf Alternating algorithm parameters and convergence}\\
+\noindent The alternating algorithm requires us to choose the parameters $\lambda_x$, $\lambda_y$ and $\mu$ appropriately to obtain good performance. We chose these parameters by performing a range search along with a few heuristics. A theoretical approach to determine the parameters that give good performance is desirable.
+\noindent We have proofs of convergence of the ISTA and FISTA algorithm that the alternating algorithm is based on. Based on the ideas in these proofs, proof of convergence for the alternating algorithm can be derived.
+\noindent For the formulation where image is treated as sum of wavelet sparse and spatial domain sparse components we have given equal weight to the wavelet coefficients and pixel values by choosing $\lambda_x^s = \lambda_x^w$. This assumption can be relaxed to give different weights to the two sets of coefficients.
+\item {\bf Comparing performance with existing algorithms}\\
+\noindent As discussed previously, our formulation reduces to the formulation JSM-1 in \cite{JSM} when the two images are the sum of a common sparse component along with different sparse innovations, but with a subtle difference. The performance of our alternating algorithm can be compared against the algorithm mentioned in \cite{JSMalgo} to investigate if there is any improvement.
+\item {\bf Other classes of images}\\
+\noindent We restricted our attention to images of astronomical sources and the Shepp-Logan phantom. But our framework can also be used for other classes of images such as medical images where the image is sparse in some domain and we have an incomplete set of Fourier measurements.
+\end{enumerate} 
+

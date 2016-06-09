@@ -1,32 +1,172 @@
-\documentclass[a4paper, 12pt]{report}
-\usepackage[pdftex]{graphicx}
-\usepackage[autostyle]{csquotes}
-\usepackage[backend=bibtex,style=numeric,sorting=none]{biblatex}
-\usepackage{hyperref}
-\usepackage{tabularx}
-\addbibresource{bibliography}
 
+\documentclass[12pt,a4paper,oneside]{report}
+\def\dedication{
+  \newpage
+  \thispagestyle{empty}    % No page number
+  \setcounter{page}{0}
+  % \addtocounter{page}{-1}
+  \chapter*{}            % Required for \vfill to work
+  \thispagestyle{empty}    % No page number
+  \null\vfill
+  \begin{center}}
+\def\enddedication{\end{center}\par\vfill\newpage}
+
+\def\abstract{
+  \chapter*{Abstract}
+  \addcontentsline{toc}{chapter}{Abstract}
+  \relax\markboth{ABSTRACT}{ABSTRACT}}
+\def\endabstract{\par\newpage}
+
+\def\abbreviations{
+  \chapter*{Abbreviations}
+  \addcontentsline{toc}{chapter}{Abbreviations}
+  \relax\markboth{ABBREVIATIONS}{ABBREVIATIONS}}
+\def\endabstract{\par\newpage}
+
+
+\def\listoffigure{
+  \chapter*{List of Figures}
+  \addcontentsline{toc}{chapter}{List of Figures}
+\listoffigures
+  \relax\markboth{List of Figures}{List of Figures}}
+\def\listoffigure{\par\newpage}
+
+
+\setlength{\textheight}{245mm}
+\setlength{\textwidth}{160mm}
+
+\setlength{\headheight}{6mm}
+\setlength{\headsep}{12mm}
+\setlength{\topmargin}{15mm}
+
+\expandafter\def\expandafter\normalsize\expandafter{%
+    \normalsize
+    \setlength\abovedisplayskip{15pt}
+    \setlength\belowdisplayskip{15pt}
+    \setlength\abovedisplayshortskip{15pt}
+    \setlength\belowdisplayshortskip{15pt}
+}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{float}
+% \usepackage{epstopdf}
+\usepackage{tikz}
+%\usepackage{hyperref}
+
+\usepackage{caption}
+\usepackage[colorlinks]{hyperref}
+\hypersetup{
+    colorlinks,%
+    citecolor=black,%
+    filecolor=black,%
+    linkcolor= black,%
+    urlcolor=black
+}
+\usepackage[figure,table]{hypcap}
+\usepackage[ruled]{algorithm2e}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+\newcommand{\oneskip}{1.0}
+\newcommand{\twoskip}{1.5}
+\newcommand{\singlespace}
+  {\renewcommand{\baselinestretch}{\oneskip}\Large\normalsize}
+\newcommand{\doublespace}
+  {\renewcommand{\baselinestretch}{\twoskip}\Large\normalsize}
+\usepackage{makeidx}
+\usepackage{fancyhdr}
+\usepackage[titletoc,page]{appendix}
+% \usepackage{bm}
+% \usepackage{times}
+\usepackage{listings}
+\usepackage{color}
+\lstset{
+    language=C++, 
+    breaklines=true, 
+    captionpos=b, 
+    tabsize=2, 
+    frame=single, 
+    basicstyle=\footnotesize, 
+    showspaces=false, 
+    showstringspaces=false, 
+    showtabs=true 
+}
+
+\usepackage[bottom]{footmisc}
+
+
+%\newtheorem{theorem}{Theorem}[section]
+%\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{proposition}[theorem]{Proposition}
+%\newtheorem{corollary}[theorem]{Corollary}
+
+%=====================================================================
+%  Single counter for theorems and theorem-like environments:
+%=====================================================================
+ \newtheorem{theorem}{Theorem}[chapter]
+ \newtheorem{assertion}[theorem]{Assertion}
+ \newtheorem{claim}[theorem]{Claim}
+ \newtheorem{conjecture}[theorem]{Conjecture}
+ \newtheorem{corollary}[theorem]{Corollary}
+ \newtheorem{definition}[theorem]{Definition}
+ \newtheorem{example}[theorem]{Example}
+% \newtheorem{figger}[theorem]{Figure}
+ \newtheorem{lemma}[theorem]{Lemma}
+ \newtheorem{prop}[theorem]{Proposition}
+% \newtheorem{remark}[theorem]{Remark}
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\bea}{\begin{eqnarray}}
+\newcommand{\eea}{\end{eqnarray}}
+
+\linespread{2.0}
+\makeindex
 \begin{document}
-\pagenumbering{gobble}
-\include{cover}
-\include{approval}
-\include{declaration}
-\include{dedication}
-\include{acknowledgements}
-\pagenumbering{roman}
-\include{abstract}
-\include{contents}
-\include{listoffigures}
-\include{listoftables}
-\include{nomenclature}
-\pagenumbering{arabic}
-\include{chapters/introduction}
-\include{chapters/chapter2}
-\include{chapters/chapter3}
-\include{chapters/chapter4}
-\include{chapters/conclusion}
-\pagenumbering{roman}
-\include{appendix}
-\include{references}
+
+\singlespace \include{titlepage} \doublespace
+\pagebreak
+\clearpage\pagenumbering{roman}
+\include{prelude}
+\tableofcontents
+
+\listoffigures
+  \addcontentsline{toc}{chapter}{List of Figures}
+  
+\clearpage\pagenumbering{arabic}
+\pagestyle{fancy}
+\fancyfoot{}                            % Delete current footer settings
+%\fancyhf{} %clear all fields
+\fancyhead[RO,LE]{\thepage}
+\fancyhead[RE]{\leftmark}
+\fancyhead[LO]{\rightmark}
+
+
+\include{introduction}
+%\include{Chapter2_radio_astronomy}
+%\include{Chapter3_experiments_results}
+%\include{Chapter4_antenna_addition}
+%\include{Chapter5_conclusion}
+%\include{Chapter2_group_testing}
+%\include{Chapter3_adaptive_gt}
+%\include{conclusion}
+%\include{further_work}
+
+\include{chapters/2_radio_astronomy}
+\include{chapters/3_problem_formulation}
+\include{chapters/4_experiments_results}
+\include{chapters/5_conclusion}
+\singlespace 
+\bibliographystyle{ieeetr}
+%\nocite{*}
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{bib}
+% \newpage
+% \clearpage
+% \vspace*{-12pt}\addcontentsline{toc}{chapter}{Index}
+\printindex
+
 
 \end{document}

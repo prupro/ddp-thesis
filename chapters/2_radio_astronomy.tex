@@ -1,0 +1,369 @@
+\chapter{Compressed Sensing applied to Radio Astronomy}
+
+\section{Introduction to Radio Astronomy}
+ Radio Astronomy is one science which was found by an accident. Karl Jansky in August 1931 accidentally
+ detected noise on his radar equipment, which repeated at the same sidereal \footnote{The rotation period of the earth with respect to the stars} time.
+ This observation led to him deducing correctly that the source was a cosmic source, and not a terrestrial 
+ one. This finding gave birth to the field of radio astronomy. Later rapid development of radar technology during the World War
+II was translated into radio astronomy technology after the war and the radio astronomy field improved dramatically.
+ 
+ \begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/em.png}	
+	 \caption[Electromagnetic spectrum ]{\small Electromagnetic spectrum\footnotemark}
+	\label{fig:iparch1}
+\end{figure}
+ \footnotetext{\footnotesize Image Credits: \url{http://www.hardhack.org.au/files/electromagnetic_spectrum.gif}}
+ 
+ Radio telescopes are used to study astronomical objects in the radio wavelengths, ranging from a few millimetres to 10 metres. In exception to the visible wavelengths ($400nm$ to $700nm$), radio wavelength range is the only other wavelength range which can be observed from the surface of
+the earth. Other wavelengths, like the gamma, X-ray, microwave infra-red wavelengths, can be observed only from outside the earth's atmosphere.
+
+The functioning of radio telescopes varies vastly from that of standard optical telescopes and has many concepts 
+related to communication engineering. One major difference is that radio telescopes are typically huge in physical size.
+For example, the GMRT Telescope of India \cite{GMRT}, has $30$ radio antennas, spread over a diameter of $30km$, with each antenna having a diameter of $45$ metres.
+In the next section, we will try to understand the need for such high sizes, and why radio interferometry is essential for the operations of a radio telescope.
+
+
+\subsection*{Telescope angular resolution}
+For any general telescope, the angular resolution ($\theta$)  is inversely proportional to the 
+size of the aperture, or the size of the collecting dish ($D$). The relationship is as 
+given below:
+\begin{equation}
+ \theta \sim \lambda/D
+\end{equation}
+where $\lambda$ is the wavelength.
+As the radio wavelengths are much higher as compared to the wavelengths of optical telescopes, 
+the size of the telescope required is much higher.
+For example, for 1 arcminute resolution we require a telescope with size of the order of 10 km which is clearly gigantic.
+Since it is highly impractical to build radio dishes of this size, radio astronomers have come up with an ingenious solution to circumvent this problem, known
+as radio interferometry. We will briefly look into the working of radio interferometry and 
+how it can be used to do radio observations. 
+
+
+India itself is home to two of the best telescopes in the metre wavelength,
+the ORT, Ooty Radio Telescope, and the GMRT, the Giant Metrewave Radio Telescope.
+This project involves improving the signal processing operations of the GMRT Telescope.
+Hence, we will briefly look at the major features of these telescopes relevant to the project in the next section.
+
+
+\subsection{The GMRT Telescope}
+
+We briefly introduce the GMRT Telescope here. For more detailed information, please refer to \cite{GMRT,ncra_book}.
+
+The National Centre for Radio Astronomy (NCRA), has set up GMRT at Khodad, near Pune.
+The Radio Telescope is known as the Giant Metrewave Radio Telescope, as it operates mainly in the range of metre-wavelength 
+radio waves. GMRT consists of 30 fully steerable gigantic parabolic dishes of $45m$ diameter each, arranged in a Y-shaped array, 
+spread over a circle of diameter around 30 km. $14$ telescopes are arranged randomly in the central 1 square km area, while the other 
+16 are arranged in Y-shape arms each having length around 14km. 
+
+The array operates in six frequency bands centered around 50, 153, 233, 325, 610 and 1420 MHz. In communication engineering,
+this is the UHF ( Ultra High Frequency) band.
+A single radio image is constructed from observations from all the $30$ telescopes together, typically for $8$ hours.
+
+\begin{figure}[h]
+	\centering \vspace{-0.1in}
+	\includegraphics[width=0.7\textwidth]{images/gmrt.png}	
+	\vspace{-20pt} \caption[GMRT antenna map]{\small GMRT Antenna map \footnotemark}
+	\label{fig:iparch1}
+\end{figure}
+\footnotetext{Image Source: \url{http://gmrt.ncra.tifr.res.in/gmrt_hpage/Images/Diagrams/yarray.gif}}
+
+ We will look into the details of how a radio telescope works, with an emphasis on GMRT. 
+
+ 
+\subsection{Radio Interferometry}
+This section is based on \cite{ncra_book} and \cite{kedar_report}.
+In Radio Interferometry, we first look at the Van-Cittert Zernike theorem, which forms the fundamentals of the field. This theorem along with the technique of aperture synthesis gives us a way of estimating the Fourier transform of the image field using a pair of antennas at a time to obtain a set of readings.
+
+
+\subsubsection{Van-Cittert Zernike Theorem}
+The Van-Cittert Zernike theorem relates the spatial coherence function $\langle E(r_1)E^*(r_2)\rangle $ at two points on the ground with the intensity distribution of the 
+incoming radiation, ${I}(s)$. Here $E(r)$ refers to the electric field at the point at a position $r$ as a result of the source. The spatial coherence function between two locations $r_1$ and $r_2$  is also known as the visibility function and is represented as $V(r_1,r_2)$.
+The theorem states that the visibility function, $V(r_1,r_2)$ depends only on the vector $r_1-r_2$ , and that under some mild assumptions:
+\begin{equation}
+ V(r_1,r_2) = \mathcal{F}\{ I(s)\},
+\end{equation}
+where $\mathcal{F}$ represents the 2D Fourier transform operation.
+We will try to give a brief explanation for the theorem which would be sufficient to appreciate our problem of study. For a more rigorous treatment,
+please refer to \cite{ncra_book}.
+
+We assume that the sources of interest are distant sources, and can be approximated by a brightness distribution on a celestial sphere of radius $R$, where $R \rightarrow \infty$. Note that the celestial sphere is an imaginary sphere concentric with a particular celestial body (here the Earth).
+Consider a two element interferometer with antenna 1 and antenna 2 located on the ground at point $r_1(x_1,y_1,z_1)$ and $r_2(x_2,y_2,z_2)$ respectively.
+Consider an infinitesimal source positioned at $r(x,y,z)$ in the sky. If the electric field at the point $r$ is given by $\epsilon(r)$, then the observed electric field at the 
+antenna 1 at location $r_1$ is given by,
+\begin{equation}
+ E(r_1) = \int \epsilon(r) \frac{e^{- j\frac{2\pi}{\lambda} d(r_1,r)}}{d(r_1,r)} d\Omega_1,
+\end{equation}
+where $d(a,b)$ represents the distance between the two points at positions $r$ and $r_1$ respectively. $d\Omega$ is the solid angle subtended by the infinitesimal source.
+Assuming that the electric field caused by the source at two different points are uncorrelated, we obtain
+\begin{equation}
+ \langle E(r_1),E^*(r_2)\rangle = \int {I}(r) \frac{e^{- j\frac{2\pi}{\lambda} [ d(r_1,r) - d(r_2,r)]}}{d(r_1,r)d(r_2,r)} d\Omega.
+\end{equation}
+Now converting the vector equation in terms of the direction cosines $(l,m,n)$ of the source located at position $r$,  and using the condition that $ |r_1 -r_2 | \ll R$,  we obtain
+\begin{equation}
+ \langle E(r_1),E^*(r_2)\rangle  = \frac{1}{R^2}\int {I}(l,m) {e^{- j\frac{2\pi}{\lambda} [l(x_2-x_1) + m(y_2-y_1) + n(z_2-z_1)]}} {\frac{dl dm}{\sqrt{1-l^2-m^2}}}. 
+\end{equation}
+Now, we can define the baseline coordinate system, \\
+$u = (x_2-x_1)/\lambda$ , $v = (y_2-y_1)/\lambda$ , $w = (z_2-z_1)/\lambda$.\\
+On changing the coordinates to the baseline coordinates, and neglecting the constant $R^2$, we obtain,
+
+\begin{equation}
+{V}(u,v,w)  = \int {I}(l,m) {e^{- j{2\pi} [lu + mv + nw]}} {\frac{dl dm}{\sqrt{1-l^2-m^2}}}. 
+\end{equation}
+
+This fundamental relationship capturing the visibility and the observed intensity is the statement of the generalized Van-Cittert Zernike theorem.
+It is observed that, the relationship is not a perfect Fourier transform relationship, as we have an additional $\sqrt{1-l^2-m^2}$  factor.
+If we make some more reasonable assumptions, this equation reduces to a 2D Fourier transform.
+
+\subsection*{Small Angle Approximation}
+
+Consider the case, where we assume that the
+object to be observed is restricted to a small solid angle in the sky. In such a scenario, if the unit vector $\hat{n}$ points towards the object,
+we have $ \sqrt{1-l^2-m^2} = n \approx 1$. In this scenario,
+\begin{equation}
+ {V}(u,v,w)  = {e^{- j{2\pi} [w]}} \int {I}(l,m) {e^{- j{2\pi} [lu + mv ]}} {dl dm}. 
+\end{equation}
+Note that this is a good approximation for radio astronomy, as for most of the practical antennas, the primary beam is not more than $1 ^{\circ}$. 
+Astronomers, normally directly use the phase corrected visibilities, $ V(u,v) = {V}(u,v,w) {e^{ {j2\pi} [w]}} $.
+Thus we have the final relationship, 
+\begin{equation}
+ V(u,v)  = \int {I}(l,m) {e^{- j{2\pi} [lu + mv ]}} {dl dm}.
+ \label{eq:Fourier}
+\end{equation}
+Further, by making the small angle approximation we are approximating the source to lie on the tangent plane to the celestial sphere instead of on the sphere itself. This is because a source point is now parameterized by only two direction cosines $(l,m)$.\\
+Hence, we have proved the Van-Cittert Zernike theorem. Having a Fourier relationship opens up a lot of mathematical analysis techniques,
+which can be efficiently used to retrieve ${I}(l,m)$ from the visibilities $V(u,v)$. 
+Note that, for a fixed source and a pair of antenna locations, we have a single Fourier measurement, which is quite inadequate to retrieve the entire intensity distribution.
+Next we look at how astronomers have designed a novel technique to retrieve more Fourier measurements by making use of the rotation of the earth.
+
+
+\subsection{Aperture Synthesis}
+\label{sec:apsynth}
+As we saw in the previous section, we obtain a single measurement in the Fourier domain from a pair of antennas. The aim is to obtain as many points as possible in the Fourier domain and subsequently recover the image using the Fourier inverse. We parameterize the Fourier domain as $(u,v)$, and the points sampled in this plane by a given system of antennas is called the ``$u-v$ coverage''.
+One can improve the $u-v$ coverage by having $N$ antennas, so that at any one instant we have $ N \choose 2$ measurements, one from each antenna pair. For example, for GMRT with $30$ antennas, we obtain $435$ Fourier measurements, for a single instant.
+But, even these number of Fourier samples are still insufficient for deconvolution of most  source images. If we consider an image resolution of $256 \times 256$, we need a total of $65536$ Fourier measurements to get the exact image by taking the Fourier inverse. Only 435 (i.e 0.66\%) of the total Fourier measurements captures just a fraction of the total frequency information present in the image and is insufficient for getting back the image by directly applying the Fourier inverse. 
+
+Most of the objects that are imaged using radio astronomy do not change much with time (at least on the scale of a few years). Thus one need not take all the Fourier measurements at the same time. If the antennas are moved with respect to the source, it will result in different $(u,v)$ measurements. Thus, in theory it is possible to measure an entire Fourier region using just two antennas. But this is a very cumbersome and a practically non-feasible method, as the antenna sizes are of the order of $\sim 50m$.
+
+\begin{figure}[h]
+	\centering \vspace{-0.1in}
+	\includegraphics[width=0.6\textwidth]{images/aperture_synth.png}	
+	\vspace{-20pt} \caption[Aperture Synthesis for two antenna system]{\small Aperture Synthesis for two antenna system \footnotemark}
+	\label{fig:aperture_synth}
+\end{figure}
+\footnotetext{Image Source: \url{http://gmrt.ncra.tifr.res.in/gmrt_hpage/Users/doc/WEBLF/}}
+Radio Astronomers, instead use the motion of earth. As the earth rotates, the relative location of the antennas with respect to the source 
+changes, thus providing more number of $(u,v)$ measurements, and improving the $u-v$ coverage. 
+\begin{figure}[!b]
+	\centering \vspace{-0.1in}
+	\includegraphics[width=0.5\textwidth]{images/aperture_synth.png}	
+	\caption[Effect of earth's rotation on $u-v$ coordinates]{\small Effect of earth's rotation on $u-v$ coordinates: The blue vectors show the initial relative coordinates $x_2 - x_1$ and $y_2 - y_1$. The green vectors show the same relative coordinates after the earth has rotated. The vectors are no longer aligned along the $U-V$ axes.}
+	\label{fig:apsynth2}
+\end{figure}
+
+
+This method of using earth's rotation is known as ``Aperture Synthesis''. From the previous section that contains the proof of the Van-Cittert Zernike theorem it may not be completely clear as to how rotation of the earth results in different $(u,v)$ measurements since it seems as if $u$ and $v$ depend only on  $x_2 - x_1$ and $y_2 - y_1$ and should not change as the earth rotates. The reason lies in the substitutions we have made for $u$ and $v$. When we substitute $u = x_2 - x_1$ and $v = y_2 - y_1$ (ignoring the $\lambda$ factor) we are implicitly defining the $U$ and $V$ axis where the $U$ axis is parallel to the $X$ axis and the $V$ axis is parallel to the $Y$ axis. Now as the earth rotates the $X$ and $Y$ axes also rotate but the $U$ and $V$ axes remain stationary as they are defined with respect to the source. The measurement $x_1-x_2$ is no longer along the $U$ axis (refer to Fig. \ref{fig:apsynth2}) and hence our previous substitutions are invalid. In order to understand how the $(u,v)$ coordinates change as the earth rotates let us first define an astronomical coordinate system for the source and a terrestrial coordinate system for the antennas.
+
+
+ %if we consider from a reference frame on the earth say from the phase center.
+Let us consider an astronomical coordinate system where the position of a source in the sky is specified by the pair $(HA , \delta)$ as shown in Fig. \ref{fig:hourangle}. Here $HA$ refers to the hour angle and measures the angular distance of an object westward along the celestial equator from the observer's meridian to the hour circle passing through the object and $\delta$ refers to declination and measures the angle distance of an object perpendicular to the celestial equator. As the earth rotates, the hour angle of the source varies but the declination remains constant.
+
+\begin{figure}[!h]
+	\centering \vspace{-0.1in}
+	\includegraphics[width=0.5\textwidth]{images/hourangle.png}	
+	\caption[Astronomical coordinate system]{\small Astronomical coordinate system: Celestial Meridian refers to the observer's local meridian  \footnotemark}
+	\label{fig:hourangle}
+\end{figure}
+\footnotetext{Image Source: \url{http://en.wikisource.org/wiki/The_American_Practical_Navigator/Chapter_15}}
+
+
+\begin{figure}[!htb]
+	\centering \vspace{-0.1in}
+	\includegraphics[width=0.5\textwidth]{images/terrestrial.png}	
+	\caption[Terrestrial coordinate system]{\small Terrestrial coordinate system: The $(X,Y,Z)$ coordinate system used to specify antenna locations  \footnotemark}
+	\label{fig:terr}
+\end{figure}
+\footnotetext{Image Source: \url{http://gmrt.ncra.tifr.res.in/gmrt_hpage/Users/doc/WEBLF/LFRA/node84.html}}
+
+The antenna locations are specified in the terrestrial coordinate system which is a right handed coordinate system as shown in Fig. \ref{fig:terr}.
+The ($X,Y$) plane is parallel to the earth's equator with $X$ in the meridian plane and $Y$ towards east.  $Z$ points towards the north celestial pole. In terms of the astronomical coordinate system ($HA,\delta$), $X=(0^h,0^\circ)$, $Y=(-6^h,0^\circ)$ and  $Z=(\delta=90^\circ)$. The $(X,Y,Z)$ coordinates of an antenna in this system do not change as the earth rotates. 
+
+For aperture synthesis the antenna positions are specified in a coordinate system such that the separation of the antennas is the projected separation in plane normal to the phase center.  Note that the phase center refers to the antenna which is assumed to have zero delay since all the antennas are at slightly different distances from the source and will receive the same signal at varying delays. In other words, in such a coordinate system the separation between the antennas is as seen by the observer sitting in the source reference frame. This system, shown in Fig \ref{fig:ap_synth3}, is the right-handed ($u,v,w$) coordinate system fixed on the surface of the earth at the array reference point (usually the phase center). The $u-v$ plane always parallel to the tangent plane in the direction of phase center on the celestial sphere, and the $w$ axis is along the direction of phase center. The $u$ axis is along the astronomical East-West (E-W) direction and $v$ axis is along the North-South (N-S) direction. The ($u,v$) coordinates of the antennas are the E-W and N-S components of position vectors. When observed from the earth, as the earth rotates, the $u-v$ plane rotates with the source in the sky but the antennas remain stationary. Thus the rotation of the earth results in changing ($u,v,w$) coordinates and generates tracks in the  $u-v$ plane. We will obtain the locus of a point in the $u-v$ plane generated by a pair of antennas later. 
+\begin{figure}[!htb]
+	\centering \vspace{-0.1in}
+	\includegraphics[width=0.5\textwidth]{images/aperture_synth3.png}	
+	\caption[Aperture synthesis coordinate system]{\small  Relationship between the terrestrial coordinates (X,Y,Z) and the ($u,v,w$) coordinate system. The ($u,v,w$) system is a right handed system with the w axis pointing to the source S.  \footnotemark}
+	\label{fig:ap_synth3}
+\end{figure}
+\footnotetext{Image Source: \url{http://gmrt.ncra.tifr.res.in/gmrt_hpage/Users/doc/WEBLF/LFRA/node83.html}}
+
+The relationship between the $(X, Y, Z)$ and $(u, v, w)$ coordinates of an antenna is as follows,
+
+\begin{equation}
+\begin{bmatrix}
+    u\\  v\\  w\\   \end{bmatrix} =
+  \begin{bmatrix}
+   \sin(HA) & \cos(HA) & 0\\        -\sin(\delta)\cos(HA) & \sin(\delta)\sin(HA)  & \cos(\delta)\\      \cos(\delta)\cos(HA) & -\cos(\delta)\sin(HA)  & \sin(\delta)\\    \end{bmatrix}   
+\begin{bmatrix}
+   X\\  Y\\  Z\\   \end{bmatrix}. 
+   \label{eq:aprelation}
+  \end{equation}
+ As earth rotates, the $HA$ of the source changes continuously, generating a different set of ($u,v,w$) coordinates for each antenna pair at every instant of time. We can use (\ref{eq:aprelation}) to determine that the locus of projected antenna-spacing components $u$ and $v$ defines an ellipse with hour angle as the variable. Assuming one of antennas forming the pair is located at $(0,0,0)$, and the other is at $(X, Y, Z)$, the equation of the ellipse is given by 
+\begin{equation}
+u^2+\left({v - Z cos \delta \over {sin \delta}}\right)^2 =
+X^2 + Y^2,
+\label{eq:locus}
+\end{equation}
+where  $(HA,\delta)$ defines the direction of the source.
+From (\ref{eq:locus} we can make the following observations about the locus:
+\begin{enumerate}
+\item
+The eccentricity of the ellipse depends solely on the declination of the source. When $\delta = 90$, the locus is a circle and when $\delta = 0$, the locus is a straight line.
+\item
+The length of the axis of the ellipse along the $u$ direction depends only on $X^2 + Y^2$. Thus if the antennas are spaced far apart either in $X$ or $Y$ direction the resulting locus will cover higher frequencies in the Fourier domain. (larger values of $u$ and $v$)
+\item
+The centre of the ellipse lies along the $v$ axis and its distance from the origin depends on $Z$ and $\delta$. When $\delta = 90$, the centre of the ellipse is independent of $Z$ and lies at the origin.
+\end{enumerate}
+These observations will be useful when we want to analyse the sampling distribution obtained by a given set of antennas using aperture synthesis.
+
+The $u-v$ coverage for an instant of the GMRT Telescope is shown in Fig. \ref{fig:uvcoverage1} and the $u-v$ coverage for an $10$ hour synthesis at different declinations is shown in Fig. \ref{fig:uvcoverage2} .
+
+\begin{figure}[!htbp]
+	\centering \vspace{-0.1in}
+	\includegraphics[width=0.5\textwidth]{images/uv-coverage-12.png}	
+	\caption[UV Coverage for an instant]{\small UV Coverage for an instant \footnotemark}
+	\label{fig:uvcoverage1}
+\end{figure}
+\footnotetext{Image Source: \url{http://gmrt.ncra.tifr.res.in/gmrt_hpage/Users/doc/WEBLF/index.html}}
+\begin{figure}[htp]
+	\centering \vspace{-0.1in}
+	\includegraphics[width=0.45\textwidth]{images/11_1.png}	\hfill
+	\includegraphics[width=0.45\textwidth]{images/11_2.png}	
+	 \caption[UV Coverage for a few hours]{\small UV Coverage for 10 hours for declination = $19,-30$ \footnotemark}
+	\label{fig:uvcoverage2}
+\end{figure}
+\footnotetext{Image Source: \url{http://gmrt.ncra.tifr.res.in/gmrt_hpage/Users/doc/WEBLF/index.html}}
+
+
+
+\subsection{Dirty Beam and Dirty Images}
+\label{sec:dirty}
+From (\ref{eq:Fourier}) we know that  a Fourier transform relationship exists between the visibilities and the intensity distribution.
+Taking the inverse Fourier transform, we obtain,
+\begin{equation}
+  {I}(l,m)  = \int {V}(u,v) {e^{ j{2\pi} [lu + mv ]}} {du dv}.
+\end{equation}
+
+If the visibilities $V(u,v)$ are known at all values of $u$ and $v$, then we can recover the intensity distribution perfectly using just the inverse Fourier transform. But since the visibilities are known only at certain locations depending upon the relative distance between antenna pairs, most of the time we only have an incomplete description of the visibilities. We can characterize this by a sampling function, which is an identity function taking value $1$ at locations sampled by the antenna setup and $0$ otherwise. We call this sampling function the \emph{$u-v$ map} of the telescope.  Note that the $u-v$ map depends not only on the positions of the antenna but also depends upon the location of the source if we are using aperture synthesis.
+
+The image obtained by taking the inverse Fourier transform of the visibilities multiplied by the sampling function corresponding to the $u-v$ map is known as the dirty image,
+\begin{equation}
+  I^D(l,m)  = \int {S}(u,v) {V}(u,v) {e^{ {2\pi} j[lu + mv ]}} {du dv}.
+\end{equation}
+Here, the sampling function is the sum of delta functions at the $(u,v)$ locations corresponding to the $u-v$ map,
+\begin{equation}
+  {S}(u,v) = \sum_{k=1}^{N} \delta ( u-u_k,v-v_k), 
+\end{equation}
+where $(u_k, v_k)$ belong to the $u-v$ map $\forall k$.
+From the properties of the Fourier transform we have,
+\begin{equation}
+ I^D = \mathcal{F}^{-1}(S) * \mathcal{F}^{-1}(V).
+\end{equation}
+Here, $ \mathcal{F}^{-1}(S) = B$ is also known as the dirty beam. Also, from $\mathcal{F}^{-1}(V) ={I}$, we obtain,
+\begin{equation}
+ I^D = B * {I}.
+\label{eq:dirtytrue}
+\end{equation}
+Thus, the dirty image can be thought to be the convolution of the dirty beam with the true intensity 
+distribution.
+
+To obtain an intuition regarding the dirty beam and dirty image, consider the following example (Fig, \ref{fig:mapndirty}) where the intensity distribution consists only of one star in the centre of the field at ($l, m = 0$).
+In this case, assuming unit intensity value for the star, 
+${I} = \delta (l,m)$. In such a scenario, $I^D = B$. 
+In the case where the image consists of multiple stars of different intensity values or an extended source such as a nebula , the dirty image is not so intuitive but nevertheless the relationship in (\ref{eq:dirtytrue}) holds. The dirty image is always used as a starting point for any iterative method to recover the true intensity distribution $I$. \\
+
+\begin{figure}[htp]
+	\centering \vspace{-0.1in}
+	\includegraphics[width=0.45\textwidth]{images/map_image.png}	\hfill
+	\includegraphics[width=0.45\textwidth]{images/dirty_beam.png}	
+	 \caption[GMRT map the dirty beam]{\small GMRT map and dirty beam for single star at $(l, m) = (0,0)$}
+	\label{fig:mapndirty}
+\end{figure}
+%Consider a simple image consisting of only $50$ stars, each of equal intensity . For this system, the dirty image generated is shown in \ref{fig:originalndirty}
+%Note that, clearly the dirty image is the convolution of the original image and the dirty beam.
+%As the number of stars in the field increases, the side lobes of the dirty beam, overlap with the central peak, thus 
+%making it difficult to decipher the original image.
+%
+%Also, note that the more difficult images are the ones in which the stars have unequal and very different brightness. In such cases, the side lobes from the 
+%central star might have higher magnitude than the other stars present. 
+%
+%\begin{figure}[htp]
+%	\centering \vspace{-0.1in}
+%	\includegraphics[width=0.45\textwidth]{images/5_original_image.png}	\hfill
+%	\includegraphics[width=0.45\textwidth]{images/5_dirty_image.png}	
+%	 \caption[Image with $50$ stars and the dirty image]{\small Image with $50$ stars and corresponding dirty image}
+%	\label{fig:originalndirty}
+%\end{figure}
+
+\subsection{Deconvolution Operation}
+As we saw earlier in (\ref{eq:dirtytrue}), the dirty image is the convolution of the dirty beam and the real intensity distribution.
+One can obtain the dirty image by taking the inverse Fourier transform of the visibilities $V(u,v)$ by assigning a value of $0$ at the points where data is not available, i.e at points not on the $u-v$ map.
+Also, the dirty beam is known based on the antenna setup and the location of the source. Thus the problem in hand can be thought of as  a deconvolution problem , where we need to deconvolve the dirty image 
+$I^D$ to obtain $I$.
+
+In general this deconvolution problem is not well defined, and does not guarantee a unique solution. But, for radio astronomical images, we have prior knowledge about the nature of the images such as sparsity in the natural domain or some other domain, and can incorporate this into the solution.\ For example, for an open cluster of stars, we can assume that the image is sparse in the natural domain with only a few stars randomly lying in the field. 
+One deconvolution algorithm based on this concept is the CLEAN Algorithm \cite{ncra_book},  which has decent performance when the image consists of a collection of point sources.  Other deconvolution techniques include matching pursuit algorithms such as Orthogonal Matching Pursuit (OMP) and methods such as the Maximum Entropy Method \cite{ncra_book}.
+
+
+\section{Motivation for using Compressed Sensing}
+Compressed sensing is a very useful technique where using only a small number of linear measurements, the recovery of a sparse or compressible image is possible. Typical radio astronomy objects, can be characterized as sparse or compressible in some domain.The two of the most common classes of images are images of extended sources, and open clusters of stars.  
+ Fig \ref{fig:casAopenC} gives examples of both types of sources: An open cluster ,the famous butterfly cluster, M$6$ and an extended source, Cassiopeia A supernova remnant.
+
+ \begin{figure}[htp]
+	\centering \vspace{-0.1in}
+	\includegraphics[width=0.45\textwidth]{images/openC.jpg}	\hfill
+	\includegraphics[width=0.45\textwidth]{images/casA.jpg}	
+	 \caption[Different types of sources in Radio Astronomy]{\small Different types of sources in Radio Astronomy: Open cluster M$6$ and Cassiopeia A supernova remnant}
+	\label{fig:casAopenC}
+\end{figure}
+
+In case of open clusters, the image is sparse in the natural domain, while in case of the extended sources,
+the image is compressible under the wavelet domain. Note that when we say a signal is sparse it means that the image can be represented exactly using only $k$ coefficients where $k \ll n$ and $n$ is the length of the signal. When we say a signal is compressible it means that the signal can be well approximated using only $k$ coefficients where $k \ll n$. In the case of images of extended sources we expect the image to have only few large coefficients in the wavelet domain but the values of the other coefficients are not exactly zero and thus the image is compressible and not sparse.
+Also, Fourier measurements are linear in nature, thus satisfying the 
+second condition for applying compressed sensing. Thus one can formulate the problem as, ``recovering a sparse solution from an incomplete
+description of its Fourier transform''.
+
+
+For compressed sensing methods to give the correct solution, it was shown in  the seminal paper by Candes, Tao \cite{Tao} that the measurement matrix
+must have the Restricted Isometric Property. Exact recovery of sparse signals under such conditions is possible as long as we have a certain number of observations. This concept is extended to compressible signals in \cite{romberg} where the recovery is correct in a $l_2$ norm sense, i.e. the $l_2$ norm difference between the recovered solution and the actual solution is upper bounded. Also in \cite{Tao} it is shown that it is possible to recover a signal from an incomplete set of randomly chosen Fourier samples when the signal is sparse.
+This result gives us a hope that if the GMRT sampling map(i.e the $u-v$ map), in a way corresponds to randomly chosen frequency samples, 
+then using Tao, Candes' result, one can guarantee that the compressed sensing methods will converge to the exact solution for sparse signals and will result in a solution with a bounded error in case of compressible signals.
+
+The other important motivations for radio astronomers to use compressed sensing include:
+\begin{enumerate}
+ \item Compressed sensing algorithms can be applied for wide-field interferometry \cite{wide_field}, where the Fourier transform relationship does not
+ hold true.
+ \item Compressed sensing techniques allow for non-uniform, successive gridding etc.\cite{ncra_book}
+ \item Compressed sensing techniques allows for simultaneous recovery of multiple images from respective incomplete fourier data when we have additional information about some overlap between the two images. This is the main focus of our report.
+\end{enumerate}
+
+In many practical scenarios it may be the case that we do not have sufficient number of observations to obtain a good reconstruction of  the image using conventional compressed sensing technique. However it may be possible to obtain measurements for two different images that have some ``\emph{information overlap}''. Though reconstuction of each image separately may be poor, solving for them simultaneously making use of the information overlap may allow us to obtain better reconstruction of both the images. Here information overlap refers to any set of features extracted from both the images that should match. This can be determined by registration of the two images or by virtue of how the measurements were obtained.  We will consider two kinds of information overlap,
+\begin{enumerate}
+ \item Pixel value overlap: Value of certain pixels in first image match value of some other pixels in the second image. 
+ \item Sub-image pixel overlap: This is a form of feature vector overlap. The reconstructed images are passed through a linear operator and in the resultant images values of some pixels match.
+\end{enumerate}
+
+\section{Existing Literature on Compressed Sensing applied to Radio Astronomy}
+There are two major lines of research in this field. One line of the work is in developing better deconvolution methods. The second line of research is
+on using compressed sensing to design better telescopes, structurally and geometrically. 
+
+[Wiaux.et.al] have multiple papers on applying compressed sensing to radio astronomy \cite{Wia}. Wiaux has also studied 
+the application of compressed sensing to wide field radio astronomy \cite{wide_field}. The other notable papers on this problem includes the work
+ by Stephen Hardy \cite{Hardy}, Tim Cornwell \cite{cornwell}. Most of the work in this line of research is confined to showing theoretically, and based on simulated data that the compressed sensing algorithms indeed work for the deconvolution step in radio astronomy in a conventional setting i.e. without simultaneous recovery.
+The paper on distributed compressed sensing by Baron et. al. \cite{JSM} presents as a joint formulation that allows for simultaneous recovery of two signals when the two signals can be thought of as having a common sparse component and sparse innovations. We will see that our formulation reduces to a variant of the one presented in the paper under a specific setting. To the best of our knowledge, the simulataneous recovery problem in compressed sensing has not been explored for radio astronomy in particular.
+
+The second line of thought tries to analyze the optimality of the geometrical array locations with respect to compressed sensing such as the work by 
+Clara Fannjiang \cite{Optimal_array}. This line of research is interesting, due to the upcoming installation of additional antennae in the GMRT array, and
+the construction of the massive SKA(Square kilometer array\footnote{\url{https://www.skatelescope.org/}}) Radio Telescope. In our earlier work \cite{stage1} we explored the problem of find optimal antenna locations for additions to the GMRT array for improving performance of the reconstruction algorithm. We concluded that the current GMRT setup is insufficient for good performance while using aperture synthesis for a duration of 4 hours or lesser and presented a greedy algorithm that determines the antenna locations for 8 new additions to the array that significantly improves performance.
+
+In the next chapter we present the problem formulation for joint reconstruction of images from multiple observations when the images have some `information overlap'' and devise an alternating algorithm to solve the joint reconstruction problem.

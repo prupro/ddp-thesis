@@ -1,0 +1,356 @@
+\chapter{Joint reconstruction from multiple observations}
+In the previous chapter we saw that the problem is to determine the image(i.e intensity distribution) from an incomplete set of Fourier measurements since we have data available only at certain points in the Fourier domain, determined by the $u-v$ coverage of the antenna setup. In general we assume that we have data available at points in the Fourier domain determined by the ``sampling map''.  Next we present the problem formulation.
+\section{Problem Formulation}
+We consider the problem where we have two incomplete sets of Fourier measurements corresponding to two different images and further we have knowledge about some information overlap between the two images. We want to make use of this overlapping information to perform simultaneous recovery of both images.  Next we formulate the simultaneous recovery problem,
+
+ Let $x$ and $y$ be the discretized vectors of the lexicographic ordering of the intensity distributions (i.e. the images) of size $N \times 1$.
+ Corresponding to each image we have a set of linear measurements obtained as,
+ \begin{eqnarray}
+  b_x &=& \Phi_x x  + n_x\\
+  b_y   &=& \Phi_y y + n_y,
+ \end{eqnarray}
+where $\Phi_x$ and $\Phi_y$ are $M_x \times N$ and $M_y \times N$ measurement matrices respectively and $n_x$ and $n_y$ are terms corresponding to the noise added to the system while obtaining the measurements ($M_x < N, \ M_y < N)$. 
+
+Let both $x$ and $y$ be sparse/compressible in the same basis and thus they can be represented as,
+\begin{eqnarray}
+	x &=& \Psi z_x 	\label{eq:domainx}\\
+	y &=& \Psi z_y,
+	\label{eq:domainy}
+\end{eqnarray}
+where $z_x$ and $z_y$ are $N \times 1$ sized vectors containing only few non-zero/large coefficients and $\Psi$ is the  $N \times N$  matrix with columns as the basis vectors of the desired basis. 
+
+Let there be some information overlap between $x$ and $y$. We will restrict ourselves to only those features that can be extracted through a linear operation on the images. Let $f_x$ and $f_y$ be the $S \times 1$ feature vectors obtained from $x$ and $y$ as,
+\begin{eqnarray}
+f_x &=& B_x z_x\\
+f_y &=& B_y z_y,
+\end{eqnarray}
+where $B_x$ and $B_y$ are $S \times N$ feature extraction matrices. For example if the last $c$ columns of image corresponding to $x$ overlap with the first $c$ columns of the image corresponding to $y$ then $B_x$ and $B_y$ will be $cn \times N$ matrices where we assume the images to be of size $n \times n$ and $N = n^2$. $B_x$ and $B_y$ will have rows with all entries zero except the position corresponding to the location of a certain pixel in the lexicographic ordering of the image. Under ideal reconstruction, the two feature vectors must match because they correspond to the overlapping part.
+\begin{equation}
+||f_x - f_y||_2^2 < \epsilon_f,
+\end{equation}
+where $\epsilon_f$ is some tolerance threshold. 
+Next we present several formulations that can be used to solve this problem:
+\begin{enumerate}
+\item \textbf{Formulation-1} 
+Using conventional compressed sensing methods, we will first solve for $z_x^*$ and $z_y^*$ independently  as follows and obtain $x^*$ and $y^*$ using (\ref{eq:domainx}) and  (\ref{eq:domainy}):
+\begin{eqnarray}
+ z_x^* &=&  \arg \min_{z_x} \| z_x \|_1 \ \text{for} \ \|\Phi_x \Psi z_x -b_x\|_2^2 \leq \epsilon_x \\
+ z_y^* &=&  \arg \min_{z_y} \| z_y \|_1 \ \text{for} \ \|\Phi_y \Psi z_y -b_y\|_2^2 \leq \epsilon_y,
+ \label{form1}
+\end{eqnarray}
+where $\epsilon_x$ and $\epsilon_y$ are variances corresponding to $n_x$ and $n_y$ respectively.
+\item \textbf{Formulation-2} There is an alternative formulation which allows for unconstrained optimization.
+\begin{eqnarray}
+ z_x^* &=& \arg \min_z F(z) \equiv \|\Phi_x\Psi z - b_x\|_2^2 + \lambda_x \|z\|_1\\
+ z_y^* &=& \arg \min_z F(z) \equiv \|\Phi_y\Psi z - b_y\|_2^2 + \lambda_y \|z\|_1,
+\label{form2}
+ \end{eqnarray}
+where $\lambda_x$ and $\lambda_y$ must be chosen appropriately to obtain same results as obtain using \emph{formulation-1}.
+Greedy methods such as ISTA and FISTA make use of this formulation to solve the problem.
+\item \textbf{Formulation-3} Instead of solving for $x$ and $y$ separately we can solve for them simultaneously making use of the information overlap by the following formulation for unconstrained optimization,
+ \begin{equation}
+ z_x^*, z_y^* = \arg \min_{z_x, z_y} F(z_x, z_y),
+ \end{equation}
+where,
+ \begin{equation}
+ F(z_x, z_y) \equiv \|\Phi_x\Psi z_x - b_x\|_2^2 + \|\Phi_y\Psi z_y - b_y\|_2^2 + \lambda_x \|z_x\|_1 + \lambda_y \|z_y\|_1 + \mu ||f_x - f_y||_2^2.
+ \label{eq:formu}
+ \end{equation}
+Here, we have the four terms present from Formulation-2 but in addition we have a ``\emph{coupling term}''  $||f_x - f_y||_2^2$ along with the ``\emph{coupling parameter}'' $\mu$. The parameter $\mu$ will decide the degree of overlap in the reconstructed images and setting $\mu = 0$ will revert back to Formulation-2.
+Here $\lambda_x$, $\lambda_y$ and $\mu$ must be chosen appropriately to ensure convergence to correct results. We propose an alternating algorithm to solve this optimization problem which is in similar lines to the ISTA or FISTA algorithm in one argument.
+This formulation reduces to the formulation JSM-1 presented in \cite{JSM} when $B_x = B_y$, but with a subtle difference.  In the formulation presented in \cite{JSM} the common part has to be same at every iteration of the algorithm but in our formulation we allow the common part in both images to take different values during the course of the algorithm but reach close to being same at convergence depending upon the weight $\mu$.
+
+\end{enumerate}
+\section{Alternating Algorithm for Simultaneous Recovery}
+The alternating algorithm is a generalization of the ISTA  which is a proximal gradient algorithm. We first  briefly look at proximal methods and then the ISTA and FISTA algorithm and finally present the alternating algorithm.
+\subsection{Proximal Methods}
+Proximal methods are a higher level of abstraction than classical optimization algorithms such as gradient descent. The basic constituent of a proximal method is the \emph{proximal operator}, which essentially solves a simple convex optimization problem \cite{prox_book}. The proximal operator for the scaled function $f$ at a point $x$ with respect to parameter $\lambda$ is given by,
+\begin{equation}
+prox_{\lambda f}(x) = \arg \min_y \left( f(y) + \frac{1}{2\lambda} \| x - y \|^2. \right)
+\end{equation}
+We refer to $prox_{\lambda f}(x)$ as the proximal operator of $f$ with respect to parameter $\lambda$ at point $x$.
+Here the $\|\| x - y \|\|^2$ term keeps the mapped point in the proximity of the argument $x$ and the $\min f(y)$ term, drives the mapped point towards the minima of the function f. The parameter $\lambda$ decides which of the two factors dominates.
+
+
+\begin{figure}[h]
+	\centering \vspace{-0.1in}
+	\includegraphics[width=0.6\textwidth]{images/proximal.png}	
+	\vspace{-20pt} \caption[Effect of the proximal Operator]{\small Effect of the Proximal Operator \footnotemark}
+	\label{fig:proximal_operator}
+\end{figure}
+\footnotetext{Image Source: \url{http://www.stanford.edu/~boyd/papers/pdf/prox_algs.pdf}}
+Consider the figure \ref{fig:proximal_operator}. Here, the proximal operator maps the blue points to the red points.
+The mapped points come closer to the minima, but still remain in proximity of the original blue point.
+
+\subsection{Proximal operator for smooth functions}
+
+
+\begin{enumerate}
+\item Consider a smooth function $f(x)$.
+\item The proximal operator for $f$ with respect to parameter $t$ at point $x$ is given by:
+\begin{equation}
+ prox_{tf}(x) = \arg \min_y  \left( f(y) + \frac{1}{2t} \|x-y\|^2  \right).
+\end{equation}
+As, the mapped point is expected to be in the proximity of the original point $x$, we use a linear approximation of $f(y)$ at $x$  and thus we have,
+
+\begin{equation}
+ prox_{tf}(x) = \arg \min_y \left( f(x) + (y-x)^T \nabla f(x)  + \frac{1}{2t} \|x-y\|^2 \right).
+\end{equation}
+\item On simplification, we obtain:
+\begin{equation}
+ prox_{tf}(x) = \arg \min_y \left( \frac{1}{2t} \| y -  \left( x - t \nabla f(x) \right)  \|^2_2 \right).
+\end{equation}
+Thus for smooth convex functions, 
+\begin{equation}
+ prox_{tf}(x) = \left( x - t \nabla f(x) \right)
+ \label{eq:prox}
+\end{equation}
+\item Note that this is the exact gradient step for stepsize $t$, in the gradient descent method.
+Thus, one can interpret the proximal algorithms as a generalization of gradient descent algorithms.
+\end{enumerate}
+
+\subsubsection{Proximal operator for $l_1$ norm}
+We next consider the proximity operator for the $l_1$ norm function. 
+\begin{enumerate}
+\item Let the $l_1$ norm function be $g(x)$,
+\begin{equation}
+ g(x) = \| x \|_1 = \sum_{i=1}^n |x_i|
+\end{equation}
+\item From \cite{prox_book}, the proximal operator for $g$ with respect to parameter $\alpha$ at point $x$ is given by :
+\begin{equation}
+ prox_{\alpha g}(x) = (|x_i| - \alpha)_+ sgn(x_i)
+\end{equation}
+Here, $sgn(x)$ is the standard signum function. 
+\item The $(z)_+$ function takes the maximum of $z$ and 0:
+\begin{eqnarray}
+ (z)_+ &=& z, \quad z \geq 0 \\
+       &=& 0,  \quad z < 0.
+\end{eqnarray}
+\end{enumerate}
+
+
+
+
+\subsection{The ISTA Algorithm}
+
+The ISTA, Iterative Shrinkage and Thresholding Algorithm \cite{FISTA} is a proximal gradient algorithm, which is used to 
+minimize the functions of the kind:
+
+\begin{equation}
+ F(x) = f(x) + g(x)
+\end{equation}
+
+\begin{enumerate}
+ \item $x \in \mathbb{R}^n$, $f(x)$ is a smooth convex function, while the function $g(x)$ is convex but non-smooth.
+ \item First derivative of $f(x)$ satisfies a Lipschitz conditon with constant $L$, i.e.
+\begin{equation}
+   \| f^{(1)}(x) - f^{(1)}(y)\|_2 \leq L \| x-y \|_2 .  
+   \label{eq:lip}
+   \end{equation} 
+ \item Starting from an initial point $x^0$ we apply the proximity operator on functions $f(x)$ and $g(x)$ successively to obtain the next iterate \cite{Proximal},
+ \begin{equation}
+  x^{k+1} = prox_{\lambda tg}(prox_{tf}(x^k)).
+ \end{equation}
+ \item Since $f(x)$ is smooth, from (\ref{eq:prox}), 
+ \begin{equation}
+  x^{k+1} = prox_{\lambda tg} \left( x^k - t \nabla f(x^k) \right).
+ \end{equation} 
+ \item Note, that the step size $t$ is chosen as $\frac{1}{L}$, and the proximity parameter $\lambda$ for $g(x)$ needs to be chosen appropriately, for the algorithm to work correctly and also be fast enough. 
+ \end{enumerate}
+
+The pseudo-code for the ISTA algorithm is given below:
+
+\subsubsection{ISTA pseudo-code}
+We only consider the ISTA algorithm for a fixed stepsize. 
+For a backtracking variant, and more information on the standard implementation, please
+refer to \cite{FISTA}
+
+\vspace{5pt}
+\begin{algorithm}[H]
+ \KwData {initial value $x^0 $,  $L$, $\lambda$}
+ \KwResult{Finds the global minimum for the objective function $F(x)$}
+ $k = 0 $ \;
+ $t = \frac{1}{L}$ \;
+ \Repeat{iterate not converged}{ 
+   $x^{k+1} := prox_{\lambda tg} \left( x^k - t\nabla f(x^k) \right)$\;
+     $k := k+1$\;
+  }
+ 
+ \caption{ISTA with constant stepsize}
+\end{algorithm}
+
+The stopping criteria used for the algorithms is:
+\begin{equation}
+ \left| \frac{F(x^k) - F(x^{k-1})}{F(x^{k-1})} \right| \leq \epsilon
+\end{equation}
+
+\begin{enumerate}
+\item The convergence rate for the algorithm goes as $\mathcal{O}(1/k)$.
+For the complete proof, please refer to \cite{FISTA}.
+
+\item Note that ISTA is a monotonically converging algorithm, 
+i.e. in every step, the value of the objective function decreases.
+\end{enumerate}
+
+We next have a look at the FISTA algorithm.
+
+\subsection{The FISTA Algorithm}
+
+The FISTA, Fast Iterative Shrinkage and Thresholding Algorithm \cite{FISTA} is a proximal gradient algorithm , which is used to 
+minimize the functions of the kind similar to those in ISTA:
+
+\begin{equation}
+ F(x) = f(x) + g(x)
+\end{equation}
+
+\begin{enumerate}
+ \item $x \in \mathbb{R}^n$, $f(x)$ is a smooth convex function, while the function $g(x)$ is convex but non-smooth.
+ \item First derivative of $f(x)$ satisfies a Lipschitz conditon with constant $L$.
+ \item The FISTA algorithm operates very similar to the ISTA algorithm, but includes an `extrapolation' step, as below:
+ \begin{align}
+  y^{k+1} &= x^k + w_{k+1} (x^k - x^{k-1}) \\
+  x^{k+1} &= prox_{\lambda tg}(y^{k+1} - t \nabla f(y^{k+1}));
+ \end{align}
+ \item In FISTA, the gradient and the proximity operator for $g$ are not applied at the iterate $x^k$, but at a 
+ extrapolated point $y^{k+1}$, formed by a specific linear combination of $\{ x^k, x^{k-1}\}$.
+ \item Note that the parameters $w_i$  need to be chosen appropriately to ensure convergence and obtain good performance.
+\end{enumerate}
+
+
+\subsubsection{FISTA pseudo-code}
+
+We only consider the FISTA algorithm for a fixed stepsize. 
+For a backtracking variant, and more information on the standard implementation, please
+refer to \cite{FISTA}
+
+The stopping criteria for the algorithm is:
+\begin{equation}
+ \left| \frac{F(x^k) - F(x^{k-1})}{F(x^{k-1})} \right| \leq \epsilon
+\end{equation}
+
+\vspace{5pt}
+\begin{algorithm}[H]
+ \KwData {initial value $x^0 $, $L$, $\lambda$}
+ \KwResult{Finds the global minimum for the objective function $F(x)$}
+ $k = 0 $ \;
+ $t = \frac{1}{L}$ \;
+ $u^1 = 1 $ \;
+ $y^1 = x^0$ \;
+ 
+ 
+ \Repeat{iterate not converged}{
+   $k := k+1$\;   
+   $x^{k} := prox_{\lambda  tg}(y^{k} - t\nabla f(y^k))$\;
+   $u^{k+1} = \frac{1 + \sqrt{1 + 4 (u^{k})^2}}{2}$ \;
+   $y^{k+1} = x^k + \left( \frac{u^k -1}{u^{k+1}} \right) (x^k - x^{k-1})$ 
+  }
+ 
+ \caption{FISTA with constant stepsize}
+\end{algorithm}
+
+\begin{enumerate}
+ \item If the parameters are chosen in the way mentioned above, it can be shown that the covergence rate for the
+ algorithm is $\mathcal{O}(1/k^2)$. \cite{FISTA}
+ \item Also, as opposed to ISTA, FISTA is not a monotonically covergent algorithm.
+ This implies that, the objective function might not decrease in during every iteration, but globally it does decrease.
+\item Direct application of ISTA and FISTA to reconstruct images has been explored in literature and the range of $\lambda$ for good performance has been explored in the dual degree dissertation by Kedar Tatwawadi, IIT B \cite{kedar_report}. Next we present two variants of an alternating algorithm based on ISTA and FISTA respectively to perform joint minimization based on {Formulation-3}.
+\end{enumerate}
+
+\section{ISTA based Alternating Algorithm for Joint Minimization}
+\label{sec:alt}
+\begin{enumerate}
+\item The function we wish to minimize with respect to $z_x$ and $z_y$ is,
+ \begin{equation}
+ F(z_x, z_y) = \|\Phi_x\Psi z_x - b_x\|_2^2 + \|\Phi_y\Psi z_y - b_y\|_2^2 + \lambda_x \|z_x\|_1 + \lambda_y \|z_y\|_1 + \mu ||f_x - f_y||_2^2.
+ \end{equation}
+\item Let the smooth part of the above function be,
+\begin{equation}
+ f(z_x, z_y) = \|A_x z_x - b_x\|_2^2 + \|A_y z_y - b_y\|_2^2  + \mu ||C_x z_x - C_y z_y||_2^2. 
+\end{equation}
+\item We will start will initial guesses for $z_x$ and $z_y$ and will update $z_x$ and $z_y$ iteratively alternating between iterations on $z_x$ and $z_y$.
+\item At the $k^{th}$ iteration on $z_x$ we will find the update $z_x^{k+1}$ by treating $f(z_x, z_y)$ as a function of $z_x$ alone with $z_y$ as a constant taking value $z_y^{k}$. 
+\item Let $f^k_x(z_x) = f(z_x, z_y^{k})$. Then we update $z_x$ as in the ISTA algorithm where the smooth part now is $f(z_x) = f^k_x(z_x)$ and the non differentiable part is $g(z_x) = \lambda_x \|z_x\|_1$.
+\begin{equation}
+	   z_x^{k+1} := prox_{\lambda_xt_xg} \left( z_x^k - t_x \nabla_{z_x} f(z_x^k, z_y^k) \right),
+\end{equation}
+where $\nabla_{z_x} f(z_x^k, z_y^k) = \nabla_{z_x} f_x^k(z_x^k)$ based on definition of $f_x^k(z_x)$.
+	   
+\item At the $k^{th}$ iteration on $z_y$ we will find the update $z_y^{k+1}$ by treating $f(z_x, z_y)$ as a function of $z_y$ alone with $z_x$ as a constant taking value $z_x^{k+1}$. 
+\item Let $f^k_y(z_y) = f(z_x^{k+1}, z_y)$. Then we update $z_y$ as in the ISTA algorithm where the smooth part now is $f(z_y) = f^k_y(z_y)$ and the non differentiable part is $g(z_y)= \lambda_y \|z_y\|_1$.
+\begin{equation}
+	   z_y^{k+1} := prox_{\lambda_yt_yg} \left( z_y^k - t_y \nabla_{z_y} f(z_x^{k+1}, z_y^k) \right),
+\end{equation}
+where $\nabla_{z_y} f(z_x^{k+1}, z_y^k) = \nabla_{z_y} f_y^k(z_y^k)$ based on definition of $f_y^k(z_x)$.
+\item Note, that the step size $t_x$ and $t_y$ are chosen as $\frac{1}{L_x}$ and $\frac{1}{L_y}$ respectively where  $L_x$ and $L_y$ are the upper bounds on Lipschitz constants for $f_x^k(z_x)$ and $f_y^k(z_y)$ over all $k$.
+\item The parameters $\lambda_x, \lambda_y$ and $\mu$ need to be chosen appropriately, for the algorithm to converge to desired solution and also be fast enough. If $\lambda_x$ is too low then we will not move away from initial solution and if $\lambda_x$ is too high we will converge to the all zero solution.
+\item If $\mu$ is too low we will get similar results as for the case where we solve the minimization problem separately for $z_x$ and $z_y$ and if $\mu$ is too high then we may not get sparse solutions.
+
+
+\end{enumerate}
+
+\subsection{ISTA based alternating algorithm pseudo-code}
+The pseudo code for the ISTA based alternating algorithm is given below. The stopping criteria for the algorithm is:
+\begin{equation}
+ \left| \frac{F(z_x^{k+1}, z_y^{k+1}) - F(z_x^{k}, z_y^{k} )}{F(z_x^{k}, z_y^{k})} \right| \leq  \epsilon 
+\end{equation}
+
+\begin{algorithm}[H]
+ \KwData {initial values $z_x^0, z_y^0, L_x, L_y$,  $\lambda_x$, $\lambda_y$, $\mu$}
+ \KwResult{Finds the global minimum for the objective function $F(z_x, z_y)$}
+ $k = 0 $ \;
+ $t_x = \frac{1}{L_x}$ \;
+ $t_y = \frac{1}{L_y}$ \;
+ \Repeat{iterate not converged}{
+   $z_x^{k+1} := prox_{\lambda_xt_xg} \left( z_x^k - t_x \nabla_{z_x} f(z_x^k, z_y^k) \right)$\;
+   $z_y^{k+1} := prox_{\lambda_yt_yg} \left( z_y^{k} - t_y \nabla_{z_y} f(z_x^{k+1}, z_y^k) \right)$\;
+   $k := k+1$\;
+  }
+ 
+ \caption{ISTA based alternating algorithm}
+\end{algorithm}
+
+\section{FISTA based Alternating Algorithm for Joint Minimization}
+\begin{enumerate}
+\item The FISTA based alternating algorithm is very similar to the ISTA based algorithm and is used in similar settings.
+\item In this variant before updating $z_x$ we perform an `extrapolation step' as follows,
+ \begin{align}
+  q_x^{k+1} &= z_x^k + w_{k+1} (z_x^k - z_x^{k-1}) \\
+  z_x^{k+1} &= prox_{\lambda_x t_xg} \left( q_x^{k+1} - t_x \nabla_{z_x} f(q_x^{k+1}, z_y^k) \right).
+ \end{align}
+ \item Similarly before updating $z_y$ we do the following,
+ \begin{align}
+  q_y^{k+1} &= z_y^k + w_{k+1} (z_y^k - z_y^{k-1}) \\
+  z_y^{k+1} &= prox_{\lambda_y t_yg} \left( q_y^{k+1} - t_y \nabla_{z_y} f(z_x^{k+1}, q_y^{k+1}) \right).
+ \end{align}
+ \item Note that the parameters $w_i$  need to be chosen appropriately to ensure convergence and obtain good performance. 
+ \end{enumerate}
+ 
+ 
+\subsection{FISTA based alternating algorithm pseudo-code}
+The pseudo code for the FISTA based alternating algorithm is given below. The stopping criteria for the algorithm is same as in the ISTA variant.
+%\begin{equation}
+% \left| \frac{F(z_x^{k+1}, z_y^{k+1}) - F(z_x^{k}, z_y^{k} )}{F(z_x^{k}, z_y^{k})} \right| \leq  \epsilon 
+%\end{equation}
+
+\begin{algorithm}[H]
+ \KwData {initial values $z_x^0, z_y^0, L_x, L_y$,  $\lambda_x$, $\lambda_y$, $\mu$}
+ \KwResult{Finds the global minimum for the objective function $F(z_x, z_y)$}
+ $k = 0 $ \;
+ $u^1 = 1 $ \;
+ $q_x^1 = z_x^0$ \; 
+ $q_y^1 = z_y^0$ \;
+ $t_x = \frac{1}{L_x}$ \;
+ $t_y = \frac{1}{L_y}$ \;
+ \Repeat{iterate not converged}{
+   $k := k+1$\;
+    $z_x^{k} := prox_{\lambda_x t_x g} \left( q_x^k - t_x \nabla_{z_x} f(q_x^k, z_y^k) \right)$\;
+    $z_y^{k} := prox_{\lambda_y t_y g} \left( q_y^{k} - t_y \nabla_{z_y} f(z_x^{k+1}, q_y^k) \right)$\;  
+    $u^{k+1} = \frac{1 + \sqrt{1 + 4 (u^{k})^2}}{2}$ \;
+    $q_x^{k+1} = z_x^k + \left( \frac{u^k -1}{u^{k+1}} \right) (z_x^k - z_x^{k-1})$ \;
+    $q_y^{k+1} = z_y^k + \left( \frac{u^k -1}{u^{k+1}} \right) (z_y^k - z_y^{k-1})$ 
+  }
+ 
+ \caption{FISTA based alternating algorithm}
+\end{algorithm}
+
+In the next chapter we use the above algorithms to perform simultaneous recovery for various classes of images. We compare the performance using the joint reconstruction with that obtained using independent reconstructions.

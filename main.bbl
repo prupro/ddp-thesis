@@ -1,0 +1,89 @@
+\begin{thebibliography}{10}
+
+\bibitem{candes}
+E.~Candes and J.~Romberg, ``Quantitative robust uncertainty principles and
+  optimally sparse decompositions,'' {\em Foundations of Computational
+  Mathematics, 2006}.
+
+\bibitem{Tao}
+E.~Candes, J.~Romberg, and T.~Tao, ``Robust uncertainty principles:exact signal
+  reconstruction from highly incomplete frequency information,'' {\em
+  Information Theory IEEE, 2006}.
+
+\bibitem{romberg}
+E.~Candes, J.~Romberg, and T.~Tao, ``Stable signal recovery from incomplete and
+  inaccurate measurements,'' {\em Communications on Pure and Applied
+  Mathematics, 2006}, vol.~59.
+
+\bibitem{single_pixel}
+R.~University, ``Single pixel camera.'' http://dsp.rice.edu/cscamera.
+
+\bibitem{cs_rice}
+``Compressed sensing resources.'' http://dsp.rice.edu/cs.
+
+\bibitem{cs_book}
+M.~Davenport, M.~Duarte, Y.~Eldar, and G.~Kutyniok, {\em Compressed Sensing:
+  Theory and Applications}.
+\newblock 2012.
+
+\bibitem{stage1}
+S.~Vignesh, ``Compressed sensing for radio astronomy.'' Dual Degree
+  Dissertation Stage I.
+
+\bibitem{GMRT}
+TIFR, ``Gmrt telescope.'' \url{http://gmrt.ncra.tifr.res.in/}.
+
+\bibitem{ncra_book}
+J.~Chengalur and Y.~Gupta, ``Low frequency radio interferometry.''
+  \url{http://gmrt.ncra.tifr.res.in/gmrt_hpage/Users/doc/WEBLF/LFRA/index.html}.
+
+\bibitem{kedar_report}
+K.~Tatwawadi, ``Compressed sensing for group testing and radio astronomy.''
+  Dual Degree Dissertation.
+
+\bibitem{wide_field}
+J.D.McEwen and Y.Wiaux, ``Compressed sensing for wide-field radio
+  interferometric imaging,'' {\em Monthly Notices of the Royal Astronomical
+  Society, 2009}, vol.~395.
+
+\bibitem{Wia}
+Y.~Wiaux, L.~Jacques, G.Puy, A.~Scaife, and P.~Vandergheynst, ``Compressed
+  sensing imaging techniques for radio interferometry,'' {\em Monthly Notices
+  of the Royal Astronomical Society, 2009}, vol.~395.
+
+\bibitem{Hardy}
+S.~J. Hardy, ``Direct deconvolution of radio synthesis images using l1
+  minimisation,'' {\em Astronomy \& Astrophysics, 2013}.
+
+\bibitem{cornwell}
+F.~Li, T.~J. Cornwell, and F.~de~Hoog, ``The application of compressive
+  sampling to radio astronomy: Deconvolution,'' {\em Astronomy \& Astrophysics,
+  2011}.
+
+\bibitem{JSM}
+D.~Baron, M.~F. Duarte, M.~B. Wakin, S.~Sarvotham, and R.~G. Barniuk,
+  ``Distributed compressive sensing.''
+  \url{http://arxiv.org/pdf/0901.3403.pdf}, 2009.
+
+\bibitem{Optimal_array}
+Fannjiang and Clara, ``Optimal arrays for compressed sensing in snapshot-mode
+  radio interferometry,'' {\em Astronomy \& Astrophysics, 2013}.
+
+\bibitem{prox_book}
+N.~Parikh and S.~Boyd, ``Proximal algorithms,'' {\em Foundations and Trends in
+  Optimization, 2013}, vol.~1.
+
+\bibitem{FISTA}
+M.~Teboulle and A.~Beck, ``A fast iterative shrinkage-thresholding algorithm
+  for linear inverse problems,'' {\em SIAM Journal on Imaging Sciences, 2009}.
+
+\bibitem{Proximal}
+P.~L. Combettes and J.~C. Pesquet, ``Proximal splitting methods in signal
+  processing,'' {\em Springer, 2011}.
+
+\bibitem{JSMalgo}
+D.~Baron, M.~F. Duarte, M.~B. Wakin, S.~Sarvotham, and R.~G. Barniuk,
+  ``Distributed compressive sensing,'' tech. rep., Department of Electrical and
+  Computer Engineering Rice University, 2005.
+
+\end{thebibliography}

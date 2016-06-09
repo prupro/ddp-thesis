@@ -1,0 +1,204 @@
+\chapter{Problem Formulation}
+In this section we formulate the simultaneous recovery problem mathematically.
+\begin{enumerate}
+\item Let $x$ and $y$ be the discretized and one-dimensionalized vectors of the intensity distribution (i.e. the image) of size $N_x \times 1$ and $N_y \times 1$ respectively.
+\item Corresponding to each image we have a set of linear measurements obtained as,
+ \begin{eqnarray}
+  b_x &=& \Phi_x x  + n_x\\
+  b_y   &=& \Phi_y y + n_y,
+ \end{eqnarray}
+where $\Phi_x$ and $\Phi_y$ are $M_x \times N_x$ and $M_y \times N_y$ measurement matrices respectivley and $n_x$ and $n_y$ are terms corresponding to the noise added to the system while obtaining the measurements. Note that ($M_x < N_x \quad  M_y < N_y)$.
+
+\item Let both $x$ and $y$ be sparse/compressible in the same basis and can be represented as,
+\begin{eqnarray}
+	x &=& \Psi z_x 	\label{eq:domainx}\\
+	y &=& \Psi z_y,
+	\label{eq:domainy}
+\end{eqnarray}
+where $z_x$ and $z_y$ are the $N \times 1$ vector containing only few non-zero/large coefficients and $\Psi$ is the  $N \times N$  matrix with columns as the basis vectors of the desired basis. 
+
+\item Let there be some information overlap between $x$ and $y$. We will restrict ourselves to only those features that be extracted through a linear operation on the images. Let $f_x$ and $f_y$ be the $S \times 1$ feature vectors obtained from $x$ and $y$ as,
+\begin{eqnarray}
+f_x &=& B_x x\\
+f_y &=& B_y y,
+\end{eqnarray}
+where $B_x$ and $B_y$ are $S \times N$ feature extraction matrices.
+Under ideal reconstruction, the two feature vectors must match. i.e
+
+\begin{equation}
+||f_x - f_y||_2^2 < \epsilon_f,
+\end{equation}
+where $\epsilon_f$ is some tolerance threshold. 
+
+
+\item \textbf{Formulation-1} 
+Using conventional compressed sensing methods, we will first solve for $z_x^\star$ and $z_y^\star$ independently  as follows and obtain $x^\star$ and $y^\star$ using (\ref{eq:domainx}) and  (\ref{eq:domainy}):
+\begin{eqnarray}
+ z_x^\star &=&  \arg \min_z \| z \|_1 \ for \ \|\Phi_x \Psi z -b_x\|_2^2 \leq \epsilon_x \\
+ z_y^\star &=&  \arg \min_z \| z \|_1 \ for \ \|\Phi_y \Psi z -b_y\|_2^2 \leq \epsilon_y,
+ \label{form1}
+\end{eqnarray}
+where $\epsilon_x$ and $\epsilon_y$ are variances corresponding to $n_x$ and $n_y$ respectively.
+
+
+\item \textbf{Formulation-2} There is an alternative formulation which allows for unconstrained optimization.
+\begin{eqnarray}
+ z_x^\star &=& \arg \min_z F(z) \equiv \|\Phi_x\Psi z - b_x\|_2^2 + \lambda_x \|z\|_1\\
+ z_y^\star &=& \arg \min_z F(z) \equiv \|\Phi_y\Psi z - b_y\|_2^2 + \lambda_y \|z\|_1,
+\label{form2}
+ \end{eqnarray}
+where $\lambda_x$ and $\lambda_y$ must be chosen appropriately to obtain same results as obtain using \emph{formulation-1}.
+Greedy methods such as ISTA and FISTA make use of this formulation to solve the problem.
+\item \textbf{Formulation-3} Instead of solving for $x$ and $y$ separately we can solve for them simultaneously making use of the information overlap by the following formulation for unconstrained optimization,
+ \begin{equation}
+ z_x^\star, z_y^\star = \arg \min_{z_x, z_y} F(z_x, z_y),
+ \end{equation}
+where,
+ \begin{equation}
+ F(z_x, z_y) \equiv \|\Phi_x\Psi z_x - b_x\|_2^2 + \|\Phi_y\Psi z_y - b_y\|_2^2 + \lambda_x \|z_x\|_1 + \lambda_y \|z_y\|_1 + \mu ||f_x - f_y||_2^2.
+ \end{equation}
+Here $\lambda_x$, $\lambda_y$ and $\mu$ must be chosen appropriately to ensure convergence to correct results. We propose an alternating algorithm to solve this optimization problem which is in similar lines to the ISTA algorithm for one argument.
+
+\end{enumerate}\section{Alternating Algorithm for Simultaneous Recovery}
+The alternating algorithm is a generalization of the ISTA  which is a proximal gradient algorithm. We first  briefly look at proximal methods and then the ISTA algorithm and finally present the alternating algorithm.
+\subsection{Proximal Methods}
+Proximal methods are a higher level of abstraction than classical optimization algorithms such as gradient descent. The basic constituent of a proximal method is the \emph{proximal operator}, which essentially solves a simple convex optimization problem \cite{prox_book}. The proximal operator for the scaled function $\lambda f$ at a point $x$ is given by,
+\begin{equation}
+prox_{\lambda f}(x) = \arg \min_y f(y) + \frac{1}{2\lambda} \|\| x - y \|\|^2.
+\end{equation}
+We refer to $prox_{\lambda f}(x)$ as the proximal operator of $f$ with respect to parameter $\lambda$.
+Here the $\|\| x - y \|\|^2$ term keeps the mapped point in the proximity of the argument $x$ and the $\min f(y)$ term, drives the mapped point towards the minima of the function f. The parameter $\lambda$ decides which of the two factors dominates.
+
+
+\begin{figure}[h]
+	\centering \vspace{-0.1in}
+	\includegraphics[width=0.6\textwidth]{images/proximal.png}	
+	\vspace{-20pt} \caption[Effect of the proximal Operator]{\small Effect of the Proximal Operator \footnotemark}
+	\label{fig:proximal_operator}
+\end{figure}
+\footnotetext{Image Source: \url{http://www.stanford.edu/~boyd/papers/pdf/prox_algs.pdf}}
+Consider the figure \ref{fig:proximal_operator}. Here, the proximal operator maps the blue points to the red points.
+The mapped points come closer to the minima, but still remain in proximity of the original blue point.
+
+\subsection{Proximal operator for smooth functions}
+
+
+\begin{enumerate}
+\item Consider a smooth function $f(x)$.
+\item The proximal operator for $f(x)$ with respect to parameter $t$ is given by:
+\begin{equation}
+ prox_{t f}(x) = \arg \min_y  f(y) + \frac{1}{2t} \|x-y\|^2 
+\end{equation}
+As, the mapped point is expected to be in the proximity of the original point $x$, we use a linear approximation of $f(y)$ at $x$  and thus we have,
+
+\begin{equation}
+ prox_{t f}(x) = \arg \min_y f(x) + (y-x)^T \nabla f(x)  + \frac{1}{2t} \|x-y\|^2 .
+\end{equation}
+\item On simplification, we obtain:
+\begin{equation}
+ prox_{t f}(x) = \arg \min_y \frac{1}{2t} \left| y -  \left( x - t \nabla f(x) \right)  \right|^2_2.
+\end{equation}
+Thus for smooth convex functions, 
+\begin{equation}
+ prox_{t f}(x) = \left( x - t \nabla f(x) \right)
+ \label{eq:prox}
+\end{equation}
+\item Note that this is the exact gradient step for stepsize $t$, in the gradient descent method.
+Thus, one can interpret the proximal algorithms as a generalization of gradient descent algorithms.
+\end{enumerate}
+
+\subsubsection{Proximal operator for $l_1$ norm}
+We next consider the proximity operator for the $l_1$ norm function. 
+Let the $l_1$ norm function be $g(x)$,
+\begin{equation}
+ g(x) = \| x \|_1 = \sum_{i=1}^n |x_i|
+\end{equation}
+From \cite{prox_book}, the proximal operator for $g(x)$ with respect to parameter $\lambda$ is given by :
+\begin{equation}
+ prox_{\lambda g}(x) = (|x_i| - \lambda)_+ sgn(x_i)
+\end{equation}
+Here, $sgn(x)$ is the standard signum function. 
+The $(z)_+$ function takes the maximum of $z$ and 0:
+\begin{eqnarray}
+ (z)_+ &=& z, \quad z \geq 0 \\
+       &=& 0,  \quad z < 0.
+\end{eqnarray}
+
+
+
+
+\subsection{The ISTA Algorithm}
+
+The ISTA, Iterative Shrinkage and Thresholding Algorithm \cite{FISTA} is a proximal gradient algorithm, which is used to 
+minimize the functions of the kind:
+
+\begin{equation}
+ F(x) = f(x) + g(x)
+\end{equation}
+
+\begin{enumerate}
+ \item $x \in \mathbb{R}^n$, $f(x)$ is a smooth convex function, while the function $g(x)$ is convex but non-smooth.
+ \item First derivative of $f(x)$ satisfies a Lipschitz conditon with constant $L$, i.e.
+\begin{equation}
+   \| f^{(1)}(x) - f^{(1)}(y)\|_2 \leq L \| x-y \|_2 .  
+   \end{equation} 
+ \item Starting from an initial point $x_0$ we apply the proximity operator on functions $f(x)$ and $g(x)$ successively to obtain the next iterate \cite{Proximal},
+ \begin{equation}
+  x_{k+1} = prox_{\lambda g}(prox_{tf}(x_k)).
+ \end{equation}
+ \item Since $f(x)$ is smooth, from (\ref{eq:prox}), 
+ \begin{equation}
+  x_{k+1} = prox_{\lambda g} \left( x_k - t \nabla f(x_k) \right).
+ \end{equation} 
+ \item Note, that the step size $t$ is chosen as $\frac{1}{L}$, and the proximity parameter $\lambda$ for $g(x)$ needs to be chosen appropriately, for the algorithm to work correctly and also be fast enough. 
+ \end{enumerate}
+
+The pseudo-code for the ISTA algorithm is given below:
+
+\subsubsection{ISTA pseudo-code}
+We only consider the ISTA algorithm for a fixed stepsize. 
+For a backtracking variant, and more information on the standard implementation, please
+refer to \cite{FISTA}
+
+\vspace{5pt}
+\begin{algorithm}[H]
+ \KwData {initial value $x_0 $, Lipschitz constant$L$}
+ \KwResult{Finds the global minimum for the objective function $F(x)$}
+ $k = 0 $ \;
+ \Repeat{iterate not converged}{
+   $k := k+1$\;
+   $x_{k+1} := prox_{\lambda g} \left( x_k - \frac{1}{L} \nabla f(x_k) \right)$\;
+  }
+ 
+ \caption{ISTA with constant stepsize}
+\end{algorithm}
+
+The stopping criteria used for the algorithms is:
+\begin{equation}
+ \left| \frac{F(x_k) - F(x_{k-1})}{F(x_{k-1})} \right| < \epsilon
+\end{equation}
+
+\begin{enumerate}
+\item The convergence rate for the algorithm goes as $\mathcal{O}(1/k)$.
+For the complete proof, please refer to \cite{FISTA}.
+
+\item Note that ISTA is a monotonically converging algorithm, 
+i.e. in every step, the value of the objective function decreases.
+\end{enumerate}
+\section{Radio Astronomy}
+
+
+In radio astronomy, by the use of radio telescopes radio astronomy  we obtain an incomplete set of fourier measurements corresponding to an image of astronomical objects. The images largely are of two categories,
+\begin{enumerate}
+\item Point sources such as cluster of stars. Image sparse in spatial domain
+\item Extended sources such as supernovas and nebulae. Image sparse in wavelet domain.
+\end{enumerate}
+We will consider the case where image corresponds to point sources and use information overlap to solve two compressed sensing problems simultaneously in two different settings
+\begin{enumerate}
+\item Bright and dim stars
+\item Overlapping sky
+\end{enumerate}
+
+\subsection{Bright and dim stars}
+Consider an image corresponding to a set of measurements obtained by a radio telescope of a scene containing cluseters of stars.
+This image may include both bright stars and dim stars. Here bright stars refer to stars having a high intensity value in the corresponding image and dim stars refer to those having low intensity values. The number of measurements that can be obtained is constrained by the antenna setup and for a certain setup it may not be possible to obtain a reconstruction of the image where no star is missing and no excess dim stars appear. However it is possible to take measurements of the same scene after a certain period of time say the next day. The image corresponding to the scene will include the same set of bright stars as in the previous image but will have a different set of dim stars. This is the due to the fact that the radio signals from dim stars are extremely weak and more likely to not be represented in the measurements as a result of interference due to radio signals from transmitters used in cellular phones and orbiting earth satellites. Now from the two images we know that the the pixel location corresponding to bright stars should have the same value in both reconstructed images and pixel locations not corresponding to a star should have the same zero value. If we can enforce these conditions while solving simulateneously the compressed sensing problem for both images then it may be possible to perform better than we could be solving each problem independently.

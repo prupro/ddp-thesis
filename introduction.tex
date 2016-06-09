@@ -1,0 +1,33 @@
+\chapter{Introduction}
+The broad goal of the field of signal processing is to reconstruct a signal and gain insights into its characteristics based on a series of sampling measurements obtained at discrete time intervals. For a general signal, this task is impossible due to non-availability of data in between two sampling intervals. But, with some prior information about the signal, measurements can be conducted in appropriate ways that enable reconstruction of signals to the desired accuracy.
+
+For example, for a smooth signal which varies slowly with time, sample and hold type of measurements can be conducted to reconstruct the signal to the 
+required accuracy.  For another category of signals namely bandlimited signals, the Nyquist-Shannon sampling theorem was an important breakthrough in the field of signal processing. The Nyquist-Shannon sampling theorem states that perfect reconstruction is possible from a set of uniformly spaced samples taken at the Nqyuist rate of twice the highest frequency present in the signal.
+
+Unfortunately, in many applications it may be too costly or physically impossible to build devices capable of sampling at the Nyquist rate or even if it is possible we may end up with far too many samples to efficiently store and process. To address the challenges involved in dealing with such high dimensional data we often depend on compression, which aims to find the most concise representation of a signal that is able to achieve a target level of distortion. Transform coding, one of the most popular techniques for signal compression, relies on finding a basis or a frame that provides sparse or compressible representations for signals in a class of interest. Both sparse and compressible signals can be represented with high fidelity by preserving only the the values and locations of the largest $k$ coefficients of the signals, where $k \ll n$, and $n$ is the length of the signal.
+
+Compressed sensing is a framework for signal acquisition and sensor design that enables a potentially large reduction in the sampling and computation costs for sensing signals that have a sparse or compressible representation. The fundamental idea behind compressed sensing is rather than first sampling at a higher rate and then compressing sampled data, we would like to directly sense the data in compressed form at a much lower sampling rate. The field of compressed sensing grew out of the work of  Candes, Tao and Romberg who showed that, a finite-dimensional signal having a sparse or compressible representation can be recovered from a much smaller number of linear measurements than what Nyquist rate sampling demands \cite{candes,Tao,romberg}. Compressed sensing methods are fast and highly configurable, which makes them highly attractive for a lot of problems such as 
+improving MRI imaging \cite{Tao}, developing single pixel cameras \cite{single_pixel}, face recognition algorithms etc. However compressed sensing is still a recent field and its applicability to a large number fields has not yet been fully studied.
+Basic information on compressed sensing can be obtained from \cite{cs_rice}. For a complete up-to-date review on compressed sensing refer to \cite{cs_book}. As a part of this thesis, we study the application of compressed sensing methods for improving radio astronomy imaging techniques.
+
+\section*{Compressed Sensing and Radio Astronomy}
+Radio Astronomy studies celestial objects at radio frequencies around the metre wavelength, by utilizing the techniques of radio interferometry and aperture synthesis. Mathematically, the problem is equivalent to reconstructing the image of the astronomical object from incomplete and noisy Fourier measurements of the image. From the theory of compressed sensing we know that such measurements may actually suffice for accurate reconstruction of the image provided that the image is sparse in some domain.
+
+Our earlier work \cite{stage1} focused on applying compressed sensing techniques to recover an image of astronomical sources from a an incomplete set of its Fourier measurements. Also, we analyzed the optimality of the GMRT telescope \cite{GMRT} with respect to reconstruction using compressed sensing techniques and came up with optimal antenna locations for additions to the array. 
+
+In this project we consider the case where we have two sets of Fourier measurements corresponding to two different images but in addition we have knowledge about some overlapping information between the two images. The goal is to use this additional information and perform  simultaneous recovery of both images that performs better than if we reconstruct the images independently.  We propose an alternating algorithm that performs simultaneous recovery by solving a joint minimization problem and then conduct experiments to compare the results of the alternating algorithm with those obtained from independent reconstructions. 
+
+
+
+\section*{Organization of the report}
+The organization of the report is as follows:
+\begin{enumerate}
+\item \textbf{Chapter 2} introduces radio astronomy and the basics of radio imaging techniques such as radio interferometry and aperture synthesis.
+\item \textbf{Chapter 3} presents the mathematical model for the compressed sensing problem in a simultaneous recovery setting. We present an alternating algorithm to solve the joint minimization problem to perform simultaneous recovery.
+
+\item \textbf{Chapter 4} analyzes the experiments conducted on simulated data. In this chapter the performance of the alternating algorithm that performs simultaneous recovery is compared against that of the algorithm that reconstructs images separately.
+
+\item \textbf{Conclusion and Further Work}
+\end{enumerate}
+
+
