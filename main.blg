@@ -1,12 +1,6 @@
 This is BibTeX, Version 0.99d (TeX Live 2014)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: main.aux
-A level-1 auxiliary file: titlepage.aux
-A level-1 auxiliary file: prelude.aux
-A level-1 auxiliary file: introduction.aux
-A level-1 auxiliary file: chapters/2_radio_astronomy.aux
-A level-1 auxiliary file: chapters/3_problem_formulation.aux
-A level-1 auxiliary file: chapters/5_conclusion.aux
 The style file: ieeetr.bst
 Database file #1: bib.bib
 You're missing a field name---line 10 of file bib.bib
@@ -92,7 +86,7 @@ Warning--empty year in FISTA
 Warning--empty year in Proximal
 You've used 20 entries,
             1876 wiz_defined-function locations,
-            570 strings with 6060 characters,
+            564 strings with 5931 characters,
 and the built_in function-call counts, 3022 in all, are:
 = -- 223
 > -- 175
