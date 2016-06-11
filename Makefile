@@ -1,2 +1,3 @@
-main: main.tex
-	latexmk -pdf -pdflatex="pdflatex --shell-escape %O %S" main.tex
+all : main.pdf
+main.pdf : main.tex
+	latexmk -pdf -pdflatex="pdflatex -interaction=nonstopmode" -use-make main.tex
