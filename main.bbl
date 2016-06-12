@@ -33,41 +33,10 @@ S.~Vignesh, ``Compressed sensing for radio astronomy.'' Dual Degree
 \bibitem{GMRT}
 TIFR, ``Gmrt telescope.'' \url{http://gmrt.ncra.tifr.res.in/}.
 
-\bibitem{ncra_book}
-J.~Chengalur and Y.~Gupta, ``Low frequency radio interferometry.''
-  \url{http://gmrt.ncra.tifr.res.in/gmrt_hpage/Users/doc/WEBLF/LFRA/index.html}.
-
-\bibitem{kedar_report}
-K.~Tatwawadi, ``Compressed sensing for group testing and radio astronomy.''
-  Dual Degree Dissertation.
-
-\bibitem{wide_field}
-J.D.McEwen and Y.Wiaux, ``Compressed sensing for wide-field radio
-  interferometric imaging,'' {\em Monthly Notices of the Royal Astronomical
-  Society, 2009}, vol.~395.
-
-\bibitem{Wia}
-Y.~Wiaux, L.~Jacques, G.Puy, A.~Scaife, and P.~Vandergheynst, ``Compressed
-  sensing imaging techniques for radio interferometry,'' {\em Monthly Notices
-  of the Royal Astronomical Society, 2009}, vol.~395.
-
-\bibitem{Hardy}
-S.~J. Hardy, ``Direct deconvolution of radio synthesis images using l1
-  minimisation,'' {\em Astronomy \& Astrophysics, 2013}.
-
-\bibitem{cornwell}
-F.~Li, T.~J. Cornwell, and F.~de~Hoog, ``The application of compressive
-  sampling to radio astronomy: Deconvolution,'' {\em Astronomy \& Astrophysics,
-  2011}.
-
 \bibitem{JSM}
 D.~Baron, M.~F. Duarte, M.~B. Wakin, S.~Sarvotham, and R.~G. Barniuk,
   ``Distributed compressive sensing.''
   \url{http://arxiv.org/pdf/0901.3403.pdf}, 2009.
-
-\bibitem{Optimal_array}
-Fannjiang and Clara, ``Optimal arrays for compressed sensing in snapshot-mode
-  radio interferometry,'' {\em Astronomy \& Astrophysics, 2013}.
 
 \bibitem{prox_book}
 N.~Parikh and S.~Boyd, ``Proximal algorithms,'' {\em Foundations and Trends in
@@ -80,6 +49,10 @@ M.~Teboulle and A.~Beck, ``A fast iterative shrinkage-thresholding algorithm
 \bibitem{Proximal}
 P.~L. Combettes and J.~C. Pesquet, ``Proximal splitting methods in signal
   processing,'' {\em Springer, 2011}.
+
+\bibitem{kedar_report}
+K.~Tatwawadi, ``Compressed sensing for group testing and radio astronomy.''
+  Dual Degree Dissertation.
 
 \bibitem{JSMalgo}
 D.~Baron, M.~F. Duarte, M.~B. Wakin, S.~Sarvotham, and R.~G. Barniuk,
