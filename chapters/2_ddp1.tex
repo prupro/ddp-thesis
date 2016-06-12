@@ -1,0 +1,497 @@
+
+We use stochastic geometry to analyze the performance of a partial decode-and-forward (PDF) relaying scheme applied in a user-assisted relaying setting, where an active user relays data through another idle user in uplink cellular communication. We present the geometric model of a network deploying user-assisted relaying and propose two geometric cooperation policies for fast and slow fading channels. We analytically derive the cooperation probability for both policies. This cooperation
+probability is further used in the analytical derivation of the
+moments of inter-cell interference power caused by system-wide
+deployment of this user-assisted PDF relaying. We then model the
+inter-cell interference power statistics using the Gamma distribution by matching the first two moments analytically derived. This
+cooperation and interference analysis provides the theoretical
+basis for quantitatively evaluating the performance impact of
+user-assisted relaying in cellular networks. We then numerically
+evaluate the average transmission rate performance and show
+that user-assisted relaying can significantly improve per-user
+transmission rate despite the increased inter-cell interference. This
+transmission rate gain is significant for active users near the
+cell edge and further increases with higher idle user density,
+supporting user-assisted relaying as a viable solution to crowded
+population areas.
+
+\section{Introduction}
+
+\subsection{Motivation}
+Mobile subscribers operators and continual driven customer by the increasing demand for number new and
+ of
+better services place pressing requirements on the underlying
+wireless technologies to provide high data rates and wide
+coverage. Future generation networks that promise higher data
+rates and multifold increase in system capacity include 3GPP
+Long Term Evolution-Advanced (LTE-A, 4G) and the emerging 5G systems. The fourth generation (4G) wireless systems were designed to fulfill the requirements of the International Mobile Telecommunications - Advanced (IMT-A). LTE as
+a practical 4G wireless system has been recently deployed
+in some countries and LTE-A is expected to be deployed
+soon around the globe. It is well established that 4G
+networks have just reached the theoretical limit on the data
+rate with current technologies. These technologies are being
+complemented in the fifth generation (5G) wireless systems
+by designing and developing new radio concepts to accommodate higher data rates, larger network capacity, higher energy efficiency, and higher mobility necessary to meet the new and challenging requirements of new wireless applications.
+5G wireless systems are expected to support peak data rate
+of 10 Gb/s for low mobility and 1 Gb/s for high mobility.
+These networks are expected to be standardized and deployed around and beyond 2020. Various promising technologies are
+proposed for 5G wireless communication systems such as
+massive MIMO, energy-efficient communications, Device-to-
+Device (D2D) communications, millimeter-wave (mmWave),
+and cognitive radio networks.
+\par 
+D2D and Relaying cooperative communications will play
+important roles in future generations wireless networks. D2D
+communications enable two proximity users to transmit signal
+directly without going through the base station; subsequently,
+5G wireless systems are expected to relax the restrictions on
+the need to route all user data through the core network. D2D
+communications can increase network spectrum utilization and
+energy efficiency, reduce transmission delay, offload traffic for
+the base station, and alleviate congestion in the cellular core
+networks, which make it a promising technology for future
+wireless systems. Relay-aided cooperative communi-
+cation techniques represent another promising technology that
+improves performance in poor coverage areas by enabling
+ubiquitous coverage even for users in the most unfavorable
+channel conditions. The latest release of the LTE standard
+allows the deployment of fixed wireless relays to help cell-
+edge mobiles. Yet, other advanced cellular relaying modes are
+expected in 5G systems to improve the topology and robustness
+of a cellular network and decrease power consumption. These
+new technologies include mobile relaying, multi-hop relaying,
+and user-equipment based (user-assisted) relaying enabled by
+D2D communications 
+
+\subsection{Organization of this report}
+This report is in further divided into 6 sections. The topics are organized as follows.
+\par Section 2 will discuss partial decode and forward relaying in a standalone setup. The two phases of transmission, signal design and achievable rate of the scheme are presented.
+ \par Section 3 is about deployment of the relaying scheme discussed in section 2 in a cellular network. Inter-cell interference and equivalent standard channel model are discussed.
+ \par Section 4 contains policies to determine whether the nearest idle neighbour to the active UE can be picked as a relay. Two policies were proposed and analytic expressions for cooperation probabilities were derived.
+ \par Section 5 Analytic expressions for interference powers were developed and shape and scale parameters of Gamma distribution that fits interference power statistics were calculated.
+ \par Section 6 discusses the simulation setting and how it is different from the theoritical method and the values of parameter used in simulation were listed. It also has simulation results with brief explanations of the result.
+ \par Section 7 lists three different topics I'm planning to work on during the second phase. \\
+All links/references to equation or figures in this report are clickable.
+
+\pagenumbering{arabic}
+\newpage
+\section{Partial Decode-and-Forward Relaying}
+In this section, we discuss the signal design, channel model and achievable rate of PDF relaying scheme.
+\subsection{Signal Design}
+Consider a source $\mathcal{S}$, its relay $\mathcal{R}$ and the destination $\mathcal{D}$. Each transmission block is divided into two phases: 1. broadcast transmission in which $\mathcal{S}$ broadcasts to both $\mathcal{R}$ and $\mathcal{D}$. 2. multiple access transmission in which both $\mathcal{S}$ and $\mathcal{R}$ transmit to $\mathcal{D}$. In each block of transmission, $\mathcal{S}$ splits its information into a common part and a private part. The common part is encoded via $U_s^b$ in the 1st phase and $U_s^{m_1}$ in the 2nd phase; and the private part is encoded via $V_s^{m_2}$ in the 2nd phase. The relay $\mathcal{R}$ decodes the information sent by $\mathcal{S}$ in first phase and encodes the same information using $U_s^{m_1}$ in the 2nd phase. \\ 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height = 2in,width=5in,angle=00]{images/pdfRelaying.png}
+\caption{\small Transmission phases in PDF relaying}
+\label{fig:sysModel}
+\end{center}
+\end{figure}
+The signals transmitted by $\mathcal{R}$ and $\mathcal{S}$ are as follows:
+\begin{align}
+\text{Phase 1:}\quad x^b_s &= \sqrt{P_s^b} U_s^b, \label{eq:tranSig1}\\
+\text{Phase 2:}\quad x_r^m &= \sqrt{P_r^m}U_s^{m_1}, \label{eq:tranSig2}\\ 
+ x^m_s &= \sqrt{P_s^{m_1}}U_s^{m_1} + \sqrt{P_s^{m_2}}V_s^{m_2} \label{eq:tranSig3}
+\end{align}
+All codewords above are picked from independent Gaussian codebooks with zero mean and unit variance. \\ \\
+\textbf{Power Constraints:} Let $P_s$ and $P_r$ be the transmit powers of $\mathcal{S}$ and $\mathcal{R}$ respectively and $\alpha_1$ be the fraction of transmission time allocated to first phase, then the following average power constraints should to be satisfied:
+\begin{equation}
+\alpha_1 P_s^b + \alpha_2 P_s^m = P_s,\quad \alpha_2P_r^m = P_r
+\end{equation}
+where $\alpha_2 = 1-\alpha_1$
+
+\subsection{Channel Model}
+Considering the transmit signals presented above and assuming flat fading over the two phases, the received signals at $\mathcal{R}$ and $\mathcal{D}$ during first phase are 
+\begin{equation}
+Y_r^b = h_{sr}x^b_s + Z_r^b , \quad Y_d^b = h_{sd}x^b_s + Z_d^b
+\end{equation}
+where $b$ denotes broadcast mode, $Z_r^b$ and $Z_d^b$ are \textit{i.i.d} circularly-symmetric complex gaussians with mean 0 and variance $\sigma^2$  - $\mathcal{CN}(0,\sigma^2)$ that represent noises at $\mathcal{R}$ and $\mathcal{D}$. \\
+Similarly the received signal at $\mathcal{D}$ during second phase can be modelled as 
+\begin{equation}
+Y_d^m = h_{sd}x^m_s + h_{rd}x_r^m + Z_d^m
+\end{equation}
+here $m$ denotes multicast transmission; all others have usual meaning.
+The above expression is true only if $\mathcal{D}$ has knowledge about the phase offset between $\mathcal{S}$ and $\mathcal{R}$. This assumption is justified by noting that the phase offset between the two nodes can be estimated at base station.
+
+\subsection{Achievable Rate}
+With transmit signals in equations~\ref{eq:tranSig1}-~\ref{eq:tranSig3} and joint ML decoding rule at $\mathcal{D}$, the achievable rate for this relaying scheme is:
+\begin{equation} \label{eq:rate}
+R_{PDF} \leq min(C_1+C_2,C_3)
+\end{equation}
+\begin{align}
+\text{where } C_1 &= \alpha_1 \log\Big(1+|h_{sr}|^2P_s^b\Big),\\
+C_2 &= \alpha_2 \log\Big(1+|h_{sd}|^2P_s^{m_2}\Big),\\
+C_3 &= \alpha_1 \log\Big(1+|h_{sd}|^2P_s^b\Big) + \alpha_2\log\bigg(1+|h_{sd}|^2P_s^{m_2} + \Big(|h_{sd}|\sqrt{P_s^{m_1}} + |h_{rd}|\sqrt{P_r^m}\Big)^2\bigg)
+\end{align}
+$C_1$ represents the rate of the common part that can be decoded at $\mathcal{R}$, $C_2$  the private part that can be decoded at $\mathcal{D}$ provided the common part has been decoded correctly, and $C_3$ both the common and private parts that can be jointly decoded at $\mathcal{D}$. These rates are achievable provided full CSI at all receivers and the source-relay phase offset knowledge.
+\par
+Now that we know what PDF relaying scheme is and the achievable rate, let us see how this scheme performs in cellular networks. To analyse system performance under PDF relaying, we need to know network geometry i.e., how the users and base stations are distributed, how many users can take advantage of relaying, how users identify a potential relay etc. In the next couple of sections we describe network geometry,  received signals and interference model when relaying is deployed in the whole network, and cooperation policies.
+
+\section{Cellular Network Geometry and User-Assisted Relaying}
+
+\subsection{Network geometry model}
+Consider a cellular system which consists of multiple
+cells, each cell has a single base station and each base station
+serves multiple users. Each of the users uses a distinct frequency
+block. Each user is served by the single base station that
+is closest to that user.
+
+
+\par We use stochastic geometry to
+describe the uplink cellular network. We
+assume that the active users in different cells that use the same resource block and cause interference to each other are distributed on a two-dimensional plane according to a homogeneous and stationary Poisson point process (PPP)
+$\Phi_1$ with intensity $\lambda_1$. The set of user equipments(UEs) that are in idle state and can participate in relaying are distributed according to another PPP $\Phi_2$ with intensity $\lambda_2$. We assume $\Phi_1$ and $\Phi_2$ are independent. Furthermore, under the assumption that each BS serves a
+single mobile in a given resource block, the BS should be closer to its served UE than to any other UE. Therefore we assume each BS is uniformly distributed in the Voronoi cell of its served UE. Fig.~\ref{fig:netLayout} shows an example layout of the network.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height = 3in,width=4in,angle=00]{images/netLayoutPaper.png}
+\caption{\small Sample layout of a cellular network ($\lambda_2 = 2\lambda_1$)}
+\label{fig:netLayout}
+\end{center}
+\end{figure}
+
+\subsection{Channel Model}
+In this section, we describe the channel model when PDF relaying is deployed in cellular network. In this case, there will be out-of-cell inteference in addition to noise. The interference is due to frequency reuse in other cells.
+\par Consider $i^{th}$ active UE, we model the received signals at the relay and base station in this cell during 1st phase as
+\begin{equation*}
+Y_{r,i}^b = h^{(i)}_{sr}x_{s,i}^b + I_{r,i}^b + Z_{r,i}^b,
+\end{equation*}
+\begin{equation}
+Y_{d,i}^b = h^{(i)}_{sd}x_{s,i}^b + I_{d,i}^b + Z_{d,i}^b
+\end{equation}
+where $I_{r,i}^b$ and $I_{d,i}^b$ represent the interference received at the $i^{th}$ relay and destination. 
+\par 
+In second phase of the transmission, the received signal at the BS can be modelled as 
+\begin{equation}
+Y_{d,i}^m = h^{(i)}_{sd}x_{s,i}^m + h^{(i)}_{rd}x_{r,i}^m+ I_{d,i}^m + Z_{d,i}^m
+\end{equation}
+
+\subsection{Interference}
+To model interference, we assume prefect frame synchronization. LTE-Advanced imposes very strict requirements on synchronization anyway. Interference at the relay during first phase and at the destination(BS) during first and second phases can be expressed as
+\begin{equation*} 
+I_{r,i}^b = \sum_{k \neq i} B_k h^{(k,i)}_{sr} x_{s,k}^b + (1-B_k)h_{sr}^{(k,i)}x_{s,k} ,
+\end{equation*}
+\begin{equation*}
+I_{d,i}^b = \sum_{k \neq i} B_k h_{sd}^{(k,i)} x^b_{s,k} + (1-B_k)h_{sd}^{(k,i)}x_{s,k},
+\end{equation*}
+\begin{equation} \label{eq:interferences}
+I_{d,i}^m = \sum_{k \neq i} B_k \Big(h_{sd}^{(k,i)} x^m_{s,k} + h_{rd}^{(k,i)} x^m_{r,k}\Big) + (1-B_k)h_{sd}^{(k,i)}x_{s,k}
+\end{equation}
+the summation is over all active users. Here, $h_{sd}^{(k,i)}$ and $h_{rd}^{(k,i)}$ , respectively, are the channel fading from the $k^{th}$ active UE in $\Phi_1$ and the associated relaying UE in $\Phi_2$ to the BS associated with the $i^{th}$ active UE in $\Phi_1$; and $h_{sr}^{(k,i)}$ is the channel fading from the $k^{th}$ active UE in $\Phi_1$ to the relaying UE associated with the $i^{th}$ active UE in $\Phi_1$.
+\par $B_k$ in above expressions is a Bernoulli random variable with success probability $\rho$. $B_k = 1$ is used to indicate the $k^{th}$ active UE's decision to exploit the help of another idle UE, a relay, and apply the relaying transmission strategy, and $B_k = 0$ indicates that the $k^{th}$ UE has no relay. In section~\ref{sec:coop}, we derive the cooperation probability $\rho$ for different cooperation policies.
+\par
+ For a given setting of nodes locations, based on the
+interference model in Eq.~\ref{eq:interferences}, we can use the fact
+that interference at either the relay or destination is the
+sum of an infinite number of signals undergoing independent fading from nodes distributed in the infinite 2-D plane and use the law of large numbers to approximate the interference as a complex Gaussian distribution.
+Also, since the transmitted codewords are complex Gaussian with zero mean, mean of interference is zero. To fully characterize interference as a
+complex Gaussian distribution, we define their distributions as $ I_{d,i}^b \sim \mathcal{CN} (0,\mathcal{Q}_{d,i}^b), I_{d,i}
+^m \sim \mathcal{CN}(0,\mathcal{Q}_{d,i}^m),$ and $I_{r,i}^b \sim \mathcal{CN}
+(0,\mathcal{Q}_{r,i})$ with the variances derived later
+in Section~\ref{sec:interference}. The power of these interference terms which
+correspond to the variance of the Gaussian random variables
+are function of node locations and hence vary with different
+network realizations.
+
+\subsection{Equivalent Standard Channel Model}
+Using the interference model discussed above, we can convert the channel model in case of relaying into the standard form to capture the effects of
+interference into the channel fading as
+\begin{align*}
+\tilde{Y}_{r,i}^b &= \tilde{h}_{sr}^{(i)}x_{s,i}^b + \tilde{Z}_{r,i}^b, \\
+\tilde{Y}_{d,i}^b &= \tilde{h}_{sd}^{(i)}x_{s,i}^b + \tilde{Z}_{d,i}^b, \\
+\tilde{Y}_{d,i}^m &= \tilde{h}_{sd}^{(i)}x_{s,i}^m + \tilde{h}_{rd}^{(i)}x_{r,i}^m + \tilde{Z}_{d,i}^m
+\end{align*}
+where the new channel fading terms are defined as
+
+\begin{equation*}
+\tilde{h}_{sr}^{(i)} = \frac{h_{sr}^{(i)}}{\sqrt{\mathcal{Q}_{r,i} + \sigma^2}}, \quad \tilde{h}_{sd}^{(b,i)} = \frac{h_{sd}^{(i)}}{\sqrt{\mathcal{Q}_{d,i}^b + \sigma^2}} \quad
+\tilde{h}_{sd}^{(m,i)} = \frac{h_{sd}^{(i)}}{\sqrt{\mathcal{Q}_{d,i}^m + \sigma^2}},
+\quad \tilde{h}_{rd}^{(i)} = \frac{h_{rd}^{(i)}}{\sqrt{\mathcal{Q}_{d,i}^m + \sigma^2}}
+\end{equation*}
+and the noise terms are now all $\mathcal{CN}(0,1)$. Using these equivalent 
+standard channels, we can compute the transmission rate using Eq.~\ref{eq:rate}
+
+\section{Cooperation Policies and Probability} \label{sec:coop}
+In this section, we look at three cooperation policies: an ideal policy $E_1$, a 
+pure geometric policy $E_2$ and a hybrid policy $E_3$ that defines whether an active UE should select an inactive UE to use it in PDF relaying. Also, expressions for cooperation probabilities of $E_2$ and $E_3$ are derived.
+\subsection{Policies}
+\subsubsection{Ideal Policy $E_1$}
+The ideal cooperation policy $E_1$ requires the active UE nodes to know instantaneous  SINRs of the relay link($\mathcal{S}-\mathcal{R}$) and the
+direct link($\mathcal{S}-\mathcal{D}$). The policy is defined as 
+\begin{align*}
+E_1 &= \Big\{|\tilde{h}_{(sr)}^{(k)}|^2 \geq |\tilde{h}_{(sd)}^{(k)}|^2\Big\} \\
+&\backsimeq \Big\{ \frac{g_{sr}r_2^{-\alpha}}{\mathcal{Q}_{r,k}} \geq \frac{g_{sd}r_1^{-\alpha}}{\mathcal{Q}_{d,k}^b} \Big\}
+\end{align*}
+where $r_1$ and $r_2$ denote the direct distance
+between $\mathcal{S}$ and $\mathcal{D}$ and cooperation distance between $\mathcal{S}$ and its closest idle UE, respectively and $\alpha$ is pathloss exponent. This event $E_1$ identifies whether an idle UE will be associated as a relay for the $k^{th}$ UE and participate in transmission. Noise variance $\sigma^2$ is ignored since interference power dominates. 
+\par Since interference at relay and destination during first phase is more or less the same and $g_{sr}, g_{sd}$ are identically distributed, we can safely ignore them and propose a policy that depends only on distances.
+
+\subsubsection{Pure Geometric Policy $E_2$}
+This policy is defined as
+\begin{equation}
+E_2 = \{r_2\leq r_1, D \leq r_1 \}
+\end{equation}
+where $D$ is the distance between $\mathcal{R}$ and $\mathcal{D}$. In words, if source's(active UE's) nearest idle neighbour is in the intersection region of two circles of radius $r_1$ centered at source and destination, then that idle UE will be chosen to act as a relay.
+\par $E_2$ is more practical than policy $E_1$ in the sense that
+it does not require full knowledge of both the channel fading
+and the interference at the decision making node. Instead, it
+only requires the decision making nodes to know the distances
+from the active user to the nearest idle user and to the base
+station. It represents a practical decision making strategy for
+fast fading channels, requiring no knowledge of the channel
+fading. 
+\subsubsection{Hybrid Policy $E_3$}
+This policy is proposed for slow fading channels where small scale fading parameters estimation and their
+feedback to the decision making node is feasible. 
+\begin{equation}
+E_3 = \{g_{sd}r_1^{-\alpha} \leq g_{sr}r_2^{-\alpha}, D \leq r_1 \}
+\end{equation}
+Note that this cooperation policy is still independent of the
+interference as in the pure geometric cooperation policy $E_2$.
+
+\subsection{Cooperation Probabilities}
+In this part of the section we derive cooperation probabilities $\rho_2$ and $\rho_3$ for the policies $E_2$ and $E_3$ respectively. For the ideal policy $E_1$, analytic evaluation of the
+cooperation probability is rather complicated because of the
+inter-dependency between the cooperation decision and consequential interference among different cells. Consider a random BS and its associated active UE. 
+The distribution of the distance
+$r_1$ between the $i^{th}$ UE and its associated BS can be shown to
+be Rayleigh distributed directly from the null probability of a
+two dimensional PPP distribution. 
+\par  Due to the stationarity of the
+PPP, i.e., location of the origin doesn't change the distribution of points, and the independence of $\Phi_2$ from BSs distribution we can assume that
+the location of the UE associated with the BS under study
+represents the origin point of $\Phi_2$ . Then, each UE
+in $\Phi_1$ chooses the closest UE in $\Phi_2$ to assist it in relaying
+its message to the serving BS. Hence, similar to source-to-
+destination distance, the distribution of the source-to-relay
+distance $r_2$ between the $i^{th}$ UE and its associated relaying UE
+can be also shown to be Rayleigh distributed from the null probability of a two dimensional PPP. Therefore,
+\begin{equation*}
+f_{r_1}(r_1) = 2\pi\lambda_1r_1e^{-\lambda_1\pi r_1^2},
+\end{equation*}
+\begin{equation}
+f_{r_2}(r_2) = 2\pi\lambda_2r_2e^{-\lambda_2\pi r_2^2}
+\end{equation}
+
+\begin{theorem}{Cooperation Probabilities.}
+The probability of
+deploying user-assisted relaying for a randomly located active
+user within a cell can be evaluated as follows:
+\begin{itemize}
+\item[i.] For policy $E_2$
+\begin{equation}
+\rho_2 = \int_{-\pi/2}^{-\pi/3}\frac{2\lambda_2 cos^2\psi_0}{\pi(\lambda_1+4\lambda_2cos^2\psi_0)}d\psi_0 + \int_{\pi/3}^{\pi/2}\frac{2\lambda_2 cos^2\psi_0}{\pi(\lambda_1+4\lambda_2cos^2\psi_0)}d\psi_0 + \frac{\lambda_2}{3(\lambda_1+\lambda_2)}
+\end{equation}
+\item[ii.] For policy $E_3$
+\begin{align*}
+\rho_3 &= \int_0^2 f_{\beta}(z)\int_{-\pi/2}^{-cos^{-1}(z/2)}\frac{2\lambda_2 cos^2\psi_0}{\pi(\lambda_1+4\lambda_2cos^2\psi_0)}d\psi_0 dz \\ 
+&+ \int_0^2 f_{\beta}(z)\int^{\pi/2}_{cos^{-1}(z/2)}\frac{2\lambda_2 cos^2\psi_0}{\pi(\lambda_1+4\lambda_2cos^2\psi_0)}d\psi_0 dz \\ &+\int_0^2 f_{\beta}(z)\frac{\lambda_2 z^2 cos^{-1}(z/2)}{\pi(\lambda_1+\lambda_2z^2)}dz \\ 
+&+ \int_2^{\infty} f_{\beta}(z)\int_{-\pi/2}^{\pi/2}\frac{2\lambda_2 cos^2\psi_0}{\pi(\lambda_1+4\lambda_2cos^2\psi_0)}d\psi_0 dz
+\end{align*}
+where $\beta = \bigg(\frac{g_{sr}}{g_{sd}}\bigg)^{1/\alpha}$ and $f_{\beta}(z)$ is pdf of $\beta$ which can be shown to be 
+\begin{equation}
+f_{\beta}(z) = \frac{\alpha z^{\alpha-1}}{(1+z^{\alpha})^2}
+\end{equation}
+\end{itemize}
+\end{theorem}
+\begin{proof}
+\begin{itemize}
+\item[i.] 
+\begin{align*}
+\rho_2 &= \mathbb{P}\{E_2\} \\
+&= \mathbb{P}\{r_2 \leq r_1, r_1^2+r_2^2-2r_1r_2cos\psi_0 \leq r_1^2\} \\
+&= \mathbb{P}\{r_2 \leq r_1, r_2 \leq 2 r_1 cos\psi_0 \} \\
+\end{align*}
+when $|\psi_0|<\pi/3, ~ r_1 < 2r_1cos\psi_0  \Rightarrow \text{ if } r_2 < r_1 \text{, $r_2$ satisfies both inequalities.}$ Accordingly, we define $\mathcal{E}_1$ and $\mathcal{E}_2$ as follows
+\begin{align*}
+\mathcal{E}_1 &= (2\pi)^2\lambda_1 \lambda_2 \int_0^\infty \int_0^{2r_1 cos\psi_0}r_1r_2e^{-\pi(\lambda_1 r_1^2 + \lambda_2 r_2^2)}dr_2 dr_1 \\
+&= \frac{2\lambda_2 cos^2\psi_0}{\pi(\lambda_1+4\lambda_2cos^2\psi_0)} \\
+\mathcal{E}_2 &= (2\pi)^2\lambda_1 \lambda_2 \int_0^\infty \int_0^{r_1}r_1r_2e^{-\pi(\lambda_1 r_1^2 + \lambda_2 r_2^2)}dr_2 dr_1 \\
+&= \frac{\lambda_2}{2\pi(\lambda_1+\lambda_2)}
+\end{align*}
+ 
+\begin{align*}
+\text{Now, }\rho_2 &= \int_{-\pi/3}^{\pi/3} \mathcal{E}_2 d\psi_0 + 2\int_{\pi/3}^{\pi/2} \mathcal{E}_1d\psi_0 \\
+&=  \frac{\lambda_2}{3(\lambda_1+\lambda_2)} + 2\int_{\pi/3}^{\pi/2} \mathcal{E}_1d\psi_0
+\end{align*} 
+
+\item[ii.]
+\begin{align}
+\rho_3 &= \mathbb{P}\{E_3\} \\
+&= \mathbb{P}\{r_2 \leq \bigg(\frac{g_{sr}}{g_{sd}} \bigg)^{1/\alpha}r_1, r_1^2+r_2^2-2r_1r_2cos\psi_0 \leq r_1^2\} \\
+&= \mathbb{P}\{r_2 \leq \beta r_1, r_2 \leq 2 r_1 cos\psi_0 \} \\
+&= \mathbb{P}\{r_2 \leq 2 r_1 cos\psi_0 \} \qquad \text{ for } \beta > 2 \\
+&= \mathbb{P}\{r_2 \leq \beta r_1\} \qquad \text{ for } \beta < 2  \text{ and } |\psi_0| < cos^{-1}(\beta/2) \\
+&= \mathbb{P}\{r_2 \leq 2 r_1 cos\psi_0 \} \qquad \text{ for } \beta < 2 \text{ and } cos^{-1}(\beta/2) < |\psi_0| <  \pi/2 \\
+\therefore \rho_3&= 2 \int_0^2 f_{\beta}(z)\int^{\pi/2}_{cos^{-1}(z/2)}\mathcal{E}_1 d\psi_0 dz +\int_0^2 f_{\beta}(z)\int_{-cos^{-1}(z/2)}^{cos^{-1}(z/2)}\mathcal{E}_3 d\psi_0dz \\&+ \int_2^{\infty} f_{\beta}(z)\int_{-\pi/2}^{\pi/2}\mathcal{E}_1 d\psi_0 dz \label{eq:corrected}
+\end{align}
+
+$\mathcal{E}_1$ is defined in part i. of the proof and  $\mathcal{E}_3 = \frac{\lambda_2 z^2}{2\pi(\lambda_1+\lambda_2z^2)}$ which is nothing but $\mathcal{E}_2$ with $\lambda_2 = \lambda_2z^2$. $f_\beta(z)$, the pdf of $\beta$, can be obtained as follows
+
+\begin{align*}
+F_\beta(z) &= \mathbb{P}\bigg\{ \bigg( \frac{x_1}{x_2}\bigg)^{1/\alpha} \leq z \bigg\} = \mathbb{P} \{ x_1\leq z^\alpha x_2\} \\
+&= \int_0^\infty \int_0^{z^\alpha x_2} e^{-(x_1+x_2)} dx_1dx_2 \quad \text{ since } g_{sr},g_{sd} \sim Exp(1) \\
+&= 1-\frac{1}{1+z^\alpha}, \qquad z \in [0,\infty)
+\end{align*}
+The pdf $f_\beta(z)$ is then obtained by differentiating $F_\beta(z)$ :
+\begin{equation*}
+    f_\beta(z) = \frac{dF_\beta(z)}{dz} = \frac{\alpha z^{\alpha-1}}{(1+z^\alpha)^2} \quad z \in [0,\infty)
+\end{equation*}
+\end{itemize}
+\end{proof}
+\section{Interference Analysis} \label{sec:interference}
+User-assisted relaying actually increases the amount of out-
+of-cell interference in the network as some idle users are now
+transmitting when relaying information of active users. It is
+therefore necessary to understand this out-of-cell interference
+power, particularly its distribution, in order to assess the overall
+impact of user-assisted relaying on system performance.
+\subsection{First Two Moments of Interference Power} Since it is difficult to describe the
+exact distribution of out-of-cell interference power, here we
+choose to model the interference power to the cell under study
+as a Gamma distribution by fitting the first two moments of
+the interference power analytically developed using stochastic
+geometry of the field of interferers outside that cell.
+The expressions for interference power can be developed from Eqs.~\ref{eq:interferences}. 
+\begin{align}
+\mathcal{Q}_{d,i}^b &= \sum_{k\neq i}B_k \Big |h_{sd}^{(k,i)}\Big|^2P_{s,k}^b + (1-B_k)\Big|h_{sd}^{(k,i)}\Big|^2P_{s,k} \\
+\mathcal{Q}_{d,i}^m &= \sum_{k\neq i}\bigg[B_k\bigg(\Big|h_{sd}^{(k,i)}\Big|^2 P_{s,k}^m+\Big|h_{rd}^{(k,i)}\Big|^2 P_{r,k}^m\bigg)\bigg] + (1-B_k) \Big| h_{sd}^{(k,i)}\Big|^2 P_{s,k} \\
+\mathcal{Q}_{r,i} &= \sum_{k\neq i}B_k \Big|h_{sr}^{(k,i)}\Big|^2P_{s,k}^b + (1-B_k)\Big|h_{sr}^{(k,i)}\Big|^2P_{s,k} 
+\end{align}
+\begin{theorem}{Interference Power Statistics} \label{theorem:theorem2}
+For network-wide
+deployment of user-assisted relaying, the out-of-cell interfer-
+ence generated at the destination BS and the relaying UE have
+the following statistics:
+
+\begin{itemize}
+\item[i.] 
+The first two moments, mean and variance, of interference
+power at the destination BS during the 1st and 2nd phase,
+respectively, are
+\begin{equation}
+\mathbb{E}[\mathcal{Q}_{d,i}^b] = \frac{2\pi\lambda_1\zeta_1}{\alpha-2}R_c^{2-\alpha}, \qquad \mathbb{E}[\mathcal{Q}_{d,i}^m] = \frac{2\pi\lambda_1\zeta_3}{\alpha-2}R_c^{2-\alpha}
+\end{equation}
+\begin{equation}
+\text{var}[\mathcal{Q}_{d,i}^b] = \frac{\pi\lambda_1\zeta_2}{\alpha-1}R_c^{2(1-\alpha)}, \qquad \text{var}[\mathcal{Q}_{d,i}^m] = \frac{\pi\lambda_1\zeta_4}{\alpha-1}R_c^{2(1-\alpha)}
+\end{equation}
+
+\item[ii.]
+The first two moments, mean and variance, of interfer-
+ence power at the idle UE associated as a relay with the ith
+active UE are
+\begin{equation}
+\mathbb{E}[\mathcal{Q}_{r,i}] = \lambda_1\zeta_1 \int_0^{2\pi}\int_{R_c}^\infty (r^2+D^2-2rDcos\theta)^{\alpha/2}rdrd\theta
+\end{equation}
+\begin{equation}
+\text{var}[\mathcal{Q}_{r,i}] = \lambda_1\zeta_2 \int_0^{2\pi}\int_{R_c}^\infty (r^2+D^2-2rDcos\theta)^{\alpha/2}rdrd\theta
+\end{equation}
+
+\begin{align} \label{eq:zeta1}
+\text{where} \quad  \zeta_1 &= \rho_1 P_{s,k}^b +(1-\rho_1)P_{s,k} \\
+                \zeta_2 &= 2[\rho_1(P_{s,k}^b)^2 + (1-\rho_1)P_{s,k}^2],\\
+                \zeta_3 &= \rho_1 (P_{s,k}^m+P_{r,k}^m) +(1-\rho_1)P_{s,k}, \\
+                \zeta_4 &= 2[\rho_1(P_{s,k}^m+P_{r,k}^m)^2 + (1-\rho_1)P_{s,k}^2 -\rho_1P_{s,k}^mP_{r,k}^m] \label{eq:zeta4}
+\end{align}
+\end{itemize}
+\end{theorem}
+\begin{proof}
+\begin{align*}
+\mathbb{E}[\mathcal{Q}_{d,i}^b] &= -\frac{\partial\mathcal{L}_{\mathcal{Q}_{d,i}^b}(s)}{\partial s}\bigg\rvert_{s=0}, \\
+\text{var}[\mathcal{Q}_{d,i}^b] &= -\frac{\partial^2\mathcal{L}_{\mathcal{Q}_{d,i}^b}(s)}{\partial s^2}\bigg\rvert_{s=0} - \Big(\mathbb{E}\big[\mathcal{Q}_{d,i}^b \big] \Big)^2
+\end{align*}
+where $\mathcal{L}_{\mathcal{Q}_{d,i}^b}(s)$ is the Laplace transform of $\mathcal{Q}_{d,i}^b$ and $R_c = 1/2\sqrt{\lambda_1}$ is the cell radius. Means and variances of $\mathcal{Q}_{d,i}^m$, $\mathcal{Q}_{r,i}$ can be calculated similarly.
+\end{proof}
+\par From the above results for interference power statistics, the interference power is directly proportional to both
+the active users density, $\lambda_1$ , and the transmission power levels
+represented by $\zeta_i , i \in [1:4] $ in Eqs.~\ref{eq:zeta1} - ~\ref{eq:zeta4}
+
+\subsection{Modelling Interference Power Distribution}
+A parameterized probability distribution, which includes a
+wide variety of curve shapes, is useful in the representation of
+data when the underlying model is unknown or difficult to obtain in closed form. A parameterized probability distribution is
+usually characterized by its flexibility, generality, and simplicity. Although distributions are not necessarily determined by
+their moments, the moments often provide useful information
+and are widely used in practice. It is shown that the Gamma
+distribution is a good approximation for the interference when
+the point under study is closer to the cell center, but fails
+to represent the actual interference distribution whenever the
+point under study is exactly at the cell edge. We use the same
+approach here and match a Gamma distribution to the first
+two moments of the interference power terms derived earlier
+in Theorem~\ref{theorem:theorem2}.
+\subsubsection{Gamma Distribution}
+The Gamma distribution is specified by a shape parameter $k$ and a scale parameter $\theta$. The pdf of a Gamma distributed RV $\gamma[k,\theta]$ is defined as 
+\begin{equation*}
+F_\gamma(q|k,\theta) = \frac{q^{k-1}e^{(-q/\theta)}}{\theta^k\Gamma(k)}
+\end{equation*}
+where the Gamma function $\Gamma(t)$ is defined as $\Gamma(t) = \int_0^{\infty}x^{t-1}e^{-x}dx$. The mean and variance of $\gamma[k,\theta]$ are $k\theta$ and $k\theta^2$ respectively.
+\par
+Since we know mean and variance of interference powers, we can estimate the shape and scale parameters by using the formulae:
+\begin{equation}
+k_i = \frac{(\mathbb{E}[\mathcal{Q}_i])^2}{\text{var}[\mathcal{Q}_i]}, \theta_i =\frac{\text{var}[\mathcal{Q}_i]}{\mathbb{E}[\mathcal{Q}_i]}
+\end{equation}
+
+\section{Simulations and Results}
+
+\subsection{Simulation Setting}
+
+All simulations were done on a square region of side length 200m. 
+To generate active UEs in the region, the number of UEs is taken as a realization of poisson RV with parameter $\lambda_1$ and these number of UEs were uniformly distributed in the square region. The same is done to generate idle UEs but with parameter $\lambda_2$. I discarded the UEs whose Voronoi region extends to infinity. 
+\par In theory, the base station of a UE is uniformly distributed in the Voronoi region of UE but there is no easy practical way to uniformly pick a point from a polygonal area. One method is to triangulate the polygonal Voronoi region, choose a triangle weighted by area, choose a point inthat triangle. This is clearly quite complex to code so I've not implemented this method. The method I followed to generate BSs is - pick a number greater than or equal to the number of active UEs and distribute these number of BSs uniformly in the square region. Now go to each active UE and check if there are any BSs in its Voronoi region. If there are BSs, pick one of them and associate it with the UE and discard other BSs in the Voronoi region. Since BSs are distributed uniformly over the whole region, the result is as good as picking BSs uniformly in the Voronoi regions of UEs which is what we wanted but there is a catch. In the theoritical method, each UE with a finite Voronoi region is guaranteed to have a BS whereas in the way that I'm generating, some UEs might not have a BS even though their Voronoi region is of finite area. Further, the UEs without a BS are not included in rate or cooperation probability analysis which is logical since without an associated BS, the UEs cannot considered active.
+\par For all simulations, we assume that UEs are using maximum power to transmit without applying any power control method.\label{sec:powerCon}  The powers used during the two phases of transmission are as follows
+\begin{itemize}
+\item Source and relays use equal power $\Rightarrow P_{s,i} = P_{r,i} $ 
+\item Source use equal power during broadcast and multicast phases $\Rightarrow P_{s,i}^b = P_{s,i}^m$ 
+\item $P_{s,i}^{m_1} = \beta_1 P_{s,i}^m$ and $P_{s,i}^{m_2} = (1-\beta_1) P_{s,i}^m$. Where $\beta_1$ is allocated optimally to maximize the transmission rate of the active user. To do this, rate is expressed as a function of $\beta_1$ and minimized negative rate using MATLAB tool \textit{fminrnd}.
+\end{itemize}
+\subsection{Results}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height = 4in,width=7in,angle=00]{images/netLayoutSim.png}
+\caption{\small Network Layout}
+\label{fig:netLayoutSim}
+\end{center}
+\end{figure}
+This a sample network layout generated by using the method discussed in previous subsection. We can see that some of the UEs are well within the range but have no BS. Only UEs with a BS are considered active. A fraction active UEs have relays, these UEs use PDF relaying. Cooperation probability = number of active UEs with relays/total number of active UEs.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height = 3in,width=4in,angle=00]{images/corrected.png}
+\caption{\small Corrected cooperation probability of $E_3$}
+\label{fig:correctedE3}
+\end{center}
+\end{figure}
+In the published paper, the analytic result for cooperation probability of $E_3$ has an error. The correction being using $\mathcal{E}_3$ instead of $\mathcal{E}_2$ in eq.~\ref{eq:corrected}. The corrected analytic result matches the simulation result as can be seen in the above figure. 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height = 3in,width=4in,angle=00]{images/coopP.png}
+\caption{\small Cooperation probabilities of $E_2$, $E_3$ versus user density ratio}
+\label{fig:cooP}
+\end{center}
+\end{figure}
+From the above graph we can see that cooperation probability of both policies increases with user density ratio($\lambda_2/\lambda_1$) and reach a maximum of 0.5 for very large user density ratio. Also, the analytic and simulations results closely match. 
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height = 2.8in,width=4in,angle=00]{images/rates.png}
+\caption{\small Average rate per user; $\lambda = \lambda_2/\lambda_1$}
+\label{fig:rates}
+\end{center}
+\end{figure}
+From the above figure, we can clearly see that average rate per user has increased when PDF relaying is deployed over the whole network. The rate also increases as user density ratio is increased but we caan't sure whether the rate keeps increasing with $\lambda$. It might happen that the rate decreases for very large user ratio density due to increase in interference.
+
+\section{Future Work}
+
+\begin{itemize}
+\item Analysis and Simulation of a new policy $E_4$. In the two policies discussed in earlier sections, only the first neighbour of the active UE is seen as a potential relay. But intuitively any relay that satisfies the conditions mentioned in $E_2$ should be good enough. This also means higher cooperation probability, shown in figure~\ref{fig:coopE4}  and high inteference. If the inteference is so high that the rate decreases for some users, then there should be a way of deciding which users should use the relaying so that rate will be high for all users. need to be done using the new policy and if is promosing in terms per user average rate, then an analytic expression for cooperation probability should be developed. 
+\begin{figure}[H] 
+\begin{center} 
+\includegraphics[height = 2.8in,width=4in,angle=00]{images/simulCoopE4.png}
+\caption{\small Cooperation probability in E4 versus user density ratio }
+\label{fig:coopE4}
+\end{center}
+\end{figure}
+\item As mentioned in section~\ref{sec:powerCon}, the UEs are not using any power control techniques while deciding the transmission power. In practice, UEs use power control techniques which in essence reduce the transmission power when the UE is closer to the BS and use maximum power when the mobile phone is at the cell edge. This reduces the interference and can increase the data rate. 
+\item To determine how much power needs to be allocated to transmit the common codeword in second phase i.e., $P_s^{m_1}$, we are optimizing rate with respect to $P_s^{m_1}$ but this is not practical. UEs should know before hand how much power should be pumped to transmit the codeword. An algorithm needs to be developed that estimates $P_s^{m_1}$ based on channed conditions.  
+\end{itemize}
+
