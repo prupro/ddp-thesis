@@ -1,0 +1,21 @@
+\documentclass{report}
+\usepackage{amsmath}
+\usepackage{libertine}
+\usepackage{tikz}
+\begin{document}
+
+$
+r_{\!_{11}} = -r\cos(\theta -\alpha) + \sqrt{\strut R_1^2 - r^2\sin^2(\theta - \alpha)}
+$
+\\
+\\
+$
+r_{\!_{12}} = R_1 \cos \alpha - r\cos(\theta - \alpha)  + \\ ~ \qquad \sqrt{\strut [R_1 \cos \alpha - r\cos(\theta-\alpha) ]^2 - r^2\sin^2 \theta - [R_1 - r\cos \theta]^2 + R_2^2}
+$
+\\
+\begin{align*}
+\rho(r,\theta) &=  \int_{-\alpha_2}^{\alpha_1} f_{\alpha}(\alpha) \int_{r_{\!_{11}}}^{\infty} f_l(l)dl d\alpha +  \int^{2\pi-\alpha_2}_{\alpha_1} f_{\alpha}(\alpha) \int_{r_{\!_{12}}}^{\infty} f_l(l)dl d\alpha  \\
+&=\int_{-\alpha_2}^{\alpha_1} \frac{1}{2\pi} e^{-\lambda \pi r_{\!_{11}}^2} d\alpha +  \int^{2\pi-\alpha_2}_{\alpha_1} \frac{1}{2\pi} e^{-\lambda \pi r_{\!_{12}}^2} d\alpha
+\end{align*}
+
+\end{document}
