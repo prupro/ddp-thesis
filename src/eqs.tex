@@ -4,6 +4,10 @@
 \usepackage{tikz}
 \usetikzlibrary{intersections}
 \usetikzlibrary{through}
+\usetikzlibrary{angles}
+\usetikzlibrary{calc}
+\usetikzlibrary{quotes}
+
 \begin{document}
 
 $
@@ -87,5 +91,20 @@ $
 	%	\path [name intersections={of=D and E}];
 
 \end{tikzpicture}
+\\
+\begin{tikzpicture}[scale=0.05]
+	\coordinate  (O) at (0,0);
+	\coordinate  (B) at (100,0);
+	\coordinate  (P) at (38,43);
+	\coordinate  (U) at (75,43) ; 
+	\coordinate  (Q) at (70,50);  
+	\node (D) [name path=D,draw,circle through=(B)] at (O) {};
+%	\node (E) [name path=E,draw,circle(60)] at (B);
+	% Name the coordinates, but do not draw anything:
+	\draw (B) circle(90);
+	\draw (B) -- (O) -- node[right=2pt] {\small $r$} (P) pic["\footnotesize{$\theta$}",draw=green!50!black, fill=green!20, angle radius=3mm, angle eccentricity = 1.5] {angle = B--O--P};
+	\draw (U) -- (P) -- node[above=2pt] {\small $r_1$} (Q) pic["\footnotesize{$\alpha$}",draw=green!50!black, fill=green!20, angle radius=3mm,angle eccentricity = 2.2] {angle = U--P--Q};
+\end{tikzpicture}
+
 \end{document}
 
