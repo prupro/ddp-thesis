@@ -45,11 +45,14 @@ $
 	
 \end{tikzpicture}
 \\
-$
-\text{policy:} \{r_1 < R_0, r_2 < R_2\} \quad
-R_2 = cR_0, c = \big(\frac{P_a}{P_b}\big)^{\frac{1}{\alpha}} < 1 
-$
-\\
+\begin{align*}
+	\text{policy:}& \{P^b r_1^{-\alpha} < P_b R_0^{-\alpha}, P_rr_2^{-\alpha} > P_bR_0^{-\alpha}\} 
+	\\
+	& \{ r_1 < R_0, r_2 < R_2 \}
+\end{align*}
+where $ R_2 = cR_0, c = \big(\frac{P_a}{P_b}\big)^{\frac{1}{\alpha}} < 1 $
+	\\
+\centering{
 \begin{tikzpicture}[scale=0.01]
 	\coordinate [label=left:{\small $BS$}] (A) at (0,0);
 	\coordinate [label=right:{\small $U$}] (B) at (150,0);
@@ -59,7 +62,8 @@ $
 	\draw (A) -- (B);
 	\node (D) [name path=D,draw,circle through=(B)] at (A) {};
 \end{tikzpicture}
-\\
+	}
+	\\
 \begin{tikzpicture}[scale=0.01]
 	\coordinate [label=left:{\small $BS$}] (A) at (0,0);
 	\coordinate [label=right:{\small $U$}] (B) at (150,0);
@@ -92,7 +96,7 @@ $
 
 \end{tikzpicture}
 \\
-\begin{tikzpicture}[scale=0.05]
+\begin{tikzpicture}[scale=0.025]
 	\coordinate  (O) at (0,0);
 	\coordinate  (B) at (100,0);
 	\coordinate  (P) at (38,43);
@@ -105,6 +109,38 @@ $
 	\draw (B) -- (O) -- node[right=2pt] {\small $r$} (P) pic["\footnotesize{$\theta$}",draw=green!50!black, fill=green!20, angle radius=3mm, angle eccentricity = 1.5] {angle = B--O--P};
 	\draw (U) -- (P) -- node[above=2pt] {\small $r_1$} (Q) pic["\footnotesize{$\alpha$}",draw=green!50!black, fill=green!20, angle radius=3mm,angle eccentricity = 2.2] {angle = U--P--Q};
 \end{tikzpicture}
+\\
+$
+a^2 = r^2 + r_1^2 - 2r_1r\cos(180-\theta+\alpha) 
+$
+
+$
+b^2 = (r_1\sin\alpha + r\sin\theta)^2 + (R_0-r\cos\theta-r_1cos\alpha)^2
+$
+\begin{align*}
+	a^2 &> R_0^2 \Rightarrow r_1 > r_{11} \\
+	b^2 &> R_2^2 \Rightarrow r_1 > r_{12}
+\end{align*}
+\begin{align*}
+	\beta_1 &= \cos^{-1}\bigg(1-\frac{R_2^2}{2R_0^2}\bigg) - \theta \\
+	\beta_2 &= \cos^{-1}\bigg(1-\frac{R_2^2}{2R_0^2}\bigg) \\
+	\alpha_1 &= \theta + \tan^{-1}\bigg( \frac{R_0\sin\beta_1}{R_0\cos\beta_1-r}\bigg)\\
+	\alpha_2 &= \tan^{-1}\bigg( \frac{r\sin\theta + R_0\sin\beta_2}{R_0cos\beta_2 - r\cos\theta} \bigg)
+\end{align*}
+
+\begin{equation*}
+	P  = \left(
+	\begin{array}{cc}
+	Q & R \\
+		\mathbf{0} & I_r \\
+	\end{array} \right)
+\end{equation*}
+
+\begin{align*}
+	N = \sum_{k=0}^{\infty} Q^k &= (I-Q)^{-1}\\
+	Expected = \mathbf{t} &= N\mathbf{1} \\
+	variance &= (2N-I)\mathbf{t} - \mathbf{t}_{sq}
+\end{align*}
 
 \end{document}
 
