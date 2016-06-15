@@ -1,4 +1,4 @@
-\begin{thebibliography}{10}
+\begin{thebibliography}{1}
 
 \bibitem{candes}
 E.~Candes and J.~Romberg, ``Quantitative robust uncertainty principles and
@@ -32,31 +32,5 @@ S.~Vignesh, ``Compressed sensing for radio astronomy.'' Dual Degree
 
 \bibitem{GMRT}
 TIFR, ``Gmrt telescope.'' \url{http://gmrt.ncra.tifr.res.in/}.
-
-\bibitem{JSM}
-D.~Baron, M.~F. Duarte, M.~B. Wakin, S.~Sarvotham, and R.~G. Barniuk,
-  ``Distributed compressive sensing.''
-  \url{http://arxiv.org/pdf/0901.3403.pdf}, 2009.
-
-\bibitem{prox_book}
-N.~Parikh and S.~Boyd, ``Proximal algorithms,'' {\em Foundations and Trends in
-  Optimization, 2013}, vol.~1.
-
-\bibitem{FISTA}
-M.~Teboulle and A.~Beck, ``A fast iterative shrinkage-thresholding algorithm
-  for linear inverse problems,'' {\em SIAM Journal on Imaging Sciences, 2009}.
-
-\bibitem{Proximal}
-P.~L. Combettes and J.~C. Pesquet, ``Proximal splitting methods in signal
-  processing,'' {\em Springer, 2011}.
-
-\bibitem{kedar_report}
-K.~Tatwawadi, ``Compressed sensing for group testing and radio astronomy.''
-  Dual Degree Dissertation.
-
-\bibitem{JSMalgo}
-D.~Baron, M.~F. Duarte, M.~B. Wakin, S.~Sarvotham, and R.~G. Barniuk,
-  ``Distributed compressive sensing,'' tech. rep., Department of Electrical and
-  Computer Engineering Rice University, 2005.
 
 \end{thebibliography}
