@@ -66,10 +66,10 @@ Consider $\bigtriangleup DOA$,
 \end{equation}
 Using $\beta_1$ we can find $\alpha_1$
 \begin{align*}
-	\tan(\alpha_1 - \theta) &= \frac{DE}{BE} \\
-							&= \frac{DE}{OE-OB}\\
-							&= \frac{R_0 \sin\beta_1}{R_0\cos\beta_1 - r} \\
-	\alpha_1 &= \theta + \tan^{-1}\bigg( \frac{R_0 \sin\beta_1}{R_0\cos\beta_1 - r}\bigg) \\
+	\tan(\alpha_1 - \theta) &= \frac{DE}{BE} \\[2ex]
+							&= \frac{DE}{OE-OB}\\[2ex]
+							&= \frac{R_0 \sin\beta_1}{R_0\cos\beta_1 - r} \\[2ex]
+	\alpha_1 &= \theta + \tan^{-1}\bigg( \frac{R_0 \sin\beta_1}{R_0\cos\beta_1 - r}\bigg) 
 \end{align*}
 \begin{figure}[h]
 \centering \vspace{-0.1in}
@@ -93,9 +93,9 @@ $\alpha_2$ and $\beta_2$ are defined in figures \ref{fig:alpha2} and \ref{fig:al
 To find $\alpha_2$, consider $\bigtriangleup BGF$ in figure \ref{fig:alpha21}
 
 \begin{align*}
- \tan\alpha_2 &= \frac{FG}{GB} \\
-			  &= \frac{FA+AG}{GB} \\
-			  &= \frac{R_0 \sin\beta_2 + r\sin\theta}{R_0 \cos\beta_2 - r\cos\theta} \\
+	\tan\alpha_2 &= \frac{FG}{GB} \\[2ex]
+			  &= \frac{FA+AG}{GB} \\[2ex]
+			  &= \frac{R_0 \sin\beta_2 + r\sin\theta}{R_0 \cos\beta_2 - r\cos\theta} \\[2ex]
 \Rightarrow \alpha_2 &= \tan^{-1}\bigg( \frac{R_0 \sin\beta_2 + r\sin\theta}{R_0 \cos\beta_2 - r\cos\theta} \bigg) 
 \end{align*}
 
@@ -128,12 +128,19 @@ Let us denote the R.H.S of the above two inequalities by $r_{12}$ and $r_{11}$ r
 Substituting \ref{ineq:ACcon} and \ref{ineq:OCcon} in \ref{eq:prob1}, we get
 \begin{align*}
 	\rho(r,\theta) &= Pr(-\alpha_2 < \alpha < \alpha_1,r_1 > r_{11}) + Pr(\alpha_1 < \alpha < 2\pi-\alpha_2, r_1 > r_{12}) \\
-	&= \int_{-\alpha_2}^{\alpha_1} \int_{r_{\!_{11}}}^{\infty} f_{r_1,\alpha}(r_1,\alpha)dr_1 d\alpha +  \int^{2\pi-\alpha_2}_{\alpha_1} \int_{r_{\!_{12}}}^{\infty} f_{r_1,\alpha}(r_1,\alpha)dr_1 d\alpha  \\
-	&= \int_{-\alpha_2}^{\alpha_1} f_{\alpha}(\alpha) \int_{r_{\!_{11}}}^{\infty} f_{r_1}(r_1)dr_1 d\alpha +  \int^{2\pi-\alpha_2}_{\alpha_1} f_{\alpha}(\alpha) \int_{r_{\!_{12}}}^{\infty} f_{r_1}(r_1)dr_1 d\alpha  \\
+	&= \int_{-\alpha_2}^{\alpha_1} \int_{r_{\!_{11}}}^{\infty} f_{r_1,\alpha}(r_1,\alpha)dr_1 d\alpha +  \int^{2\pi-\alpha_2}_{\alpha_1} \int_{r_{\!_{12}}}^{\infty} f_{r_1,\alpha}(r_1,\alpha)dr_1 d\alpha 
+\end{align*}
+	This is a general expresion that can be used for any mobility model. In case of RWP,
+	$r_1$ and $\alpha$ are chosen independently. Therefore, 
+	$f_{r_1,\alpha}(r_1,\alpha) = f_{r_1}(r_1)f_{\alpha}(\alpha)$ 
+\begin{align*}
+	\rho(r,\theta)&= \int_{-\alpha_2}^{\alpha_1} f_{\alpha}(\alpha) \int_{r_{\!_{11}}}^{\infty} f_{r_1}(r_1)dr_1 d\alpha +  \int^{2\pi-\alpha_2}_{\alpha_1} f_{\alpha}(\alpha) \int_{r_{\!_{12}}}^{\infty} f_{r_1}(r_1)dr_1 d\alpha  \\
 	&= \int_{-\alpha_2}^{\alpha_1} \frac{1}{2\pi} e^{-\lambda \pi r_{\!_{11}}^2} d\alpha +  \int^{2\pi-\alpha_2}_{\alpha_1} \frac{1}{2\pi} e^{-\lambda \pi r_{\!_{12}}^2} d\alpha
 \end{align*}
 \newpage
-Putting it all together at one place for ease of reference, the probability with which a 
+Putting it all together at one place for ease of reference, this is what have about the node's
+first transition. \\
+The probability with which a 
 node at $(r,\theta)$ moves out of the region of interest during the next transition is 
 \begin{equation} \label{eq:oneOutProb}
 	\rho(r,\theta) = \int_{-\alpha_2}^{\alpha_1} \frac{1}{2\pi} e^{-\lambda \pi r_{\!_{11}}^2} d\alpha +  \int^{2\pi-\alpha_2}_{\alpha_1} \frac{1}{2\pi} e^{-\lambda \pi r_{\!_{12}}^2} d\alpha
@@ -141,9 +148,9 @@ node at $(r,\theta)$ moves out of the region of interest during the next transit
 \\
 Where
 \begin{align*}
-	r_{\!_{11}} &= -r\cos(\theta -\alpha) + \sqrt{R_1^2 - r^2\sin^2(\theta - \alpha)} \\
+	r_{\!_{11}} &= -r\cos(\theta -\alpha) + \sqrt{R_0^2 - r^2\sin^2(\theta - \alpha)} \\
 	&\\
-	r_{\!_{12}} &= R_1 \cos \alpha - r\cos(\theta - \alpha)  +  \sqrt{[R_1 \cos \alpha - r\cos(\theta-\alpha) ]^2 - r^2\sin^2 \theta - [R_1 - r\cos \theta]^2 + R_2^2} \\
+	r_{\!_{12}} &= R_0 \cos \alpha - r\cos(\theta - \alpha)  +  \sqrt{[R_0 \cos \alpha - r\cos(\theta-\alpha) ]^2 - r^2\sin^2 \theta - [R_0 - r\cos \theta]^2 + R_2^2} \\
 \end{align*}
 \begin{align*}
 	\beta_1 &= \cos^{-1}\bigg(1-\frac{R_2^2}{2R_0^2}\bigg) - \theta \\
