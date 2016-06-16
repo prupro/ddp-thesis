@@ -12,7 +12,7 @@ FIGURES=$(wildcard images/*)
 all: $(MAIN).pdf
 
 
-$(MAIN).pdf: $(MAIN).tex $(SOURCES) $(FIGURES)
+$(MAIN).pdf: $(MAIN).tex $(SOURCES) $(FIGURES) bib.bib
 	$(LATEXMK) $(LATEXMKOPT) \
 		-pdflatex="$(TEX) $(LATEXOPT) $(NONSTOP) %O %S" $(MAIN)
 
