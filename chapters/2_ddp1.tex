@@ -479,19 +479,3 @@ From the above graph we can see that cooperation probability of both policies in
 \end{center}
 \end{figure}
 From the above figure, we can clearly see that average rate per user has increased when PDF relaying is deployed over the whole network. The rate also increases as user density ratio is increased but we caan't sure whether the rate keeps increasing with $\lambda$. It might happen that the rate decreases for very large user ratio density due to increase in interference.
-
-\section{Future Work}
-
-\begin{itemize}
-\item Analysis and Simulation of a new policy $E_4$. In the two policies discussed in earlier sections, only the first neighbour of the active UE is seen as a potential relay. But intuitively any relay that satisfies the conditions mentioned in $E_2$ should be good enough. This also means higher cooperation probability, shown in figure~\ref{fig:coopE4}  and high inteference. If the inteference is so high that the rate decreases for some users, then there should be a way of deciding which users should use the relaying so that rate will be high for all users. need to be done using the new policy and if is promosing in terms per user average rate, then an analytic expression for cooperation probability should be developed. 
-\begin{figure}[H] 
-\begin{center} 
-\includegraphics[height = 2.8in,width=4in,angle=00]{images/simulCoopE4.png}
-\caption{\small Cooperation probability in E4 versus user density ratio }
-\label{fig:coopE4}
-\end{center}
-\end{figure}
-\item As mentioned in section~\ref{sec:powerCon}, the UEs are not using any power control techniques while deciding the transmission power. In practice, UEs use power control techniques which in essence reduce the transmission power when the UE is closer to the BS and use maximum power when the mobile phone is at the cell edge. This reduces the interference and can increase the data rate. 
-\item To determine how much power needs to be allocated to transmit the common codeword in second phase i.e., $P_s^{m_1}$, we are optimizing rate with respect to $P_s^{m_1}$ but this is not practical. UEs should know before hand how much power should be pumped to transmit the codeword. An algorithm needs to be developed that estimates $P_s^{m_1}$ based on channed conditions.  
-\end{itemize}
-
