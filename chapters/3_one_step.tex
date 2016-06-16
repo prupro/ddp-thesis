@@ -31,11 +31,36 @@ The mean transition length and time are as follows:
 	E[L] &= \frac{1}{2\sqrt{\lambda}} \\[2ex]
 	E[T] &= \frac{1}{2v\sqrt{\lambda}}
 \end{align}
-both of which can be easily derived using distribution of $L$. 
+both of which can be easily derived from distribution of $L$.
+\section{Mean Sojourn Time}
+Sojourn time is the amount of time a node resides in the region of interest. Calculating the mean sojour time is challenging primarily because it involves finding node distribution during each transition. An expression for  mean sojourn time of a cell user during one movement period starting from origin in a hexagonal cell was given in \cite{lin}. We have to note that
+a moving node, on an average, makes atleast two transitions before it leaves
+the region. Also, starting from origin implies the node co-exists with BS at
+t=0 which is not representative of the distribution of relays/users. Even if we
+allow these two assumptions, the problem is still difficult to solve in this
+approach as the region has no definite shape like a polygon and finding limits
+for integration is tedious. 
+	If we know the expected number of transitions $E(N)$ a node mokes before moving out of the
+region, then sojourn time can be given by
+\begin{equation*}
+	S_T = (E(N)-1)E(T) + T_{last}
+\end{equation*}
+where $T_{last}$ is the time spent inside the region during the last transition. For small $\lambda$, $S_T$ can be approximated to $E(N)E(T)$ and for larger $\lambda$s it can be approximated to $(E(N)-1)E(T)$. Since we already know $E(T)$, what remains to be found is $E(N)$. The 
+general form of the expression for $E(N)$ is
+\begin{equation*}
+	E(N) = \sum_{k=1}^{\infty} k Pr(r,\theta,k)
+\end{equation*}
+where 
+\begin{equation*}
+	Pr(r,\theta,k) = \int_{S-A} \int_A \int \ldots \int \int_A f_{X_1/X_0}(x_1/x_0)f_{X_2/X_1}(x_2/x_1)\ldots f_{X_{k+1}/X_{k}}(x_{k+1}/x_{k}) dA_1 dA_2\ldots dA_{k+1}
+\end{equation*} is the probability that the node exits the region during $k+1$ th transition. 
+$f_{X_n/X_{n-1}}(x_n/x_{n-1})$ is the probability density of the destination $X_n$ given that
+the node's current position is $X_{n-1}$. $X_0 = (r,\theta)$ is where the node starts the  movement at t=0. 
+As a first step towards finding $E(N)$, let us find the probability with which a node at $(r,\theta)$ leaves the region in one transition.
+
 \section{Leaving in  one transition}
-Let us find the probability with which a node at $(r,\theta)$ leaves the region in 
-one transition. 
-\subsection{Distances and Angles}
+To know whether or not the node is outside the region, we have to find the boundaries it has to cross in each direction. To do this we use plane geometry and trigonometry to find necessary distances and angles.
+\subsection{Boundaries of the region}
 Consider the figure \ref{fig:rr1}. 
 \begin{figure}[h]
     \centering \vspace{-0.1in}
