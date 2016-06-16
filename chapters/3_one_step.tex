@@ -1,7 +1,37 @@
 \chapter{Moving Relays}
 \section{Mobility Model}
-\subsection{Random Waypoint}
+In this section we describe two mobility models that are commonly used to study the effects of
+mobility in cellular networks. One is the classical random waypoint (RWP) model and the other
+is the RWP mobility model proposed in \cite{lin}. In classical RWP, the node selects the destination, called waypoint, uniformly from the whole domain and velocity is selcted from a uniform distribution. The node then moves from current waypoint to next waypoint along a straight line at the velocity selected. The distance it travels in doing so is called \textit{transition length} and the time \textit{transition time}. We will not use the classical RWP model as the
+transition lengths in this model are of the order of size of domain which is not 
+the case in mobility of relays in cellular networks. Also, as noted in \cite{lin}, Rayleigh RWP compares well with synthetic Levy Walk, which is constructed from real mobility trajectories, in terms of CDFs of transition length and direction switch rates than classical RWP model. 
+\subsection{Rayleigh RWP Model}
+We define mobility more formally and introduce the model proposed in \cite{lin}. The $n$th transition of a node can be denoted by the parameters set $(\mathbf{X}_{n-1},\mathbf{X}_n, V_n, S_n) $. $X_{n-1}$ denotes the starting waypoint and $X_N$ denotes the destination. In addition to the transition time which can be obtained from velocity $V_n$, pause time or thinking time ($S_n$) at destination can also be included in the description of mobility. 
+Different mobility models can be distinguished by the distribution of transition length($L_n = \|\mathbf{X}_{n-1} - \mathbf{X}_n \|$) and the distribution of angle made by the vector
+$\mathbf{X}_n - \mathbf{X}_{n-1}$ w.r.t x-axis. 
+In Rayleigh RWP, the angle is chosen uniformly from $[0,2\pi]$ and the transition length is rayleigh distributed with parameter $\lambda$. 
+\begin{equation}
+	P(L > l) = exp(-\lambda \pi l^2), l \geq 0
+\end{equation}
+We set $V_n\equiv v$ and $S_n$ to 0 . What the above selection of distributions means is 
+that when the node is at waypoint $\mathbf{X}_{n-1}$, a homogenous Poisson Point Process $\phi$ of intensity $\lambda$ is generated and the nearest point in the set is chosen as the next waypoint $\mathbf{X}_n$. i.e., $\mathbf{X}_n = \arg \min_{x\in\phi} \| x - \mathbf{X}_{n-1}\|$. This can be proved from the null distribution of PPP. This gives better insight in to the role of parameter $\lambda$. Larger $\lambda$ implies that the points are denser in generated PPP
+which in turn means the transition length is shorter. Figure \ref{fig:rwp} shows sample traces
+of rayleigh RWP for different $\lambda$. Please note that the figures are scaled differently.
 
+\begin{figure}[h]
+    \centering \vspace{-0.1in}
+    \includegraphics[width=0.6\textwidth]{images/rwpTraces.png}
+    \vspace{-20pt} \caption[Sample traces of rayleigh RWP mobility model]{\small The transition	lengths are statistically shorter with larger mobility parameter $\lambda$, and vice
+	versa.\footnotemark}
+    \label{fig:rwp}
+\end{figure}
+\footnotetext{Image Source: \cite{lin} Xingqin Lin et al.}
+The mean transition length and time are as follows:
+\begin{align}
+	E[L] &= \frac{1}{2\sqrt{\lambda}} \\[2ex]
+	E[T] &= \frac{1}{2v\sqrt{\lambda}}
+\end{align}
+both of which can be easily derived using distribution of $L$. 
 \section{Leaving in  one transition}
 Let us find the probability with which a node at $(r,\theta)$ leaves the region in 
 one transition. 
@@ -10,10 +40,9 @@ Consider the figure \ref{fig:rr1}.
 \begin{figure}[h]
     \centering \vspace{-0.1in}
     \includegraphics[width=0.6\textwidth]{images/geo1.pdf}
-    \vspace{-20pt} \caption[Effect of the proximal Operator]{\small Effect of the Proximal Operator \footnotemark}
+    \vspace{-20pt} \caption[Effect of the proximal Operator]{\small Effect of the Proximal Operator }
     \label{fig:rr1}
 \end{figure}
-\footnotetext{Image Source: \url{http://www.stanford.edu/~boyd/papers/pdf/prox_algs.pdf}}
 The node starts at $B$ and let $C$ be 
 the destination during first transition. $\alpha, r_1$ are chosen according to the mobility 
 model described in the previous section. Whether or not $C$ is outside the region depends on
