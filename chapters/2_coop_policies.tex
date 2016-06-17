@@ -1,92 +1,20 @@
 \chapter{Relaying and Cooperation Policies}
-This chapter is heavily based on the published work\cite{elk} of Hussain Elkotby and Mai Vu of Tufts University. 
-We use stochastic geometry to analyze the performance of a partial decode-and-forward (PDF) relaying scheme applied in a user-assisted relaying setting, where an active user relays data through another idle user in uplink cellular communication. We present the geometric model of a network deploying user-assisted relaying and propose two geometric cooperation policies for fast and slow fading channels. We analytically derive the cooperation probability for both policies. This cooperation
-probability is further used in the analytical derivation of the
-moments of inter-cell interference power caused by system-wide
-deployment of this user-assisted PDF relaying. We then model the
-inter-cell interference power statistics using the Gamma distribution by matching the first two moments analytically derived. This
-cooperation and interference analysis provides the theoretical
-basis for quantitatively evaluating the performance impact of
-user-assisted relaying in cellular networks. We then numerically
-evaluate the average transmission rate performance and show
-that user-assisted relaying can significantly improve per-user
-transmission rate despite the increased inter-cell interference. This
-transmission rate gain is significant for active users near the
-cell edge and further increases with higher idle user density,
-supporting user-assisted relaying as a viable solution to crowded
-population areas.
+This chapter is heavily based on the published work \cite{elk} of Hussain Elkotby and Mai Vu of Tufts University. 
 
-\section{Introduction}
 
-\subsection{Motivation}
-Mobile subscribers operators and continual driven customer by the increasing demand for number new and
- of
-better services place pressing requirements on the underlying
-wireless technologies to provide high data rates and wide
-coverage. Future generation networks that promise higher data
-rates and multifold increase in system capacity include 3GPP
-Long Term Evolution-Advanced (LTE-A, 4G) and the emerging 5G systems. The fourth generation (4G) wireless systems were designed to fulfill the requirements of the International Mobile Telecommunications - Advanced (IMT-A). LTE as
-a practical 4G wireless system has been recently deployed
-in some countries and LTE-A is expected to be deployed
-soon around the globe. It is well established that 4G
-networks have just reached the theoretical limit on the data
-rate with current technologies. These technologies are being
-complemented in the fifth generation (5G) wireless systems
-by designing and developing new radio concepts to accommodate higher data rates, larger network capacity, higher energy efficiency, and higher mobility necessary to meet the new and challenging requirements of new wireless applications.
-5G wireless systems are expected to support peak data rate
-of 10 Gb/s for low mobility and 1 Gb/s for high mobility.
-These networks are expected to be standardized and deployed around and beyond 2020. Various promising technologies are
-proposed for 5G wireless communication systems such as
-massive MIMO, energy-efficient communications, Device-to-
-Device (D2D) communications, millimeter-wave (mmWave),
-and cognitive radio networks.
-\par 
-D2D and Relaying cooperative communications will play
-important roles in future generations wireless networks. D2D
-communications enable two proximity users to transmit signal
-directly without going through the base station; subsequently,
-5G wireless systems are expected to relax the restrictions on
-the need to route all user data through the core network. D2D
-communications can increase network spectrum utilization and
-energy efficiency, reduce transmission delay, offload traffic for
-the base station, and alleviate congestion in the cellular core
-networks, which make it a promising technology for future
-wireless systems. Relay-aided cooperative communi-
-cation techniques represent another promising technology that
-improves performance in poor coverage areas by enabling
-ubiquitous coverage even for users in the most unfavorable
-channel conditions. The latest release of the LTE standard
-allows the deployment of fixed wireless relays to help cell-
-edge mobiles. Yet, other advanced cellular relaying modes are
-expected in 5G systems to improve the topology and robustness
-of a cellular network and decrease power consumption. These
-new technologies include mobile relaying, multi-hop relaying,
-and user-equipment based (user-assisted) relaying enabled by
-D2D communications 
-
-\subsection{Organization of this report}
-This report is in further divided into 6 sections. The topics are organized as follows.
-\par Section 2 will discuss partial decode and forward relaying in a standalone setup. The two phases of transmission, signal design and achievable rate of the scheme are presented.
- \par Section 3 is about deployment of the relaying scheme discussed in section 2 in a cellular network. Inter-cell interference and equivalent standard channel model are discussed.
- \par Section 4 contains policies to determine whether the nearest idle neighbour to the active UE can be picked as a relay. Two policies were proposed and analytic expressions for cooperation probabilities were derived.
- \par Section 5 Analytic expressions for interference powers were developed and shape and scale parameters of Gamma distribution that fits interference power statistics were calculated.
- \par Section 6 discusses the simulation setting and how it is different from the theoritical method and the values of parameter used in simulation were listed. It also has simulation results with brief explanations of the result.
- \par Section 7 lists three different topics I'm planning to work on during the second phase. \\
-All links/references to equation or figures in this report are clickable.
-
-\pagenumbering{arabic}
-\newpage
 \section{Partial Decode-and-Forward Relaying}
 In this section, we discuss the signal design, channel model and achievable rate of PDF relaying scheme.
 \subsection{Signal Design}
 Consider a source $\mathcal{S}$, its relay $\mathcal{R}$ and the destination $\mathcal{D}$. Each transmission block is divided into two phases: 1. broadcast transmission in which $\mathcal{S}$ broadcasts to both $\mathcal{R}$ and $\mathcal{D}$. 2. multiple access transmission in which both $\mathcal{S}$ and $\mathcal{R}$ transmit to $\mathcal{D}$. In each block of transmission, $\mathcal{S}$ splits its information into a common part and a private part. The common part is encoded via $U_s^b$ in the 1st phase and $U_s^{m_1}$ in the 2nd phase; and the private part is encoded via $V_s^{m_2}$ in the 2nd phase. The relay $\mathcal{R}$ decodes the information sent by $\mathcal{S}$ in first phase and encodes the same information using $U_s^{m_1}$ in the 2nd phase. \\ 
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height = 2in,width=5in,angle=00]{images/pdfRelaying.png}
-\caption{\small Transmission phases in PDF relaying}
-\label{fig:sysModel}
-\end{center}
+
+\begin{figure}[h]
+	\centering \vspace{-0.1in}
+	\includegraphics[height = 2in,width=5in,angle=00]{images/pdfRelaying.png}
+	\vspace{-20pt} 
+	\caption[Transmission phases in PDF relaying]{\small Transmission phases in PDF relaying\footnotemark}
+	\label{fig:sysModel}
 \end{figure}
+\footnotetext{Image Source: \cite{elk} Hussain Elkotby}
 The signals transmitted by $\mathcal{R}$ and $\mathcal{S}$ are as follows:
 \begin{align}
 \text{Phase 1:}\quad x^b_s &= \sqrt{P_s^b} U_s^b, \label{eq:tranSig1}\\
@@ -143,13 +71,15 @@ assume that the active users in different cells that use the same resource block
 $\Phi_1$ with intensity $\lambda_1$. The set of user equipments(UEs) that are in idle state and can participate in relaying are distributed according to another PPP $\Phi_2$ with intensity $\lambda_2$. We assume $\Phi_1$ and $\Phi_2$ are independent. Furthermore, under the assumption that each BS serves a
 single mobile in a given resource block, the BS should be closer to its served UE than to any other UE. Therefore we assume each BS is uniformly distributed in the Voronoi cell of its served UE. Fig.~\ref{fig:netLayout} shows an example layout of the network.
 
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height = 3in,width=4in,angle=00]{images/netLayoutPaper.png}
-\caption{\small Sample layout of a cellular network ($\lambda_2 = 2\lambda_1$)}
-\label{fig:netLayout}
-\end{center}
+\begin{figure}[h]
+	\centering \vspace{-0.1in}
+	\includegraphics[height = 3in,width=4in,angle=00]{images/netLayoutPaper.png}
+	\vspace{-20pt} 
+	\caption[Sample layout of a cellular network ($\lambda_2 = 2\lambda_1$)]{\small  Sample layout of a cellular network ($\lambda_2 = 2\lambda_1$) \footnotemark}
+	\label{fig:netLayout}
 \end{figure}
+\footnotetext{Image Source: \cite{elk} Hussain Elkotby}
+
 
 \subsection{Channel Model}
 In this section, we describe the channel model when PDF relaying is deployed in cellular network. In this case, there will be out-of-cell inteference in addition to noise. The interference is due to frequency reuse in other cells.

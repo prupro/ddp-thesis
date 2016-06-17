@@ -1,1 +1,16 @@
 \chapter{Absorbing Markov Chain}
+Once we have the transition matrix $Q$, we can use the expressions given in \cite{wiki:markovWiki}
+to find the expected value and variance. 
+\begin{equation*}
+	P  = \left(
+	\begin{array}{cc}
+	Q & R \\
+		\mathbf{0} & 1 \\
+	\end{array} \right)
+\end{equation*}
+
+\begin{align*}
+	N = \sum_{k=0}^{\infty} Q^k &= (I-Q)^{-1}\\
+	Expected = \mathbf{t} &= N\mathbf{1} \\
+	variance &= (2N-I)\mathbf{t} - \mathbf{t}_{sq}
+\end{align*}
