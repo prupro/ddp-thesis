@@ -1,4 +1,5 @@
-\chapter{Cooperation Policies}
+\chapter{Relaying and Cooperation Policies}
+This chapter is heavily based on the published work\cite{elk} of Hussain Elkotby and Mai Vu of Tufts University. 
 We use stochastic geometry to analyze the performance of a partial decode-and-forward (PDF) relaying scheme applied in a user-assisted relaying setting, where an active user relays data through another idle user in uplink cellular communication. We present the geometric model of a network deploying user-assisted relaying and propose two geometric cooperation policies for fast and slow fading channels. We analytically derive the cooperation probability for both policies. This cooperation
 probability is further used in the analytical derivation of the
 moments of inter-cell interference power caused by system-wide
@@ -479,3 +480,63 @@ From the above graph we can see that cooperation probability of both policies in
 \end{center}
 \end{figure}
 From the above figure, we can clearly see that average rate per user has increased when PDF relaying is deployed over the whole network. The rate also increases as user density ratio is increased but we caan't sure whether the rate keeps increasing with $\lambda$. It might happen that the rate decreases for very large user ratio density due to increase in interference.
+
+\section{Downlink Cooperation Policy}
+A cooperation policy for downlink can be defined along the same lines as we did in uplink 
+case. Let $P_b$ be the transmission power used by the base station and $P_r$ be relay power. A simple distance based policy would be
+\begin{equation*}
+	\{P_b r_1^{-\alpha} > P_b R_0^{-\alpha}, P_rr_2^{-\alpha} > P_bR_0^{-\alpha}\} 
+\end{equation*}
+
+\begin{figure}[h]
+	\centering \vspace{-0.1in}
+
+	\begin{tikzpicture}[scale=0.05]
+		\coordinate [label=left:{\small $BS$}] (A) at (0,0);
+		\fill [red,opacity=.5] (A) circle (50pt);
+
+		\coordinate [label=right:{\small $U$}] (B) at (150,0);
+		\fill [green,opacity=.5] (B) circle (50pt);
+
+		\coordinate [label=above:{\small $Relay$}] (C) at (125,50);
+		\fill [blue,opacity=.5] (C) circle (50pt);
+
+		\draw (A) -- node[below=2pt] {\small $R_0$} (B) -- node[right=2pt] {\small $r_2$} (C)
+												-- node[above=2pt] {\small $r_1$} cycle;
+
+	\end{tikzpicture}
+
+	\vspace{-10pt} \caption[Effect of the proximal Operator]{\small Effect of the Proximal Operator }
+	\label{fig:dwnlink}
+\end{figure}
+
+It can be rewritten as $\{ r_1 < R_0, r_2 < R_2 \}$ where $R_2 = cR_0, c = \big(\frac{P_r}{P_b}\big)^{\frac{1}{\alpha}} $ and $r_1, r_2$ are as defined in the figure \ref{fig:dwnlink}.  
+The two conditions in the policy ensure that both BS-relay and relay-user links are stronger than BS-user link. The policy dictates that the idle user should be located in the shaded part of figure \ref{fig:region} to be considered for relaying.
+
+\begin{figure}[h]
+	\centering \vspace{0.1in}
+
+	\begin{tikzpicture}[scale=0.015]
+		\coordinate [label=left:{\small $BS$}] (A) at (0,0);
+		\coordinate [label=right:{\small $U$}] (B) at (150,0);
+		\fill [red,opacity=.5] (A) circle (200pt);
+		\fill [green,opacity=.5] (B) circle (200pt);
+
+		\draw (A) -- (B);
+		\node (D) [name path=D,draw,circle through=(B)] at (A) {};
+		%	\node (E) [name path=E,draw,circle(60)] at (B);
+		% Name the coordinates, but do not draw anything:
+		\draw (B) circle(120);
+		\begin{scope}
+			\clip (0,0) circle(150);
+			\fill[blue,opacity=.5] (150,0) circle (120);
+		\end{scope}
+		%	\path [name intersections={of=D and E}];
+	\end{tikzpicture}
+
+	\vspace{-5pt} \caption[Effect of the proximal Operator]{\small Effect of the Proximal Operator }
+	\label{fig:region}
+\end{figure}
+
+
+Although interference and cooperation probabilities are not analysed for downlink case, we will study relay mobility for this case. The reason being, downlink case presents a more general geometrical region of interest as compared to uplink where both circles are of same radius and some of the results derived can be directly adapted to uplink case by changing the corresponding parameters. 
