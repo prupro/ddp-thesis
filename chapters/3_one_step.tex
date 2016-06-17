@@ -58,7 +58,8 @@ $f_{X_n/X_{n-1}}(x_n/x_{n-1})$ is the probability density of the destination $X_
 the node's current position is $X_{n-1}$. $X_0 = (r,\theta)$ is where the node starts the  movement at t=0. 
 As a first step towards finding $E(N)$, let us find the probability with which a node at $(r,\theta)$ leaves the region in one transition.
 
-\section{Leaving in  one transition}
+\section{Probability of leaving in one transition}
+
 To know whether or not the node is outside the region, we have to find the boundaries it has to cross in each direction. To do this we use plane geometry and trigonometry to find necessary distances and angles.
 \subsection{Boundaries of the region}
 Consider the figure \ref{fig:rr1}. 
@@ -215,3 +216,12 @@ Where
 			& \\
 			\alpha_2 &= \tan^{-1}\bigg( \frac{r\sin\theta + R_0\sin\beta_2}{R_0cos\beta_2 - r\cos\theta} \bigg)
 \end{align*}
+
+\section{Expected number of transitions}
+Let us make a gross approximation and use the same probability of leaving for all waypoints
+in the path. Then the average number of steps a node starting at $(r,\theta)$ takes to leave the region is given by
+\begin{align*}
+	E[N] &= \sum_{k=1}^{\infty} k(1-\rho(r,\theta))^{k-1} \rho(r,\theta) \\[2ex]
+	&= \frac{1}{\rho(r,\theta)}
+\end{align*}
+Although the above approximation is not valid, this approach is useful when deriving upper and lower bounds on $E[N]$ as we shall see in the next chapter.
