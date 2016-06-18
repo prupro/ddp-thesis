@@ -1,6 +1,5 @@
 \chapter{Relaying and Cooperation Policies}
-This chapter is heavily based on the published work \cite{elk} of Hussain Elkotby and Mai Vu of Tufts University. 
-
+This chapter is heavily based on the published work \cite{elk} of Hussain Elkotby and Mai Vu of Tufts University. Analysis and simulations of their work was done during first phase of the project to gain insights into signal design of various relaying schemes and to learn about the ways in which cellular networks are modelled and analysed, what challenges user-assisted relaying presents. The only subject in this chapter that will be useful for the later part of this report is presented in section \ref{sec:downcoop}.   
 
 \section{Partial Decode-and-Forward Relaying}
 In this section, we discuss the signal design, channel model and achievable rate of PDF relaying scheme.
@@ -411,7 +410,7 @@ From the above graph we can see that cooperation probability of both policies in
 \end{figure}
 From the above figure, we can clearly see that average rate per user has increased when PDF relaying is deployed over the whole network. The rate also increases as user density ratio is increased but we caan't sure whether the rate keeps increasing with $\lambda$. It might happen that the rate decreases for very large user ratio density due to increase in interference.
 
-\section{Downlink Cooperation Policy}
+\section{Downlink Cooperation Policy} \label{sec:downcoop}
 A cooperation policy for downlink can be defined along the same lines as we did in uplink 
 case. Let $P_b$ be the transmission power used by the base station and $P_r$ be relay power. A simple distance based policy would be
 \begin{equation*}
@@ -470,3 +469,5 @@ The two conditions in the policy ensure that both BS-relay and relay-user links 
 
 
 Although interference and cooperation probabilities are not analysed for downlink case, we will study relay mobility for this case. The reason being, downlink case presents a more general geometrical region of interest as compared to uplink where both circles are of same radius and some of the results derived can be directly adapted to uplink case by changing the corresponding parameters. 
+
+
