@@ -1,15 +1,16 @@
 \chapter{Introduction}
-	With the advances in D2D communications and relaying techniques, user-assisted relaying is a viable option to improve rate and coverage in cellular networks. There are many problems that need to be solved to do this correctly viz. provinding incentives for the relaying users, power allocation at both source and relay, selecting a relay that gives better rate for maximum amount of time etc. \\ 
+	With the advances in D2D communications and relaying techniques, user-assisted relaying is a viable option to improve rate and coverage in cellular networks. There are many problems that need to be solved to do this correctly viz. providing incentives for the relaying users, power allocation at both source and relay, selecting a relay that gives better rate for maximum amount of time etc. \\ 
 
 
 	A relay selection policy is a set of rules, which are essentially thresholds on parameters of a relay, by which an idle user can be chosen to act as a relay. The amount of time an idle user-equipment can provide relaying service is a decision parameter along with the channel conditions which dictate the rate. With this as preface it is clear that studying mobility of relays and providing analytical results for the necessary parameters is of great importance. \\
 	
 	
-	In \cite{lin}, Xingqin Lin et al. proposed a random waypoint(RWP) mobility model that fits better with the truncated Levy walk, which is based on real mobility traces, compared to the classical RWP model and applied it to find handover rate and sojourn time in hexagonal as well as Poisson-Voronoi tesselation network geometry. To find the analytical expression for cell sojourn time, the distribution of nodes during the first movement period is derived. If the node starts at origin moves to $X_1$ during the first transition, the node distribution between $O$ and $X_1$ is given by 
+	In \cite{lin}, Xingqin Lin et al. proposed a random waypoint(RWP) mobility model that fits better with the truncated Levy walk, which is based on real mobility traces, compared to the classical RWP model and applied it to find handover rate and sojourn time in hexagonal as well as Poisson-Voronoi tesselation network geometry. To find the analytical expression for cell sojourn time, the distribution of nodes during the first movement period is derived. If the node starts at origin and  moves to $X_1$ during the first transition, the node distribution between $O$ and $X_1$ is given by 
+	\newpage
 	\begin{equation} \label{eq:nodeDist}
 		f(r,\theta) = \frac{\sqrt{\lambda}}{\pi r} \exp(-\lambda \pi r^2)
 	\end{equation}
-	This can be interpreted as the ratio of the fraction of time spent in a small region $A(r,\theta)$ around the point $(r,\theta)$ to the area of the region. This can be used to find the sojourn time in one shot by integrating the distribution over the region of interest and multiplying the result with the mean transition time. However, this method places restriction on the initial position on the node and it is challenging to find a closed expression for sojourn time if the region of interest is not a regular/well-defined shape like a hexagon. Also, we can find the sojourn time for only one movement period, which is not the case when the region is large enough.     
+	This can be interpreted as the ratio of the fraction of transition time spent in a small region $A(r,\theta)$ around the point $(r,\theta)$ to the area of the region. This can be used to find the sojourn time in one shot by integrating the distribution over the region of interest and multiplying the result with the mean transition time. However, this method places restriction on the initial position on the node and it is challenging to find a closed form expression for sojourn time if the region of interest is not a regular/well-defined shape like a hexagon. Also, we can find the sojourn time for only one movement period, which is not the case in larger regions.     
 	
 	After a failed attempt to find the sojourn time of a relay using node distribution \ref{eq:nodeDist}, we fallback to the basic definitions in RWP model to solve the problem.   
 
@@ -18,13 +19,13 @@
 The organization of the report is as follows:
 \begin{enumerate}
 
-	\item \textbf{Chapter 2} contains the work done during the first phase of the project on PDF relaying, cooperation policies and rate gain when relaying is employed in cellular netwroks.  
+	\item \textbf{Chapter 2} contains the work done during the first phase of the project on PDF relaying, cooperation policies and rate gain when relaying is employed in cellular networks.  
 
-	\item \textbf{Chapter 3} In this chapter we introduce the mobility model and derive an expression for the probability with which a node moves out of the region in one step as a function of node's starting point.  
-
+	\item \textbf{Chapter 3} In this chapter we describe the mobility model and derive an expression for the probability with which a node\footnotemark\mbox{} moves out of the region in one step as a function of node's starting point.  
+		\footnotetext{The terms node and relay have been used interchangeably}
 	\item \textbf{Chapter 4} presents the idea of modelling mobility as a Markov Chain and using the results of Absorbing Markov Chains to find expected number of transitions.
 
-	\item \textbf{Chapter 5} analyses the probability of leaving the region in one step at different points in the region and see how it varies with $\lambda$. 
+	\item \textbf{Chapter 5} analyses the probability of leaving the region in one step at different points in the region and see how it varies with $\lambda$, the mobility parameter. 
 
 	\item \textbf{Conclusion and Further Work}
 

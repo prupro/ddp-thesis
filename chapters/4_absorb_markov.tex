@@ -5,7 +5,7 @@
 \end{equation*}
 Where $X_{n-1}$ is the current waypoint and $X_n$ is the next waypoint. \\
 	The idea is to discretize the state space of this Markov chain and model the motion as an Absorbing Markov Chain in which the node transitions among the non-absorbing states present inside the region before finally moving to the absorbing state. 
-Let the whole space be represented by $n+1$ states of which $n$ states lie inside the region of interest and the $n+1$th state represents the space outside the region. The transition probabilities among first $n$ states depend on the distances between the nodes and the transition probabilities from these $n$ to the absorbing state is $\rho(r_i,\theta_i)$ where $(r_i,\theta_i)$ is the position of the $i$th state. We can then use the expressions given in \cite{wiki:markovWiki}
+Let the whole space be represented by $n+1$ states of which $n$ states lie inside the region of interest and the $n+1$th state represents the space outside the region. The transition probabilities among first $n$ states depend on the distances between the nodes and the transition probabilities from these $n$ states to the absorbing state is $\rho(r_i,\theta_i)$ where $(r_i,\theta_i)$ is the position of the $i$th state. We can then use the expressions given in \cite{wiki:markovWiki}
 to find expected value and variance of the number of transitions a node makes before getting absorbed in the $(n+1)$th state. The transition probability matrix of this Markov Chain is  
 \begin{equation*}
 	P  = \left(
