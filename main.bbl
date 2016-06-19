@@ -1,46 +1,13 @@
-\begin{thebibliography}{10}
-
-\bibitem{candes}
-E.~Candes and J.~Romberg, ``Quantitative robust uncertainty principles and
-  optimally sparse decompositions,'' {\em Foundations of Computational
-  Mathematics, 2006}.
-
-\bibitem{Tao}
-E.~Candes, J.~Romberg, and T.~Tao, ``Robust uncertainty principles:exact signal
-  reconstruction from highly incomplete frequency information,'' {\em
-  Information Theory IEEE, 2006}.
-
-\bibitem{romberg}
-E.~Candes, J.~Romberg, and T.~Tao, ``Stable signal recovery from incomplete and
-  inaccurate measurements,'' {\em Communications on Pure and Applied
-  Mathematics, 2006}, vol.~59.
-
-\bibitem{single_pixel}
-R.~University, ``Single pixel camera.'' http://dsp.rice.edu/cscamera.
-
-\bibitem{cs_rice}
-``Compressed sensing resources.'' http://dsp.rice.edu/cs.
-
-\bibitem{cs_book}
-M.~Davenport, M.~Duarte, Y.~Eldar, and G.~Kutyniok, {\em Compressed Sensing:
-  Theory and Applications}.
-\newblock 2012.
-
-\bibitem{stage1}
-S.~Vignesh, ``Compressed sensing for radio astronomy.'' Dual Degree
-  Dissertation Stage I.
-
-\bibitem{GMRT}
-TIFR, ``Gmrt telescope.'' \url{http://gmrt.ncra.tifr.res.in/}.
-
-\bibitem{elk}
-H.~Elkotby and M.~Vu, ``Interference and throughput analysis of uplink
-  user-assisted relaying in cellular networks,'' {\em PIMRC}, 2014.
+\begin{thebibliography}{1}
 
 \bibitem{lin}
 X.~Lin, R.~K. Ganti, P.~J. Fleming, and J.~G. Andrews, ``Towards understanding
   the fundamentals of mobility in cellular networks,'' {\em IEEE Transactions
   on Wireless Communications}, vol.~12, 2013.
+
+\bibitem{elk}
+H.~Elkotby and M.~Vu, ``Interference and throughput analysis of uplink
+  user-assisted relaying in cellular networks,'' {\em PIMRC}, 2014.
 
 \bibitem{wiki:markovWiki}
 Wikipedia, ``Absorbing markov chain --- wikipedia{,} the free encyclopedia,''
