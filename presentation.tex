@@ -288,13 +288,23 @@ the node's current position is $X_{n-1}$. $X_0 = (r,\theta)$ is where the node s
 
 
 \begin{frame}{Leaving in One Transition}{}
+\begin{figure}[h]
+	\centering \vspace{-0.1in}
+	\includegraphics[width=0.55\textwidth]{images/a1a2.pdf}
+\end{figure}
+\vspace{-1cm}
 \begin{align*}
 	\rho(r,\theta) &= Pr(-\alpha_2 < \alpha < \alpha_1,r_1 > r_{11}) + Pr(\alpha_1 < \alpha < 2\pi-\alpha_2, r_1 > r_{12}) \\
 	&= \int_{-\alpha_2}^{\alpha_1} \int_{r_{\!_{11}}}^{\infty} f_{r_1,\alpha}(r_1,\alpha)dr_1 d\alpha +  \int^{2\pi-\alpha_2}_{\alpha_1} \int_{r_{\!_{12}}}^{\infty} f_{r_1,\alpha}(r_1,\alpha)dr_1 d\alpha 
 \end{align*}
-	This is a general expresion that can be used for any mobility model. In case of RWP,
+	This is a general expresion that can be used for any mobility model. 
+\end{frame}
+\begin{frame}	
+	
+	In case of RWP,
 	$r_1$ and $\alpha$ are chosen independently. Therefore, 
 	$f_{r_1,\alpha}(r_1,\alpha) = f_{r_1}(r_1)f_{\alpha}(\alpha)$ 
+
 \begin{align*}
 	\rho(r,\theta)&= \int_{-\alpha_2}^{\alpha_1} f_{\alpha}(\alpha) \int_{r_{\!_{11}}}^{\infty} f_{r_1}(r_1)dr_1 d\alpha +  \int^{2\pi-\alpha_2}_{\alpha_1} f_{\alpha}(\alpha) \int_{r_{\!_{12}}}^{\infty} f_{r_1}(r_1)dr_1 d\alpha  \\
 	&= \int_{-\alpha_2}^{\alpha_1} \frac{1}{2\pi} e^{-\lambda \pi r_{\!_{11}}^2} d\alpha +  \int^{2\pi-\alpha_2}_{\alpha_1} \frac{1}{2\pi} e^{-\lambda \pi r_{\!_{12}}^2} d\alpha
