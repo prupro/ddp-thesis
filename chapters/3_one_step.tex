@@ -200,7 +200,10 @@ node at $(r,\theta)$ moves out of the region of interest during the next transit
 \begin{equation} \label{eq:oneOutProb}
 	\rho(r,\theta) = \int_{-\alpha_2}^{\alpha_1} \frac{1}{2\pi} e^{-\lambda \pi r_{\!_{11}}^2} d\alpha +  \int^{2\pi-\alpha_2}_{\alpha_1} \frac{1}{2\pi} e^{-\lambda \pi r_{\!_{12}}^2} d\alpha
 \end{equation}
-\\
+and the sojourn time during this movement is 
+\begin{equation} \label{eq:oneOutProb}
+	S_T = \frac{1}{v}\int_{-\alpha_2}^{\alpha_1} r_{11} \frac{1}{2\pi} e^{-\lambda \pi r_{\!_{11}}^2} d\alpha +  \frac{1}{v}\int^{2\pi-\alpha_2}_{\alpha_1}r_{12} \frac{1}{2\pi} e^{-\lambda \pi r_{\!_{12}}^2} d\alpha
+\end{equation} \\
 Where
 \begin{align*}
 	r_{\!_{11}} &= -r\cos(\theta -\alpha) + \sqrt{R_0^2 - r^2\sin^2(\theta - \alpha)} \\
