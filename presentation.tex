@@ -198,7 +198,7 @@
 \end{figure}
  
 \begin{equation*}
-	\{P_b r_1^{-\alpha} > P_b R_0^{-\alpha}, P_rr_2^{-\alpha} > P_bR_0^{-\alpha}\} 
+	\{P_b r_1^{-\gamma} > P_b R_0^{-\gamma}, P_rr_2^{-\gamma} > P_bR_0^{-\gamma}\} 
 \end{equation*}
 
 $P_b$ and $P_r$ are the transmission powers of base station and relay respectively.
@@ -207,7 +207,7 @@ $P_b$ and $P_r$ are the transmission powers of base station and relay respective
 
 \begin{frame}
 
-$\{ r_1 < R_0, r_2 < R_2 \}$ where $R_2 = cR_0, c = \big(\frac{P_r}{P_b}\big)^{\frac{1}{\alpha}} $ 
+$\{ r_1 < R_0, r_2 < R_2 \}$ where $R_2 = cR_0, c = \big(\frac{P_r}{P_b}\big)^{\frac{1}{\gamma}} $ 
 \begin{figure}[h]
 	\centering \vspace{0.1in}
 
@@ -299,21 +299,39 @@ The mean transition length and time are as follows:
 \end{frame}
 
 \begin{frame}{Existing Literature} {}
-
-
+\begin{itemize}
+\item
+Sojourn Time and Handover Rate in cellular networks, Xingqin Lin et al. \\
+\pause
+Node distribution during one movement period
+\begin{equation*}
+f(r,\theta) = \frac{\sqrt{\lambda}}{\pi r} \exp(-\lambda \pi r^2) 
+\end{equation*}
+\pause
+\begin{equation*}
+S_T = E[T] \int_A f(r,\theta) dA
+\end{equation*}
+\pause
+\item Analysis of Cell Sojourn Time in Heterogeneous Networks With Small Cells, S. Shin et al. \\
+Expected amount of time a mobile spends in macro-cell-only-area (MoA) \\
+%Divide the region in to hexagons; node transitions from center of one hexagon to the other 
+\end{itemize}
 
 \end{frame}
 
 
 
 \begin{frame}{Sojourn Time}{}
-	If we know the expected number of transitions $E[N]$ a node makes before moving out of the
+	If we know the expected number of transitions $E[N]$ in which a node moves out of the
 region, then sojourn time can be given by
 \begin{equation*}
 	S_T = (E[N]-1)E[T] + E[T_{last}]
 \end{equation*}
 where $T_{last}$ is the time spent inside the region during the last transition.
-Since it is difficult to characterize $T_{last}$, we approximate $S_T$ to $(E[N]-1)E[T]$. 
+Since it is difficult to characterize $T_{last}$, \\
+\begin{equation*}
+S_T  \thickapprox (E[N]-1/2)E[T]
+\end{equation*}
 \end{frame}
 
 
@@ -326,13 +344,10 @@ Since it is difficult to characterize $T_{last}$, we approximate $S_T$ to $(E[N]
 where 
 \begin{align*}
 	Pr(r,\theta,k) &= \int_{S-A} \int_A \ldots \\ &\int_A f_{X_1/X_0}(x_1/x_0)\ldots f_{X_{k+1}/X_{k}}(x_{k+1}/x_{k}) dA_1 \ldots dA_{k+1}
-\end{align*} is the probability that the node exits the region during $k+1$ th transition. 
+\end{align*}  
 $f_{X_n/X_{n-1}}(x_n/x_{n-1})$ is the probability density of the destination $X_n$ given that
-the node's current position is $X_{n-1}$. $X_0 = (r,\theta)$ is where the node starts the  movement at t=0, $A$ is the feasibility region and $S$ is the entire plane. 
+the node's current position is $X_{n-1}$
 \end{frame}
-
-
-
 
 
 
@@ -346,7 +361,7 @@ the node's current position is $X_{n-1}$. $X_0 = (r,\theta)$ is where the node s
 	\rho(r,\theta) &= Pr(-\alpha_2 < \alpha < \alpha_1,r_1 > r_{11}) + Pr(\alpha_1 < \alpha < 2\pi-\alpha_2, r_1 > r_{12}) \\
 	&= \int_{-\alpha_2}^{\alpha_1} \int_{r_{\!_{11}}}^{\infty} f_{r_1,\alpha}(r_1,\alpha)dr_1 d\alpha +  \int^{2\pi-\alpha_2}_{\alpha_1} \int_{r_{\!_{12}}}^{\infty} f_{r_1,\alpha}(r_1,\alpha)dr_1 d\alpha 
 \end{align*}
-	This is a general expresion that can be used for any mobility model. 
+	This is a general expression that can be used for any mobility model. 
 \end{frame}
 \begin{frame}	
 	
@@ -397,8 +412,9 @@ Where
 
 \begin{frame}{Simulations} {}
 
-For all simulations, a 1000x1000 square is used to represent the whole 2-D plane. This size is good enough in the sense that using a larger square led to longer runtimes with little to no 
-effect on the results. In the mobility model we used, transition length is Rayleigh distributed. To draw a length from Rayleigh distribution, the following method is used:
+For all simulations, a 1000x1000 square is used to represent the whole 2-D plane. 
+$R_0 = 150, R_2 = 0.4R_0$ \\
+To draw a length from Rayleigh distribution, the following method is used:
 
 \begin{enumerate}
 	\item Draw a number N from Poisson distribution with density $\lambda A$ where $A$ is the area of the square.
@@ -406,21 +422,20 @@ effect on the results. In the mobility model we used, transition length is Rayle
 	\item Of these N points, choose the point that is closest to the point under consideration. 
 \end{enumerate}
 
-As discussed in \cite{ganti}, this leads to Rayleigh distribution of transition length and can be proved easily using null probability of a Poisson Point Process. 
+This leads to Rayleigh distribution of transition length and can be proved using null probability of a Poisson Point Process. 
 
 \end{frame}
 
 
-\begin{frame}{Simulations} {}
+\begin{frame}<presentation:0>{Simulations}
 
-To test if the above mentioned method introduces any artefacts, let us see how simulated $E[L]$ fares with the formula $E[L] = \frac{1}{2\sqrt{\lambda}}$. Simulated expected length is calculated by averaging transition lengths of 100 traces in each of which the node makes 1000 transitions. 
+To test if size of the square introduces any artefacts, let us see how simulated $E[L]$ fares with the formula $E[L] = \frac{1}{2\sqrt{\lambda}}$. 
+
+Simulated expected length is calculated by averaging transition lengths of 100 traces in each of which the node makes 1000 transitions. 
 \begin{figure}[h]
 	\centering \vspace{-0.1in}
 	\includegraphics[width=0.75\textwidth]{images/rwpStat.png}
-	\vspace{-20pt} \caption[Mean transition length vs. $\lambda$]{Mean transition length vs. $\lambda$}
-	\label{fig:rwpEL}
 \end{figure}
-As seen in the graph \ref{fig:rwpEL}, the simulated value closely follows the analytical formula.
 
 \end{frame}
 
@@ -485,16 +500,16 @@ in the path. Then the average number of steps a node starting at $(r,\theta)$ ta
 \end{frame}
 
 \begin{frame}{E[N]}
-The plots are for points along the radius at angles $\theta = 10^{\circ}$ and $\theta = 15^{\circ}$. We can see that the analytical formula agrees better for narrower regions. As discussed in Chapter 4, this can be improved by modelling the motion of a node as an absorbing Markov Chain and discretizing the state space.
+The plots are for points along the radius at angles $\theta = 10^{\circ}$ and $\theta = 15^{\circ}$. We can see that the analytical formula agrees better for narrower regions.
 
 \begin{figure}[ht!]
      \begin{center}
 %
         \subfigure[$\theta = 10^{\circ}$]{%
-         \includegraphics[width=0.42\textwidth]{images/stepst10.png}
+         \includegraphics[width=0.55\textwidth]{images/stepst10.png}
         }%
         \subfigure[$\theta = 15^{\circ}$]{%
-           \includegraphics[width=0.42\textwidth]{images/stepst15.png}
+           \includegraphics[width=0.55\textwidth]{images/stepst15.png}
         }\\ %  ------- End of the first row ----------------------%
 %
     \end{center}
@@ -505,7 +520,7 @@ The plots are for points along the radius at angles $\theta = 10^{\circ}$ and $\
 
 
 \begin{frame}{Ongoing Work} {Markov Chain Process}
-The transitions in this mobility model have Markovian property in the sense that the next waypoint depends entirely on the current position. 
+The transitions in this mobility model have Markovian property 
 \begin{equation*}
 	f_{X_n/X_{n-1},X_{n-2},\ldots,X_0}(x_n/x_{n-1},x_{n-2},\ldots,x_{0}) = f_{X_n/X_{n-1}}(x_n/x_{n-1})
 \end{equation*}
@@ -513,22 +528,21 @@ Where $X_{n-1}$ is the current waypoint and $X_n$ is the next waypoint. \\
 \end{frame}
 
 
-\begin{frame}{Ongoing Work} {Discretizing State Space}
-The idea is to discretize the state space of this Markov chain and model the motion as an 
-Absorbing Markov Chain in which the node transitions among the non-absorbing states present 
-inside the region before finally moving to the absorbing state. 
-Let the whole space be represented by $n+1$ states of which $n$ states lie inside the region 
-of interest and the $n+1$th state represents the space outside the region. The transition 
-probabilities among first $n$ states depend on the distances between the nodes and the 
-transition probabilities from these $n$ states to the absorbing state is $\rho(r_i,\theta_i)$ 
-where $(r_i,\theta_i)$ is the position of the $i$th state. We can then use the expressions 
-given in \cite{wiki:markovWiki} to find expected value and variance of the number of
-transitions a node makes before getting absorbed in the $(n+1)$th state. 
+\begin{frame}{Ongoing Work} {Discretizing the State Space}
+
+\begin{itemize}
+
+\item The state space of the Markov chain is continuous
+\item Discretise the space into n+1 states \\
+$n$ states lie inside the region of interest and the $n+1$th state represents space outside the region 
+\pause 
+\item Model the motion as an Absorbing Markov Chain \\ 
+The transition probabilities among first $n$ states depend on the distances between the states and the transition probabilities from these $n$ states to the absorbing state is $\rho(r_i,\theta_i)$  
+\end{itemize}
 \end{frame}
 
 \begin{frame}
-The transition 
-probability matrix of this Markov Chain is  
+The transition matrix is  
 \begin{equation*}
 	P  = \left(
 	\begin{array}{cc}
@@ -536,11 +550,10 @@ probability matrix of this Markov Chain is
 		\mathbf{0} & 1 \\
 	\end{array} \right)
 \end{equation*}
-	Where $Q_{n \times n}$ is the transition probability matrix of $n$ non-absorbing 
-	states and $R_{n\times1}$ contains the probabilities of moving out in one step from 
-	each of those $n$ states. 
-	 $\mathbf{t}_{n \times 1}$, the vector which contains expected number of transitions, 
-	 is given by
+	$Q_{n \times n}$ is the transition matrix of $n$ non-absorbing states\\
+	$R_{n\times1}$ contains the probabilities of moving out in one step from 
+	each of those $n$ states. \\
+	 Expected number of transitions $\mathbf{t}_{n \times 1}$ 
 \begin{equation*}
 	\mathbf{t} = F\mathbf{1}
 \end{equation*}
@@ -548,7 +561,7 @@ and the variance vector $V$ is given by
 \begin{equation*}
 	 V = (2F-I)\mathbf{t} - \mathbf{t}_{sq}
 \end{equation*}
-where $F = \sum_{k=0}^{\infty} Q^k = (I-Q)^{-1}$ is the fundamental matrix.
+where $F = \sum_{k=0}^{\infty} Q^k = (I-Q)^{-1}$ 
 \end{frame}
 
 
