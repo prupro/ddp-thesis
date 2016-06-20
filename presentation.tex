@@ -123,34 +123,57 @@
   \titlepage
 \end{frame}
 
-\begin{frame}{Overview}
-  \begin{itemize}
-  \item Introduction
-  \vspace{3mm}
-  \item Problem Formulation
-  \vspace{3mm}
-  \item Simulations
-  \vspace{3mm}
-  \item Further Work
-  \vspace{3mm}
-  \end{itemize}
+
+\begin{frame}{Problem}
+  \begin{figure}[h]
+	\centering \vspace{0.1in}
+
+	\begin{tikzpicture}[scale=0.015]
+		\coordinate [] (A) at (0,0);
+		\coordinate [] (B) at (150,0);
+		\fill [red,opacity=.5] (A) circle (100pt);
+		\fill [green,opacity=.5] (B) circle (100pt);
+
+		\draw (A) -- (B);
+		\node (D) [name path=D,draw,circle through=(B)] at (A) {};
+		%	\node (E) [name path=E,draw,circle(60)] at (B);
+		% Name the coordinates, but do not draw anything:
+		\draw (B) circle(120);
+		\begin{scope}
+			\clip (0,0) circle(150);
+			\fill[blue,opacity=.5] (150,0) circle (120);
+		\end{scope}
+		%	\path [name intersections={of=D and E}];
+	\end{tikzpicture}
+
+	\vspace{-5pt} %\caption[Feasible region]{\small Feasible region}
+	\label{fig:region}
+\end{figure}
+
   % You might wish to add the option [pausesections]
 \end{frame}
+
+% \begin{frame}{Overview}
+%   \begin{itemize}
+%   \item Introduction
+%   \vspace{3mm}
+%   \item Problem Formulation
+%   \vspace{3mm}
+%   \item Simulations
+%   \vspace{3mm}
+%   \item Further Work
+%   \vspace{3mm}
+%   \end{itemize}
+%   % You might wish to add the option [pausesections]
+% \end{frame}
 
 %----------------------------------------------------------------------------------------------------------------------------------------%
 
 % Section and subsections will appear in the presentation overview
 % and table of contents.
 
-\section{Introduction}
-\frame{\sectionpage}
 
 \begin{frame}{Downlink Cooperation policy}
-  A cooperation policy for downlink can be defined along the same lines as we did in uplink 
-case. Let $P_b$ be the transmission power used by the base station and $P_r$ be relay power. A simple distance based policy would be
-\begin{equation*}
-	\{P_b r_1^{-\alpha} > P_b R_0^{-\alpha}, P_rr_2^{-\alpha} > P_bR_0^{-\alpha}\} 
-\end{equation*}
 
 \begin{figure}[h]
 	\centering \vspace{-0.1in}
@@ -170,25 +193,29 @@ case. Let $P_b$ be the transmission power used by the base station and $P_r$ be 
 
 	\end{tikzpicture}
 
-	\vspace{-10pt} \caption[Distances for Downlink Cooperation]{\small Distances for Downlink Cooperation}
+	\vspace{-10pt} %\caption[Distances for Downlink Cooperation]{\small Distances for Downlink Cooperation}
 	\label{fig:dwnlink}
 \end{figure}
+ 
+\begin{equation*}
+	\{P_b r_1^{-\alpha} > P_b R_0^{-\alpha}, P_rr_2^{-\alpha} > P_bR_0^{-\alpha}\} 
+\end{equation*}
+
+$P_b$ and $P_r$ are the transmission powers of base station and relay respectively.
 
 \end{frame}
 
 \begin{frame}
 
-It can be rewritten as $\{ r_1 < R_0, r_2 < R_2 \}$ where $R_2 = cR_0, c = \big(\frac{P_r}{P_b}\big)^{\frac{1}{\alpha}} $ and $r_1, r_2$ are as defined in the figure \ref{fig:dwnlink}.  
-The two conditions in the policy ensure that both BS-relay and relay-user links are stronger than BS-user link. The policy dictates that the idle user should be located in the shaded part of figure \ref{fig:region} to be considered for relaying.
-
+$\{ r_1 < R_0, r_2 < R_2 \}$ where $R_2 = cR_0, c = \big(\frac{P_r}{P_b}\big)^{\frac{1}{\alpha}} $ 
 \begin{figure}[h]
 	\centering \vspace{0.1in}
 
 	\begin{tikzpicture}[scale=0.015]
 		\coordinate [label=left:{\small $BS$}] (A) at (0,0);
 		\coordinate [label=right:{\small $U$}] (B) at (150,0);
-		\fill [red,opacity=.5] (A) circle (200pt);
-		\fill [green,opacity=.5] (B) circle (200pt);
+		\fill [red,opacity=.5] (A) circle (100pt);
+		\fill [green,opacity=.5] (B) circle (100pt);
 
 		\draw (A) -- (B);
 		\node (D) [name path=D,draw,circle through=(B)] at (A) {};
@@ -209,50 +236,72 @@ The two conditions in the policy ensure that both BS-relay and relay-user links 
 \end{frame}
 %%%%\section{Second Main Section}
 
-\begin{frame}{Mobile Relays} {Definitions}
-We define mobility more formally and introduce the model proposed in \cite{lin}. The $n$th transition of a node can be denoted by the parameters set $(\mathbf{X}_{n-1},\mathbf{X}_n, V_n, S_n) $. $X_{n-1}$ denotes the starting waypoint and $X_N$ denotes the destination. In addition to the transition time which can be obtained from velocity $V_n$, pause time or thinking time ($S_n$) at destination can also be included in the description of mobility. 
-Different mobility models can be distinguished by the distribution of transition length($L_n = \|\mathbf{X}_{n-1} - \mathbf{X}_n \|$) and the distribution of angle made by the vector
-$\mathbf{X}_n - \mathbf{X}_{n-1}$ w.r.t x-axis. 
+\begin{frame}{Motivation}
+\begin{itemize}
+\item Relay selection
+\vspace{1cm}
+\pause
+\item Effect on the whole network
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Mobility Model} %{Definitions}
+The $n$th transition of a node is defined by the quadruple \\
+
+\begin{equation*}
+(\mathbf{X}_{n-1},\mathbf{X}_n, V_n, S_n) 
+\end{equation*}
+\mbox{} \\
+%\vspace{1cm}
+$X_{n-1}$ and $X_n$ are the starting and destination waypoints. \\
+\vspace{0.5cm}
+Velocity - $V_n$, Pause time or Thinking time at destination - $S_n$ \\
+\vspace{1cm}
+\pause
+Mobility model
+\begin{itemize}
+\item Distribution of transition length($L_n = \|\mathbf{X}_{n-1} - \mathbf{X}_n \|$)
+\item Distribution of angle made by the vector $\mathbf{X}_n - \mathbf{X}_{n-1}$ w.r.t x-axis. 
+\item Distributions of $V_n$ and $S_n$
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Rayleigh RWP}
-In Rayleigh RWP, the angle is chosen uniformly from $[0,2\pi]$ and the transition length is rayleigh distributed with parameter $\lambda$. 
+
+Angle is chosen uniformly from $[0,2\pi]$ \\
+\vspace{1cm}
+Transition length is Rayleigh distributed with parameter $\lambda$. 
 \begin{equation*}
 	P(L > l) = exp(-\lambda \pi l^2), l \geq 0
 \end{equation*}
-
-We set $V_n\equiv v$ and $S_n$ to 0 . What the above selection of distributions means is 
-that when the node is at waypoint $\mathbf{X}_{n-1}$, a homogenous Poisson Point Process $\phi$ of intensity $\lambda$ is generated and the nearest point in the set is chosen as the next waypoint $\mathbf{X}_n$. i.e., $\mathbf{X}_n = \arg \min_{x\in\phi} \| x - \mathbf{X}_{n-1}\|$. This can be proved from the null distribution of PPP. This gives better insight in to the role of parameter $\lambda$. Larger $\lambda$ implies that the points are denser in generated PPP
-which in turn means the transition length is shorter. Figure \ref{fig:rwp} shows sample traces
-of rayleigh RWP for different $\lambda$. Please note that the figures are scaled differently.
-
+\mbox{} \\
+\begin{equation*}
+V \equiv v \text{ and } S \equiv 0
+\end{equation*}
 \end{frame}
 
 \begin{frame}{Rayleigh RWP }
 \begin{figure}[h]
     \centering \vspace{-0.1in}
     \includegraphics[width=0.6\textwidth]{images/rwpTraces.png}
-     \caption[Sample traces of rayleigh RWP mobility model]{\small The transition lengths are statistically shorter with larger mobility parameter $\lambda$, and vice
-	versa.\footnotemark}
+     \caption[Sample traces of rayleigh RWP mobility model]{\small Sample traces of Rayleigh RWP\footnotemark}
 \end{figure}
 \footnotetext{Image Credits: Xingqin Lin et al.}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Rayleigh RWP }
 The mean transition length and time are as follows:
+\vspace{0.75cm}
 \begin{align*}
-	E[L] &= \frac{1}{2\sqrt{\lambda}} \\[2ex]
+	E[L] &= \frac{1}{2\sqrt{\lambda}} \\[4ex]
 	E[T] &= \frac{1}{2v\sqrt{\lambda}}
 \end{align*}
 \end{frame}
 
-\begin{frame}{Sojourn Time} {}
-Sojourn time is the amount of time a node resides in the region of interest. Calculating the mean sojourn time is challenging primarily because it involves finding node distribution during each transition. An expression for  mean sojourn time of a cell user during one movement period starting from origin in a hexagonal cell was given in \cite{lin}. We have to note that
-a moving node usually makes more than one transition before it leaves
-the region. Also, starting from origin implies the node co-exists with BS at
-t=0 which is not representative of the distribution of relays/users. Even if we
-allow these two assumptions, the problem is still difficult to solve in this
-approach as the region has no definite shape like a polygon and finding integration limits is tedious. 
+\begin{frame}{Existing Literature} {}
+
+
+
 \end{frame}
 
 
