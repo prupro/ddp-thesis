@@ -1,3 +1,4 @@
+\pagenumbering{gobble}
 \chapter{Introduction}
 	With the advances in D2D communications and relaying techniques, user-assisted relaying is a viable option to improve rate and coverage in cellular networks. There are many problems that need to be solved to do this correctly viz. providing incentives for the relaying users, power allocation at both source and relay, selecting a relay that gives better rate for maximum amount of time etc. \\ 
 
@@ -7,6 +8,8 @@
 	
 	In \cite{lin}, Xingqin Lin et al. proposed a random waypoint(RWP) mobility model that fits better with the truncated Levy walk, which is based on real mobility traces, compared to the classical RWP model and applied it to find handover rate and sojourn time in hexagonal as well as Poisson-Voronoi tesselation network geometry. To find the analytical expression for cell sojourn time, the distribution of nodes during the first movement period is derived. If the node starts at origin and  moves to $X_1$ during the first transition, the node distribution between $O$ and $X_1$ is given by 
 	\newpage
+	\pagenumbering{arabic}
+	\setcounter{page}{2}
 	\begin{equation} \label{eq:nodeDist}
 		f(r,\theta) = \frac{\sqrt{\lambda}}{\pi r} \exp(-\lambda \pi r^2)
 	\end{equation}
